@@ -4,25 +4,25 @@
   <meta charset="utf-8">
   
   
-  <title>BUUCTF相册 | n1ng&#39;s blog</title>
+  <title>相册 | n1ng&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="BUU’s re">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BUUCTF相册">
-<meta property="og:url" content="http://example.com/2023/06/22/BUUCTF%E7%9B%B8%E5%86%8C/index.html">
+<meta property="og:title" content="相册">
+<meta property="og:url" content="http://example.com/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/index.html">
 <meta property="og:site_name" content="n1ng&#39;s blog">
 <meta property="og:description" content="BUU’s re">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/0d7365da002a4ed9a78d99cdeca22f06.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/6fd9e19b43e641588fef6bbe74d6fd88.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/13cd6297562b4e619e1d9d1f9c8c8a57.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/ca21000d47dd41409ad41492a24bb628.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/f580f4829ce744ab83e16bcf8e0b45aa.png">
-<meta property="article:published_time" content="2023-06-22T14:51:57.000Z">
-<meta property="article:modified_time" content="2023-06-23T06:17:20.112Z">
+<meta property="og:image" content="http://example.com/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/buure%E7%9B%B8%E5%86%8C1.png">
+<meta property="og:image" content="http://example.com/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/buure%E7%9B%B8%E5%86%8C2.png">
+<meta property="og:image" content="http://example.com/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/buure%E7%9B%B8%E5%86%8C3.png">
+<meta property="og:image" content="http://example.com/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/buure%E7%9B%B8%E5%86%8C4.png">
+<meta property="og:image" content="http://example.com/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/buure%E7%9B%B8%E5%86%8C5.png">
+<meta property="article:published_time" content="2023-06-23T13:22:45.000Z">
+<meta property="article:modified_time" content="2023-06-23T13:34:41.192Z">
 <meta property="article:author" content="n1ng">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/0d7365da002a4ed9a78d99cdeca22f06.png">
+<meta name="twitter:image" content="http://example.com/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/buure%E7%9B%B8%E5%86%8C1.png">
   
     <link rel="alternate" href="/atom.xml" title="n1ng's blog" type="application/atom+xml">
   
@@ -81,10 +81,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-BUUCTF相册" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-BUUCTFre相册" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/06/22/BUUCTF%E7%9B%B8%E5%86%8C/" class="article-date">
-  <time class="dt-published" datetime="2023-06-22T14:51:57.000Z" itemprop="datePublished">2023-06-22</time>
+    <a href="/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/" class="article-date">
+  <time class="dt-published" datetime="2023-06-23T13:22:45.000Z" itemprop="datePublished">2023-06-23</time>
 </a>
     
   </div>
@@ -95,7 +95,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      BUUCTF相册
+      相册
     </h1>
   
 
@@ -105,12 +105,12 @@
       
         <p>BUU’s re</p>
 <span id="more"></span>
-<p>提取文件，发现是apk文件，用jadx打开，根据题面，flag和邮箱有关，在jadx中搜索mail，发现一个mailsendbyjavamail函数,<br><br><img src="https://img-blog.csdnimg.cn/0d7365da002a4ed9a78d99cdeca22f06.png" alt="p1"><br>跟进，<br><br><img src="https://img-blog.csdnimg.cn/6fd9e19b43e641588fef6bbe74d6fd88.png" alt="p2">,<br>跟进c2，发现mailserver，就是我们需要的邮箱， 他是so文件经过nativemethod函数返回的值（好像是这么个意思，我也是看了wp才知道），<br><br><img src="https://img-blog.csdnimg.cn/13cd6297562b4e619e1d9d1f9c8c8a57.png" alt="p3"><br>这里有三个字符串，用ida打开so文件，找到这三个字符串，<br><br><img src="https://img-blog.csdnimg.cn/ca21000d47dd41409ad41492a24bb628.png" alt="p4"><br>发现三个可疑字符串，base64解密，<br><br><img src="https://img-blog.csdnimg.cn/f580f4829ce744ab83e16bcf8e0b45aa.png" alt="p5"><br>得到一个邮箱，即为flag</p>
+<p>提取文件，发现是apk文件，用jadx打开，根据题面，flag和邮箱有关，在jadx中搜索mail，发现一个mailsendbyjavamail函数,<br><br><img src="buure%E7%9B%B8%E5%86%8C1.png" alt="buure相册1"><br>跟进，<br><br><img src="buure%E7%9B%B8%E5%86%8C2.png" alt="buure相册2"><br>跟进c2，发现mailserver，就是我们需要的邮箱， 他是so文件经过nativemethod函数返回的值（好像是这么个意思，我也是看了wp才知道），<br><br><img src="buure%E7%9B%B8%E5%86%8C3.png" alt="buure相册3"><br>这里有三个字符串，用ida打开so文件，找到这三个字符串，<br><br><img src="buure%E7%9B%B8%E5%86%8C4.png" alt="buure相册4"><br>发现三个可疑字符串，base64解密，<br><br><img src="buure%E7%9B%B8%E5%86%8C5.png" alt="buure相册5"><br>得到一个邮箱，即为flag</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/22/BUUCTF%E7%9B%B8%E5%86%8C/" data-id="clj86ihx50000qgik5h55hcdu" data-title="BUUCTF相册" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/" data-id="clj8m2gx10000igik9dbaga5m" data-title="相册" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -161,7 +161,7 @@
       <ul>
         
           <li>
-            <a href="/2023/06/22/BUUCTF%E7%9B%B8%E5%86%8C/">BUUCTF相册</a>
+            <a href="/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/">相册</a>
           </li>
         
           <li>
