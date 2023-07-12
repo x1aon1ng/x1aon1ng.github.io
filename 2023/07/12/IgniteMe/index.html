@@ -4,15 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>Archives: 2023/7 | n1ng&#39;s blog</title>
+  <title>IgniteMe | n1ng&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="n1ng&#39;s blog">
-<meta property="og:url" content="http://example.com/archives/2023/07/index.html">
+  <meta name="description" content="ida动态调试 |buu’re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IgniteMe">
+<meta property="og:url" content="http://example.com/2023/07/12/IgniteMe/index.html">
 <meta property="og:site_name" content="n1ng&#39;s blog">
+<meta property="og:description" content="ida动态调试 |buu’re">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/07/12/IgniteMe/p1.png">
+<meta property="og:image" content="http://example.com/2023/07/12/IgniteMe/p2.png">
+<meta property="article:published_time" content="2023-07-12T13:58:02.000Z">
+<meta property="article:modified_time" content="2023-07-12T14:17:39.984Z">
 <meta property="article:author" content="n1ng">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/07/12/IgniteMe/p1.png">
   
     <link rel="alternate" href="/atom.xml" title="n1ng's blog" type="application/atom+xml">
   
@@ -71,58 +78,55 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/07/12/IgniteMe/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-07-12T13:58:02.000Z" itemprop="datePublished">Jul 12</time>
+        <section id="main"><article id="post-IgniteMe" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/12/IgniteMe/" class="article-date">
+  <time class="dt-published" datetime="2023-07-12T13:58:02.000Z" itemprop="datePublished">2023-07-12</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/07/12/IgniteMe/">IgniteMe</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      IgniteMe
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/07/03/wusctf2020level3/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-07-03T08:50:17.000Z" itemprop="datePublished">Jul 3</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/07/03/wusctf2020level3/">wusctf2020level3</a>
-    </h1>
-  
+        <p>ida动态调试 |buu’re</p>
+<span id="more"></span>
+<p>拖入exeinfope，无壳<br>拖入32位ida，找到start函数，进入<br>有一个sub_4010F0函数，跟进，发现是一个把&#x2F;n和&#x2F;r给去掉的函数<br>查看if条件中的函数是一个简单的异或，其中v4的值可以用动态调试的方法得到，点击debugger，进入调试页面，在sub_401000函数中设置一个断点，开始调试，双击v4得到值为4，<br><br><img src="p1.png" alt="p1"><br>然后就可以写脚本了,得到flag<br><br><img src="p2.png" alt="p2"></p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/07/12/IgniteMe/" data-id="cljzsyfjl0000x4ik7cqv18mn" data-title="IgniteMe" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/07/03/wusctf2020level3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">wusctf2020level3</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>
