@@ -6,15 +6,20 @@
   
   <title>xxor | n1ng&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="article">
+  <meta name="description" content="buu’s re |tea加密|python对约束条件求解">
+<meta property="og:type" content="article">
 <meta property="og:title" content="xxor">
 <meta property="og:url" content="http://example.com/2023/07/14/xxor/index.html">
 <meta property="og:site_name" content="n1ng&#39;s blog">
+<meta property="og:description" content="buu’s re |tea加密|python对约束条件求解">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/07/14/xxor/p1.png">
+<meta property="og:image" content="http://example.com/2023/07/14/xxor/p2.png">
 <meta property="article:published_time" content="2023-07-14T15:27:19.000Z">
-<meta property="article:modified_time" content="2023-07-14T15:27:19.481Z">
+<meta property="article:modified_time" content="2023-07-14T15:37:55.397Z">
 <meta property="article:author" content="n1ng">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/07/14/xxor/p1.png">
   
     <link rel="alternate" href="/atom.xml" title="n1ng's blog" type="application/atom+xml">
   
@@ -95,7 +100,10 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <p>buu’s re |tea加密|python对约束条件求解</p>
+<span id="more"></span>
+<p>这道题目主要有两步，首先要求出加密后的明文，我们可以看见有一些约束条件，所以利用python来求解，这里用到了z3库，首先创建约束求解器，如solver&#x3D;Solver(),然后添加约束条件，solver.add(),再判断是否有解，if(solver.check()&#x3D;&#x3D;sat),最后求解，print(solver.model())<br><br><img src="p1.png" alt="p1"><br>第二步是一个tea加密，因为涉及到移位的问题，选择用c来写脚本&#x2F;&#x2F;python则需要用ctypes<br><br><img src="p2.png" alt="p2"></p>
+
       
     </div>
     <footer class="article-footer">
