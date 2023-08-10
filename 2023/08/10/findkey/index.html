@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/2023/08/10/findkey/p4.png">
 <meta property="og:image" content="http://example.com/2023/08/10/findkey/p5.png">
 <meta property="article:published_time" content="2023-08-10T08:02:28.000Z">
-<meta property="article:modified_time" content="2023-08-10T08:09:27.442Z">
+<meta property="article:modified_time" content="2023-08-10T08:31:01.369Z">
 <meta property="article:author" content="n1ng">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/08/10/findkey/p1.png">
@@ -105,7 +105,7 @@
       
         <p>md5加密|花指令</p>
 <span id="more"></span>
-<p>在ida中找到关键字符flag，跟进<br><br><img src="p1.png" alt="p1"><br>发现左侧变红，找到问题<br><br><img src="p2.png" alt="p2"><br>有两个相同的指令，nop掉下面这个，按p生成函数，再按f5查看伪代码<br><br><img src="p3.png" alt="p3"><br>其中sub_40101e是一个md5的加密<br><br><img src="p4.png" alt="p4"><br>根据伪代码写出脚本，得到flag<br><br><img src="p5.png" alt="p5"></p>
+<p>在ida中找到关键字符flag，跟进<br><br><img src="p1.png" alt="p1"><br>发现左侧变红，找到问题<br><br><img src="p2.png" alt="p2"><br>有两个相同的指令，nop掉下面这个，按p生成函数，再按f5查看伪代码<br><br><img src="p3.png" alt="p3"><br>其中sub_40101e是一个md5的加密    &#x2F;&#x2F;windows加密函数，cryptcreathash的参数是0x8003u表示md5加密<br><br><img src="p4.png" alt="p4"><br>根据伪代码写出脚本，得到flag<br><br><img src="p5.png" alt="p5"></p>
 
       
     </div>
