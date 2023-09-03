@@ -4,25 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>ACTF2020ezre | n1ng&#39;s blog</title>
+  <title>string | n1ng&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="ACTF新生赛">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ACTF2020ezre">
-<meta property="og:url" content="http://example.com/2023/06/23/ACTF2020ezre/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="string">
+<meta property="og:url" content="http://example.com/2023/09/03/string/index.html">
 <meta property="og:site_name" content="n1ng&#39;s blog">
-<meta property="og:description" content="ACTF新生赛">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/06/23/ACTF2020ezre/p1.png">
-<meta property="og:image" content="http://example.com/2023/06/23/ACTF2020ezre/p2.png">
-<meta property="og:image" content="http://example.com/2023/06/23/ACTF2020ezre/p3.png">
-<meta property="og:image" content="http://example.com/2023/06/23/ACTF2020ezre/p4.png">
-<meta property="og:image" content="http://example.com/2023/06/23/ACTF2020ezre/p5.png">
-<meta property="article:published_time" content="2023-06-23T13:53:08.000Z">
-<meta property="article:modified_time" content="2023-06-25T13:18:31.509Z">
+<meta property="article:published_time" content="2023-09-03T07:40:16.000Z">
+<meta property="article:modified_time" content="2023-09-03T07:40:16.331Z">
 <meta property="article:author" content="n1ng">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/06/23/ACTF2020ezre/p1.png">
   
     <link rel="alternate" href="/atom.xml" title="n1ng's blog" type="application/atom+xml">
   
@@ -81,10 +73,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-ACTF2020ezre" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-string" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/06/23/ACTF2020ezre/" class="article-date">
-  <time class="dt-published" datetime="2023-06-23T13:53:08.000Z" itemprop="datePublished">2023-06-23</time>
+    <a href="/2023/09/03/string/" class="article-date">
+  <time class="dt-published" datetime="2023-09-03T07:40:16.000Z" itemprop="datePublished">2023-09-03</time>
 </a>
     
   </div>
@@ -95,7 +87,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      ACTF2020ezre
+      string
     </h1>
   
 
@@ -103,14 +95,11 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>ACTF新生赛</p>
-<span id="more"></span>
-<p><img src="p1.png" alt="p1"><br> 拖进exeinfope先查壳，发现upx的壳，先脱壳<br><br> <img src="p2.png" alt="p2"><br> 再用32位ida打开<br> shift+F12查看字符串，发现可疑字符串“you are correcr!”,跟进查看伪代码，<br><br> <img src="p3.png" alt="p3"><br> 找到”you are correct!”，往上看，是一个循环，很有可能就是flag，这个循环是在判断v4的值和_data_start_是否相等，全都相等则输出”you are correct!”,根据这个写脚本<br><br> <img src="p4.png" alt="p4"><br> 得到flag<br><br> <img src="p5.png" alt="p5"></p>
-
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/06/23/ACTF2020ezre/" data-id="clj8n05ej0000ngikanya6j8y" data-title="ACTF2020ezre" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/03/string/" data-id="clm35pi5d000084ikahfshiq1" data-title="string" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -120,19 +109,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/07/03/wusctf2020level3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          wusctf2020level3
-        
-      </div>
-    </a>
   
-  
-    <a href="/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/09/01/snake/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">相册</div>
+      <div class="article-nav-title">snake</div>
     </a>
   
 </nav>

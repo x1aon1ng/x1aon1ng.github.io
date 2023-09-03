@@ -6,15 +6,19 @@
   
   <title>snake | n1ng&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="article">
+  <meta name="description" content="动态链接库">
+<meta property="og:type" content="article">
 <meta property="og:title" content="snake">
 <meta property="og:url" content="http://example.com/2023/09/01/snake/index.html">
 <meta property="og:site_name" content="n1ng&#39;s blog">
+<meta property="og:description" content="动态链接库">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/09/01/snake/p1.png">
 <meta property="article:published_time" content="2023-09-01T06:36:53.000Z">
-<meta property="article:modified_time" content="2023-09-01T06:36:53.266Z">
+<meta property="article:modified_time" content="2023-09-01T10:35:01.412Z">
 <meta property="article:author" content="n1ng">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/09/01/snake/p1.png">
   
     <link rel="alternate" href="/atom.xml" title="n1ng's blog" type="application/atom+xml">
   
@@ -95,7 +99,10 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <p>动态链接库</p>
+<span id="more"></span>
+<p>打开文件发现是一个unity游戏，用dnspy打开Assembly-CSharp.dll，观察没有发现和flag相关的部分，但找到了导入外部interface动态链接库，用ida打开，看反编译后的伪代码，传入了一个[0,99]范围的常数，于是采用爆破的方法得到flag<br><br><img src="p1.png" alt="p1"></p>
+
       
     </div>
     <footer class="article-footer">
@@ -108,6 +115,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2023/09/03/string/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          string
+        
+      </div>
+    </a>
   
   
     <a href="/2023/08/15/re3/" id="article-nav-older" class="article-nav-link-wrap">
@@ -150,6 +166,10 @@
       <ul>
         
           <li>
+            <a href="/2023/09/03/string/">string</a>
+          </li>
+        
+          <li>
             <a href="/2023/09/01/snake/">snake</a>
           </li>
         
@@ -163,10 +183,6 @@
         
           <li>
             <a href="/2023/08/09/num-game/">num_game</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/14/xxor/">xxor</a>
           </li>
         
       </ul>
