@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="n1ng&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="生命周期生命周期状态Activity的生命周期是指一个Activity从启动到销毁的过程，包括五个状态：启动状态，运行状态，暂停状态，停止状态，销毁状态，其中启动和销毁是过渡状态，Activit..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Activity |
+    
+    n1ng&#39;s blog
+</title>
+
+<link rel="alternate" href="/atom.xml" title="n1ng&#39;s blog" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://hexo-theme-snippet-1251680922.cos.ap-beijing.myqcloud.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='n1ng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        n1ng&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Develop/"><i class="fa "></i>
+                                Develop</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Android/"><i class="fa "></i>
+                                Android</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/BUU/"><i class="fa "></i>
+                                BUU</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Activity">
+            
+            Activity
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Develop/">Develop</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2024/03/14</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><h2 id="生命周期状态"><a href="#生命周期状态" class="headerlink" title="生命周期状态"></a>生命周期状态</h2><p>Activity的生命周期是指一个Activity从启动到销毁的过程，包括五个状态：<strong>启动状态，运行状态，暂停状态，停止状态，销毁状态</strong>，其中启动和销毁是过渡状态，Activity不会在这两个状态停止</p>
+<p><img src="Note\Android\pic\20180613172450735.png" alt="20180613172450735"></p>
+<h2 id="生命周期方法"><a href="#生命周期方法" class="headerlink" title="生命周期方法"></a>生命周期方法</h2><h3 id="onCreate-方法"><a href="#onCreate-方法" class="headerlink" title="onCreate()方法"></a>onCreate()方法</h3><p>在Activity创建时调用，通常做一些初始化的设置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.relavite);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="onStart方法"><a href="#onStart方法" class="headerlink" title="onStart方法"></a>onStart方法</h3><p>在Activity即将可见时调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onStart</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onStart();</span><br><span class="line">        System.out.println(<span class="string">&quot;ActivityA is start&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="onResume方法"><a href="#onResume方法" class="headerlink" title="onResume方法"></a>onResume方法</h3><p>在Activity获取焦点开始与用户交互时调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onResume</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onResume();</span><br><span class="line">        System.out.println(<span class="string">&quot;ActivityA is Resume&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="onPause方法"><a href="#onPause方法" class="headerlink" title="onPause方法"></a>onPause方法</h3><p>在当前Activity被覆盖或锁屏时调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onPause</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onPause();</span><br><span class="line">        System.out.println(<span class="string">&quot;ActivityA is Pause&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="onStop方法"><a href="#onStop方法" class="headerlink" title="onStop方法"></a>onStop方法</h3><p>在Activity对用户不可见时调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onStop</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onStop();</span><br><span class="line">        System.out.println(<span class="string">&quot;ActivityA is Stop&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="onDestroy"><a href="#onDestroy" class="headerlink" title="onDestroy"></a>onDestroy</h3><p>在Activity销毁时调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onDestroy</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onDestroy();</span><br><span class="line">        System.out.println(<span class="string">&quot;Activity is Destroy&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="onRestart"><a href="#onRestart" class="headerlink" title="onRestart"></a>onRestart</h3><p>在Activity从停止状态到再次启动时调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onRestart</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onRestart();</span><br><span class="line">        System.out.println(<span class="string">&quot;ActivityA is restart&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="启动模式"><a href="#启动模式" class="headerlink" title="启动模式"></a>启动模式</h1><p>Activity具有四种启动模式，分别是<strong>standard</strong>，<strong>singleTask</strong>，<strong>singleTop</strong>，<strong>singleInstance</strong>，在AndroidManifest.xml中通过<activity>标签的android:launchMode属性设置</activity></p>
+<h2 id="1-standard"><a href="#1-standard" class="headerlink" title="1.standard"></a>1.standard</h2><p>这是Activity的默认启动模式，每当启动一个Activity时都会在栈顶创建一个新的实例，在实际开发中，闹钟通常使用这种模式</p>
+<h2 id="2-singleTop"><a href="#2-singleTop" class="headerlink" title="2.singleTop"></a>2.singleTop</h2><p>当Activity位于栈顶时，如果采用standard模式，则仍然需要创建一个新的实例，不能直接复用，采用singleTop模式则会先判断Activity是否位于栈顶，如果是则直接复用，不是则创建新的实例，实际开发中，浏览器的数千通常采用这种模式</p>
+<h2 id="3-singleTask"><a href="#3-singleTask" class="headerlink" title="3.singleTask"></a>3.singleTask</h2><p>而singleTask模式在启动Activity时会检查栈中的所有元素，若存在则直接复用该Acivity并且将上面的元素全部弹出，若不存在则重新创建实例</p>
+<h2 id="4-singleInstance"><a href="#4-singleInstance" class="headerlink" title="4.singleInstance"></a>4.singleInstance</h2><p>这种模式中启动Activity时会自动启动一个新的任务栈来管理Activity实例，无论从那个任务栈中启动该Activity，该实例在整个系统中只有一个，意义在于在不同的程序中共享同一个Activity实例。当启动的Activity不存在时，系统先创建一个任务栈然后再创建Activity实例，若存在则将该实例所在的任务栈移到前台，从而使Activity显示。</p>
+<h1 id="Activity的跳转"><a href="#Activity的跳转" class="headerlink" title="Activity的跳转"></a>Activity的跳转</h1><p>intent被称为意图，是程序中各个组件直接进行交互的一种重要方式。不仅可以指定当前组件要执行的动作，还能再不同组件之间进行数据传递。一般用于启动Activity，service以及发送广播，intent分为显示意图和隐式意图。</p>
+<h2 id="1-显示意图"><a href="#1-显示意图" class="headerlink" title="1.显示意图"></a>1.显示意图</h2><p>直接通过名称来开启知道的目标组件，构造方法为Intent(ContextpackageContext,Class&lt;?&gt;cls)来实现，第一个参数为Context表示当前的Activity对象，第二个参数Class表示要启动的目标Activity。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(<span class="built_in">this</span>,Activity02.class)<span class="comment">//创建intent对象</span></span><br><span class="line">startActivity(intent);						   <span class="comment">//开启Activity02</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-隐式意图"><a href="#2-隐式意图" class="headerlink" title="2.隐式意图"></a>2.隐式意图</h2><p>隐式意图并没有明确指明要开启的目标组件，而是通过指定action和category等属性信息，系统根据这些信息来寻找目标Activity。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>();</span><br><span class="line"><span class="comment">//设置action动作</span></span><br><span class="line">intent.setAction(<span class="string">&quot;cn.itcast.START_ACTIVITY&quot;</span>);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+
+<p>这里只指定了action，并没有指定category，这是因为在目标Activity的清单文件中配置的category是一个默认值，在调用startActivity()方法自动将这个category添加到Intent中。</p>
+<p>只有上面的代码还不足以开启指定的Activity，还需要在目标Activity的清单文件中配置<intent-filter></intent-filter></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity android:name=<span class="string">&quot;cn.itcast.Activity02&quot;</span>&gt;</span><br><span class="line">	&lt;intent-filter&gt;</span><br><span class="line">		&lt;!--设置action属性，需要这代码中根据所设置的name打开指定的组件--&gt;</span><br><span class="line">		&lt;action android:name=<span class="string">&quot;cn.itcast.START_ACTIVITY&quot;</span>/&gt;</span><br><span class="line">		&lt;category android:name=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span>/&gt;</span><br><span class="line">	&lt;/intent-filter&gt;</span><br><span class="line">&lt;/activity&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在清单文件中目标组件Activity02指定了可以响应的<action>和<category>信息，当action和category属性和目标组件设置的内容相同时，目标组件才会被开启。并且每个Intent只能指定一个action但可以指定多个category。</category></action></p>
+<h2 id="实战演练（打开浏览器）"><a href="#实战演练（打开浏览器）" class="headerlink" title="实战演练（打开浏览器）"></a>实战演练（打开浏览器）</h2><p>首先是xml文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="line">    android:layout_width=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    xmlns:tools=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span><br><span class="line">    android:layout_height=<span class="string">&quot;match_parent&quot;</span></span><br><span class="line">    android:background=<span class="string">&quot;@drawable/p1&quot;</span></span><br><span class="line">    tools:context=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id=<span class="string">&quot;@+id/main_button&quot;</span></span><br><span class="line">        android:layout_width=<span class="string">&quot;wrap_content&quot;</span></span><br><span class="line">        android:layout_height=<span class="string">&quot;wrap_content&quot;</span></span><br><span class="line">        android:layout_alignParentStart=<span class="string">&quot;true&quot;</span></span><br><span class="line">        android:layout_alignParentLeft=<span class="string">&quot;true&quot;</span></span><br><span class="line">        android:layout_alignParentTop=<span class="string">&quot;true&quot;</span></span><br><span class="line">        android:layout_marginStart=<span class="string">&quot;20dp&quot;</span></span><br><span class="line">        android:layout_marginLeft=<span class="string">&quot;20dp&quot;</span></span><br><span class="line">        android:layout_marginTop=<span class="string">&quot;30dp&quot;</span></span><br><span class="line">        android:text=<span class="string">&quot;原神，启动！&quot;</span> /&gt;</span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>关于tools:<a target="_blank" rel="noopener" href="http://tools.android.com/tech-docs/tools-attributes">Tools Attributes - Android Studio Project Site</a></p>
+<p>然后是MainActivity</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.openbrowser;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Intent;</span><br><span class="line"><span class="keyword">import</span> android.net.Uri;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.widget.Button;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.linerlayout);</span><br><span class="line">        <span class="type">Button</span> <span class="variable">button</span> <span class="operator">=</span>(Button) findViewById(R.id.main_button);</span><br><span class="line">        button.setOnClickListener(<span class="keyword">new</span> <span class="title class_">View</span>.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View view)</span> &#123;</span><br><span class="line">                Intent intent=<span class="keyword">new</span> <span class="title class_">Intent</span>();</span><br><span class="line">                intent.setAction(<span class="string">&quot;android.intent.action.VIEW&quot;</span>);<span class="comment">//setAction开启Activity的动作为&quot;android.intent.action.VIEW&quot;,这是Android系统内置的一个动作，通过这个动作可以和浏览器进行匹配，然后通过Uri.parse()方法将一个网址字符串解析为Uri对象，在调用intent的setData()方法将这个Uri对象传进去</span></span><br><span class="line">                intent.setData(Uri.parse(<span class="string">&quot;http://3jh7.com&quot;</span>));</span><br><span class="line">                startActivity(intent);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="数据传递"><a href="#数据传递" class="headerlink" title="数据传递"></a>数据传递</h1><p>Intent具有一系列重载的putExtra(string.name,string value)方法，通过这些方法将数据暂存到intent中，启动另一个Activity之后再从intent中取出</p>
+<p>例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(<span class="built_in">this</span>,Activity02.class);</span><br><span class="line">intent.putExtra(<span class="string">&quot;extra_data&quot;</span>,<span class="string">&quot;Hello Activity02&quot;</span>);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+
+<p>先通过intent开启Activity，利用putExtra方法传递了一个字符串,其中第一个参数是键用于后面从intent中取值，第二个参数是传递的数据内容</p>
+<p>在Activity02中取出数据如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> getIntent();</span><br><span class="line"><span class="type">string</span> <span class="variable">Data</span> <span class="operator">=</span> intent.getStringExtra(<span class="string">&quot;extra_data&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>先通过getIntent方法获取Intent对象，再调用geiStringExtra方法根据传入的键值取出相应的数据，根据数据类型采用不同的方法，这里是字符串，因此用getStringExtra()方法</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2024/03/14/Basic/" class="pre-post btn btn-default" title='Basic'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Basic</span>
+    </a>
+    
+    
+    <a href="/2024/03/14/Xposed%E4%BD%BF%E7%94%A8/" class="next-post btn btn-default" title='Xposed使用'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Xposed使用</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='shenliyang/snippet-comment'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                    <canvas id="canvas" width="1440" height="900" ></canvas>
+                    <script type="text/javascript" src="/js/DigitalRain.js"></script>
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%8A%B6%E6%80%81"><span class="toc-text">生命周期状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%96%B9%E6%B3%95"><span class="toc-text">生命周期方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#onCreate-%E6%96%B9%E6%B3%95"><span class="toc-text">onCreate()方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onStart%E6%96%B9%E6%B3%95"><span class="toc-text">onStart方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onResume%E6%96%B9%E6%B3%95"><span class="toc-text">onResume方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onPause%E6%96%B9%E6%B3%95"><span class="toc-text">onPause方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onStop%E6%96%B9%E6%B3%95"><span class="toc-text">onStop方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onDestroy"><span class="toc-text">onDestroy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onRestart"><span class="toc-text">onRestart</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">启动模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-standard"><span class="toc-text">1.standard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-singleTop"><span class="toc-text">2.singleTop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-singleTask"><span class="toc-text">3.singleTask</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-singleInstance"><span class="toc-text">4.singleInstance</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity%E7%9A%84%E8%B7%B3%E8%BD%AC"><span class="toc-text">Activity的跳转</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%98%BE%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="toc-text">1.显示意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%9A%90%E5%BC%8F%E6%84%8F%E5%9B%BE"><span class="toc-text">2.隐式意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83%EF%BC%88%E6%89%93%E5%BC%80%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%89"><span class="toc-text">实战演练（打开浏览器）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="toc-text">数据传递</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

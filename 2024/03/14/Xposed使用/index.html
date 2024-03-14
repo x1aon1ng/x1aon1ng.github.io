@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="n1ng&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="工具jadx-gui
+雷电模拟器
+Android Studio
+原理Xposed是一款可以在不修改APK的情况下影响程序运行的框架，基于它可以制作出许多功能强大的模块，且在功能不冲突的情况下同时..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Xposed使用 |
+    
+    n1ng&#39;s blog
+</title>
+
+<link rel="alternate" href="/atom.xml" title="n1ng&#39;s blog" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://hexo-theme-snippet-1251680922.cos.ap-beijing.myqcloud.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='n1ng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        n1ng&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Develop/"><i class="fa "></i>
+                                Develop</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Android/"><i class="fa "></i>
+                                Android</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/BUU/"><i class="fa "></i>
+                                BUU</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Xposed使用">
+            
+            Xposed使用
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Android/">Android</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2024/03/14</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><p>jadx-gui</p>
+<p>雷电模拟器</p>
+<p>Android Studio</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Xposed是一款可以在不修改APK的情况下影响程序运行的框架，基于它可以制作出许多功能强大的模块，且在功能不冲突的情况下同时运作。在这个框架下，我们可以编写并加载自己编写的插件APP，实现对目标apk的注入拦截等。</p>
+<p>用自己实现的<strong>app_process</strong>替换掉了系统原本提供的<strong>app_process</strong>，加载一个额外的jar包，入口从原来的： **com.android.internal.osZygoteInit.main()被替换成了： de.robv.android.xposed.XposedBridge.main()**，<br>创建的Zygote进程就变成Hook的Zygote进程了，从而完成对zygote进程及其创建的Dalvik&#x2F;ART虚拟机的劫持(zytoge注入)</p>
+<p><img src="Note\Android\pic\133104isaigb22k2zv62sr.png" alt="133104isaigb22k2zv62sr"></p>
+<h1 id="xposed配置以及使用"><a href="#xposed配置以及使用" class="headerlink" title="xposed配置以及使用"></a>xposed配置以及使用</h1><p>1.Android Studio创建新项目<br>2.将下载的xposedBridgeApi.jar包拖进libs文件夹<br>3.右击jar包，选择add as library<br>4.修改xml文件配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 是否是xposed模块，xposed根据这个来判断是否是模块 --&gt;</span><br><span class="line">&lt;meta-data</span><br><span class="line">    android:name=<span class="string">&quot;xposedmodule&quot;</span></span><br><span class="line">    android:value=<span class="string">&quot;true&quot;</span> /&gt;</span><br><span class="line">&lt;!-- 模块描述，显示在xposed模块列表那里第二行 --&gt;</span><br><span class="line">&lt;meta-data</span><br><span class="line">    android:name=<span class="string">&quot;xposeddescription&quot;</span></span><br><span class="line">    android:value=<span class="string">&quot;这是一个Xposed模块&quot;</span> /&gt;</span><br><span class="line">&lt;!-- 最低xposed版本号(lib文件名可知) --&gt;</span><br><span class="line">&lt;meta-data</span><br><span class="line">    android:name=<span class="string">&quot;xposedminversion&quot;</span></span><br><span class="line">    android:value=<span class="string">&quot;89&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>5.修改build.gradle,将此处修改为compileOnly 默认的是implementation</p>
+<p>6.新建–&gt;Folder–&gt;Assets Folder，创建xposed_init(不要后缀名):只有一行代码，就是说明入口类<br>7.新建Hook类，实现IXposedHookLoadPackage接口，然后在handleLoadPackage函数内编写Hook逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> de.robv.android.xposed.IXposedHookLoadPackage; </span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.callbacks.XC_LoadPackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hook</span> <span class="keyword">implements</span> <span class="title class_">IXposedHookLoadPackage</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleLoadPackage</span><span class="params">(XC_LoadPackage.LoadPackageParam loadPackageParam)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>继承了IXposedHookLoadPackag便拥有了hook的能力</p>
+<h1 id="xposed常用API"><a href="#xposed常用API" class="headerlink" title="xposed常用API"></a>xposed常用API</h1><h2 id="1-修改返回值"><a href="#1-修改返回值" class="headerlink" title="1.修改返回值"></a>1.修改返回值</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">XposedHelpers.findAndHookMethod(<span class="string">&quot;com.zj.wuaipojie.Demo&quot;</span>, loadPackageParam.classLoader, <span class="string">&quot;a&quot;</span>, String.class, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="built_in">super</span>.afterHookedMethod(param);</span><br><span class="line">        param.setResult(<span class="number">999</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-修改参数"><a href="#2-修改参数" class="headerlink" title="2.修改参数"></a>2.修改参数</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">XposedHelpers.findAndHookMethod(<span class="string">&quot;com.zj.wuaipojie.Demo&quot;</span>, loadPackageParam.classLoader, <span class="string">&quot;a&quot;</span>, String.class, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="built_in">super</span>.beforeHookedMethod(param);</span><br><span class="line">        <span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&quot;pt&quot;</span>;</span><br><span class="line">        param.args[<span class="number">0</span>] = a;    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Hook复杂-amp-自定义参数"><a href="#3-Hook复杂-amp-自定义参数" class="headerlink" title="3.Hook复杂&amp;自定义参数"></a>3.Hook复杂&amp;自定义参数</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">a</span> <span class="operator">=</span> loadPackageParam.classLoader.loadClass(<span class="string">&quot;类名&quot;</span>);</span><br><span class="line">XposedBridge.hookAllMethods(a, <span class="string">&quot;方法名&quot;</span>, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="built_in">super</span>.beforeHookedMethod(param);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Hook替换函数"><a href="#4-Hook替换函数" class="headerlink" title="4.Hook替换函数"></a>4.Hook替换函数</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">a</span> <span class="operator">=</span> classLoader.loadClass(<span class="string">&quot;类名&quot;</span>);</span><br><span class="line">XposedBridge.hookAllMethods(a,<span class="string">&quot;方法名&quot;</span>,<span class="keyword">new</span> <span class="title class_">XC_MethodReplacement</span>() &#123;  </span><br><span class="line">    <span class="keyword">protected</span> Object <span class="title function_">replaceHookedMethod</span><span class="params">(MethodHookParam methodHookParam)</span> <span class="keyword">throws</span> Throwable &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Hook加固通杀"><a href="#5-Hook加固通杀" class="headerlink" title="5.Hook加固通杀"></a>5.Hook加固通杀</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">XposedHelpers.findAndHookMethod(Application.class, <span class="string">&quot;attach&quot;</span>, Context.class, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;  </span><br><span class="line">        <span class="type">Context</span> <span class="variable">context</span> <span class="operator">=</span> (Context) param.args[<span class="number">0</span>];  </span><br><span class="line">        <span class="type">ClassLoader</span> <span class="variable">classLoader</span> <span class="operator">=</span> context.getClassLoader();</span><br><span class="line">        <span class="comment">//hook逻辑在这里面写  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-Hook变量"><a href="#6-Hook变量" class="headerlink" title="6.Hook变量"></a>6.Hook变量</h2><h3 id="静态变量"><a href="#静态变量" class="headerlink" title="静态变量"></a>静态变量</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> XposedHelpers.findClass(<span class="string">&quot;类名&quot;</span>, classLoader);  <span class="comment">//找到实例的字节码</span></span><br><span class="line">XposedHelpers.setStaticIntField(clazz, <span class="string">&quot;变量名&quot;</span>, <span class="number">999</span>);<span class="comment">//setStaticObjectiField</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="实例变量"><a href="#实例变量" class="headerlink" title="实例变量"></a>实例变量</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> XposedHelpers.findClass(<span class="string">&quot;类名&quot;</span>, classLoader);  </span><br><span class="line">XposedBridge.hookAllConstructors(clazz, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;  </span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;  </span><br><span class="line">        <span class="built_in">super</span>.afterHookedMethod(param);  </span><br><span class="line">        <span class="comment">//param.thisObject获取当前所属的对象</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">ob</span> <span class="operator">=</span> param.thisObject;  </span><br><span class="line">        XposedHelpers.setIntField(ob,<span class="string">&quot;变量名&quot;</span>,<span class="number">9999</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Hook构造函数"><a href="#7-Hook构造函数" class="headerlink" title="7.Hook构造函数"></a>7.Hook构造函数</h2><h3 id="有参构造函数"><a href="#有参构造函数" class="headerlink" title="有参构造函数"></a>有参构造函数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">XposedHelpers.findAndHookConstructor(<span class="string">&quot;com.zj.wuaipojie.Demo&quot;</span>, classLoader, String.class, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="built_in">super</span>.beforeHookedMethod(param);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="built_in">super</span>.afterHookedMethod(param);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="无参构造函数"><a href="#无参构造函数" class="headerlink" title="无参构造函数"></a>无参构造函数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">XposedHelpers.findAndHookConstructor(<span class="string">&quot;com.zj.wuaipojie.Demo&quot;</span>, classLoader, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="built_in">super</span>.beforeHookedMethod(param);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="built_in">super</span>.afterHookedMethod(param);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-主动调用方法"><a href="#8-主动调用方法" class="headerlink" title="8.主动调用方法"></a>8.主动调用方法</h2><h3 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> XposedHelpers.findClass(<span class="string">&quot;类名&quot;</span>,lpparam.classLoader);</span><br><span class="line">XposedHelpers.callStaticMethod(clazz,<span class="string">&quot;方法名&quot;</span>,参数(非必须));</span><br></pre></td></tr></table></figure>
+
+<p>实例方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> XposedHelpers.findClass(<span class="string">&quot;类名&quot;</span>,lpparam.classLoader);</span><br><span class="line">XposedHelpers.callMethod(clazz.newInstance(),<span class="string">&quot;方法名&quot;</span>,参数(非必须));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="9-Hook内部类"><a href="#9-Hook内部类" class="headerlink" title="9.Hook内部类"></a>9.Hook内部类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">XposedHelpers.findAndHookMethod(<span class="string">&quot;com.zj.wuaipojie.Demo$InnerClass&quot;</span>, lpparam.classLoader, <span class="string">&quot;innerFunc&quot;</span>,String.class,  <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;  <span class="comment">//类名$内部类类名</span></span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;  </span><br><span class="line">        <span class="built_in">super</span>.beforeHookedMethod(param);  </span><br><span class="line"></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="10-反射"><a href="#10-反射" class="headerlink" title="10.反射"></a>10.反射</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> XposedHelpers.findClass(<span class="string">&quot;com.zj.wuaipojie.Demo&quot;</span>, lpparam.classLoader);</span><br><span class="line">XposedHelpers.findAndHookMethod(<span class="string">&quot;com.zj.wuaipojie.Demo$InnerClass&quot;</span>, lpparam.classLoader, <span class="string">&quot;innerFunc&quot;</span>,String.class,  <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;  </span><br><span class="line">        <span class="built_in">super</span>.beforeHookedMethod(param);  </span><br><span class="line">        <span class="type">Class</span> <span class="variable">democlass</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;com.zj.wuaipojie.Demo&quot;</span>,<span class="literal">false</span>,lpparam.classLoader);  <span class="comment">//先找到类</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">demomethod</span> <span class="operator">=</span> democlass.getDeclaredMethod(<span class="string">&quot;refl&quot;</span>);<span class="comment">//再找方法  </span></span><br><span class="line">        demomethod.setAccessible(<span class="literal">true</span>);  <span class="comment">//如果是私有的方法需要setAccessible设置访问权限</span></span><br><span class="line">        demomethod.invoke(clazz.newInstance()); <span class="comment">//传入类的字节码，将其实例化，invoke主动调用 </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="11-字符串赋值定位"><a href="#11-字符串赋值定位" class="headerlink" title="11.字符串赋值定位"></a>11.字符串赋值定位</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">XposedHelpers.findAndHookMethod(<span class="string">&quot;android.widget.TextView&quot;</span>, lpparam.classLoader, <span class="string">&quot;setText&quot;</span>, CharSequence.class, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;  </span><br><span class="line">        <span class="built_in">super</span>.beforeHookedMethod(param);  </span><br><span class="line">        Log.d(<span class="string">&quot;zj2595&quot;</span>,param.args[<span class="number">0</span>].toString()); </span><br><span class="line">                <span class="keyword">if</span>(param.args[<span class="number">0</span>].equals(<span class="string">&quot;已过期&quot;</span>))&#123;<span class="comment">//过滤  </span></span><br><span class="line">                    printStackTrace();  </span><br><span class="line">                &#125;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">printStackTrace</span><span class="params">()</span> &#123;  </span><br><span class="line">    <span class="type">Throwable</span> <span class="variable">ex</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Throwable</span>();  </span><br><span class="line">    StackTraceElement[] stackElements = ex.getStackTrace();  </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; stackElements.length; i++) &#123;  </span><br><span class="line">        <span class="type">StackTraceElement</span> <span class="variable">element</span> <span class="operator">=</span> stackElements[i];  </span><br><span class="line">        Log.d(<span class="string">&quot;zj2595&quot;</span>,<span class="string">&quot;at &quot;</span> + element.getClassName() + <span class="string">&quot;.&quot;</span> + element.getMethodName() + <span class="string">&quot;(&quot;</span> + element.getFileName() + <span class="string">&quot;:&quot;</span> + element.getLineNumber() + <span class="string">&quot;)&quot;</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="12-点击事件监听"><a href="#12-点击事件监听" class="headerlink" title="12.点击事件监听"></a>12.点击事件监听</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> XposedHelpers.findClass(<span class="string">&quot;android.view.View&quot;</span>, lpparam.classLoader);</span><br><span class="line">XposedBridge.hookAllMethods(clazz, <span class="string">&quot;performClick&quot;</span>, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;  </span><br><span class="line">        <span class="built_in">super</span>.afterHookedMethod(param);  </span><br><span class="line">        <span class="type">Object</span> <span class="variable">listenerInfoObject</span> <span class="operator">=</span> XposedHelpers.getObjectField(param.thisObject, <span class="string">&quot;mListenerInfo&quot;</span>);  </span><br><span class="line">        <span class="type">Object</span> <span class="variable">mOnClickListenerObject</span> <span class="operator">=</span> XposedHelpers.getObjectField(listenerInfoObject, <span class="string">&quot;mOnClickListener&quot;</span>);  </span><br><span class="line">        <span class="type">String</span> <span class="variable">callbackType</span> <span class="operator">=</span> mOnClickListenerObject.getClass().getName();  </span><br><span class="line">        Log.d(<span class="string">&quot;zj2595&quot;</span>,callbackType);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="例题演练"><a href="#例题演练" class="headerlink" title="例题演练"></a>例题演练</h1><h2 id="1-Hook普通方法"><a href="#1-Hook普通方法" class="headerlink" title="1.Hook普通方法"></a>1.Hook普通方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.IXposedHookLoadPackage;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XC_MethodHook;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedBridge;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedHelpers;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.callbacks.XC_LoadPackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hook</span> <span class="keyword">implements</span> <span class="title class_">IXposedHookLoadPackage</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleLoadPackage</span><span class="params">(XC_LoadPackage.LoadPackageParam loadPackageParam)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="keyword">if</span>(!loadPackageParam.packageName.equals(<span class="string">&quot;com.zj.wuaipojie&quot;</span>))&#123;     <span class="comment">//对包名先进行过滤</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        XposedHelpers.findAndHookMethod(<span class="string">&quot;com.zj.wuaipojie.Demo&quot;</span>, loadPackageParam.classLoader, <span class="string">&quot;a&quot;</span>, java.lang.String.class, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                <span class="built_in">super</span>.beforeHookedMethod(param);</span><br><span class="line">                Log.d(<span class="string">&quot;zj2595&quot;</span>,param.args[<span class="number">0</span>].toString());<span class="comment">//打印参数，tag是日志的标签</span></span><br><span class="line">                param.args[<span class="number">0</span>]=<span class="string">&quot;N1ng&quot;</span>;<span class="comment">//修改参数传入值</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                <span class="built_in">super</span>.afterHookedMethod(param);</span><br><span class="line">                Log.d(<span class="string">&quot;zj2595&quot;</span>,param.getResult().toString());<span class="comment">//打印结果</span></span><br><span class="line">                param.setResult(<span class="string">&quot;here is N2ng&quot;</span>);<span class="comment">//修改结果</span></span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Hook复杂-amp-自定义参数"><a href="#2-Hook复杂-amp-自定义参数" class="headerlink" title="2.Hook复杂&amp;自定义参数"></a>2.Hook复杂&amp;自定义参数</h2><p>直接用上面的api，适用于复杂的方法以及参数带有自定义类的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.IXposedHookLoadPackage;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XC_MethodHook;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedBridge;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedHelpers;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.callbacks.XC_LoadPackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hook</span> <span class="keyword">implements</span> <span class="title class_">IXposedHookLoadPackage</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleLoadPackage</span><span class="params">(XC_LoadPackage.LoadPackageParam loadPackageParam)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="keyword">if</span>(!loadPackageParam.packageName.equals(<span class="string">&quot;com.zj.wuaipojie&quot;</span>))&#123;     <span class="comment">//对包名先进行过滤</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">Class</span> <span class="variable">a</span> <span class="operator">=</span> loadPackageParam.classLoader.loadClass(<span class="string">&quot;com.zj.wuaipojie.Demo&quot;</span>);<span class="comment">//包名.类名</span></span><br><span class="line">        XposedBridge.hookAllMethods(a, <span class="string">&quot;complexParameterFunc&quot;</span>, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                <span class="built_in">super</span>.beforeHookedMethod(param);</span><br><span class="line">                Log.d(<span class="string">&quot;zj2595&quot;</span>,param.args[<span class="number">0</span>].toString());<span class="comment">//获取传入的参数</span></span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Hook替换函数"><a href="#3-Hook替换函数" class="headerlink" title="3.Hook替换函数"></a>3.Hook替换函数</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.IXposedHookLoadPackage;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XC_MethodHook;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XC_MethodReplacement;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedBridge;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedHelpers;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.callbacks.XC_LoadPackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hook</span> <span class="keyword">implements</span> <span class="title class_">IXposedHookLoadPackage</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleLoadPackage</span><span class="params">(XC_LoadPackage.LoadPackageParam loadPackageParam)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="keyword">if</span>(!loadPackageParam.packageName.equals(<span class="string">&quot;com.zj.wuaipojie&quot;</span>))&#123;     <span class="comment">//对包名先进行过滤</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">Class</span> <span class="variable">a</span> <span class="operator">=</span> loadPackageParam.classLoader.loadClass(<span class="string">&quot;com.zj.wuaipojie.Demo&quot;</span>);</span><br><span class="line">        XposedBridge.hookAllMethods(a,<span class="string">&quot;repleaceFunc&quot;</span>,<span class="keyword">new</span> <span class="title class_">XC_MethodReplacement</span>() &#123;</span><br><span class="line">            <span class="keyword">protected</span> Object <span class="title function_">replaceHookedMethod</span><span class="params">(MethodHookParam methodHookParam)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>利用这个api可以将方法置空</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2024/03/14/Activity/" class="pre-post btn btn-default" title='Activity'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Activity</span>
+    </a>
+    
+    
+    <a href="/2024/03/14/dodonew%E7%99%BB%E5%BD%95%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/" class="next-post btn btn-default" title='dodonew登录算法逆向'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            dodonew登录算法逆向</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='shenliyang/snippet-comment'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                    <canvas id="canvas" width="1440" height="900" ></canvas>
+                    <script type="text/javascript" src="/js/DigitalRain.js"></script>
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7"><span class="toc-text">工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#xposed%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8"><span class="toc-text">xposed配置以及使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#xposed%E5%B8%B8%E7%94%A8API"><span class="toc-text">xposed常用API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BF%AE%E6%94%B9%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">1.修改返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9%E5%8F%82%E6%95%B0"><span class="toc-text">2.修改参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Hook%E5%A4%8D%E6%9D%82-amp-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%82%E6%95%B0"><span class="toc-text">3.Hook复杂&amp;自定义参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Hook%E6%9B%BF%E6%8D%A2%E5%87%BD%E6%95%B0"><span class="toc-text">4.Hook替换函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Hook%E5%8A%A0%E5%9B%BA%E9%80%9A%E6%9D%80"><span class="toc-text">5.Hook加固通杀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Hook%E5%8F%98%E9%87%8F"><span class="toc-text">6.Hook变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F"><span class="toc-text">静态变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F"><span class="toc-text">实例变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Hook%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">7.Hook构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%8F%82%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">有参构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E5%8F%82%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">无参构造函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-text">8.主动调用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">静态方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Hook%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-text">9.Hook内部类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%8F%8D%E5%B0%84"><span class="toc-text">10.反射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%B5%8B%E5%80%BC%E5%AE%9A%E4%BD%8D"><span class="toc-text">11.字符串赋值定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC"><span class="toc-text">12.点击事件监听</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%E6%BC%94%E7%BB%83"><span class="toc-text">例题演练</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Hook%E6%99%AE%E9%80%9A%E6%96%B9%E6%B3%95"><span class="toc-text">1.Hook普通方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Hook%E5%A4%8D%E6%9D%82-amp-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%82%E6%95%B0"><span class="toc-text">2.Hook复杂&amp;自定义参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Hook%E6%9B%BF%E6%8D%A2%E5%87%BD%E6%95%B0"><span class="toc-text">3.Hook替换函数</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

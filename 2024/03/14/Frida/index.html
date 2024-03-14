@@ -1,0 +1,440 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="n1ng&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="Frida原理frida注入的原理就是找到目标进程,使用ptrace跟踪目标进程获取mmap，dlpoen，dlsym等函数库的偏移获取mmap在目标进程申请一段内存空间将在目标进程中找到存放f..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Frida |
+    
+    n1ng&#39;s blog
+</title>
+
+<link rel="alternate" href="/atom.xml" title="n1ng&#39;s blog" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://hexo-theme-snippet-1251680922.cos.ap-beijing.myqcloud.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='n1ng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        n1ng&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Develop/"><i class="fa "></i>
+                                Develop</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Android/"><i class="fa "></i>
+                                Android</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/BUU/"><i class="fa "></i>
+                                BUU</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Frida">
+            
+            Frida
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Android/">Android</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2024/03/14</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="Frida原理"><a href="#Frida原理" class="headerlink" title="Frida原理"></a>Frida原理</h1><p>frida注入的原理就是找到目标进程,使用ptrace跟踪目标进程获取mmap，dlpoen，dlsym等函数库的偏移获取mmap在目标进程申请一段内存空间将在目标进程中找到存放frida-agent-32&#x2F;64.so的空间启动执行各种操作由agent去实现</p>
+<h1 id="Frida基础指令"><a href="#Frida基础指令" class="headerlink" title="Frida基础指令"></a>Frida基础指令</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">frida-ps --help</span><br><span class="line">使用方式: frida-ps [选项]</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line">  -h, --help            显示帮助信息并退出</span><br><span class="line">  -D ID, --device ID    连接到具有给定ID的设备</span><br><span class="line">  -U, --usb             连接到USB设备</span><br><span class="line">  -R, --remote          连接到远程frida-server</span><br><span class="line">  -H HOST, --host HOST  连接到HOST上的远程frida-server</span><br><span class="line">  --certificate CERTIFICATE</span><br><span class="line">                        与HOST进行TLS通信，期望的CERTIFICATE</span><br><span class="line">  --origin ORIGIN       连接到设置了&quot;Origin&quot;头为ORIGIN的远程服务器</span><br><span class="line">  --token TOKEN         使用TOKEN验证HOST</span><br><span class="line">  --keepalive-interval INTERVAL</span><br><span class="line">                        设置心跳包间隔(秒)，或设置为0以禁用(默认为-1，根据传输方式自动选择)</span><br><span class="line">  --p2p                 与目标建立点对点连接</span><br><span class="line">  --stun-server ADDRESS</span><br><span class="line">                        设置与--p2p一起使用的STUN服务器地址</span><br><span class="line">  --relay address,username,password,turn-&#123;udp,tcp,tls&#125;</span><br><span class="line">                        添加与--p2p一起使用的中继</span><br><span class="line">  -O FILE, --options-file FILE</span><br><span class="line">                        包含额外命令行选项的文本文件</span><br><span class="line">  --version             显示程序版本号并退出</span><br><span class="line">  -a, --applications    只列出应用程序</span><br><span class="line">  -i, --installed       包括所有已安装的应用程序</span><br><span class="line">  -j, --json            以JSON格式输出结果</span><br></pre></td></tr></table></figure>
+
+<p>先开启adb，再运行frida</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\n1ng&gt;adb root</span><br><span class="line">restarting adbd as root</span><br><span class="line"></span><br><span class="line">C:\Users\n1ng&gt;adb shell</span><br><span class="line">gracelte:/ # su</span><br><span class="line">gracelte:/ # cd data/local/tmp</span><br><span class="line">gracelte:/data/local/tmp # ./fr</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-操作模式"><a href="#1-操作模式" class="headerlink" title="1.操作模式"></a>1.操作模式</h2><p>CLI(命令模式):通过命令行直接将JavaScript脚本注入到进程中</p>
+<p>RPC模式:使用python进行JavaScript脚本的注入，可以通过RPC传输给python脚本进行复杂数据的处理</p>
+<h2 id="2-注入模式和启动命令"><a href="#2-注入模式和启动命令" class="headerlink" title="2.注入模式和启动命令"></a>2.注入模式和启动命令</h2><p>Spawn模式:将启动App的权利交由Frida来控制，即使目标App已经启动，在使用Frida注入程序时还是会重新启动App</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida -U -f 进程名 -l hook.js     //Spawn模式</span><br></pre></td></tr></table></figure>
+
+<p>Attach模式:在目标App已经启动的情况下，Frida通过ptrace注入程序从而执行Hook的操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida -U 进程名 -l hook.js        //Attach模式</span><br></pre></td></tr></table></figure>
+
+<p>frida_server自定义端口:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">frida server 默认端口：27042</span><br><span class="line"></span><br><span class="line">taimen:/ $ su</span><br><span class="line">taimen:/ # cd data/local/tmp/</span><br><span class="line">taimen:/data/local/tmp # ./fs1280 -l 0.0.0.0:6666</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-基础语法"><a href="#3-基础语法" class="headerlink" title="3.基础语法"></a>3.基础语法</h2><table>
+<thead>
+<tr>
+<th align="left">API名称</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>Java.use(className)</code></td>
+<td align="left">获取指定的Java类并使其在JavaScript代码中可用。</td>
+</tr>
+<tr>
+<td align="left"><code>Java.perform(callback)</code></td>
+<td align="left">确保回调函数在Java的主线程上执行。</td>
+</tr>
+<tr>
+<td align="left"><code>Java.choose(className, callbacks)</code></td>
+<td align="left">枚举指定类的所有实例。</td>
+</tr>
+<tr>
+<td align="left"><code>Java.cast(obj, cls)</code></td>
+<td align="left">将一个Java对象转换成另一个Java类的实例。</td>
+</tr>
+<tr>
+<td align="left"><code>Java.enumerateLoadedClasses(callbacks)</code></td>
+<td align="left">枚举进程中已经加载的所有Java类。</td>
+</tr>
+<tr>
+<td align="left"><code>Java.enumerateClassLoaders(callbacks)</code></td>
+<td align="left">枚举进程中存在的所有Java类加载器。</td>
+</tr>
+<tr>
+<td align="left"><code>Java.enumerateMethods(targetClassMethod)</code></td>
+<td align="left">枚举指定类的所有方法。</td>
+</tr>
+</tbody></table>
+<h2 id="4-日志输出语法"><a href="#4-日志输出语法" class="headerlink" title="4.日志输出语法"></a>4.日志输出语法</h2><table>
+<thead>
+<tr>
+<th align="left">日志方法</th>
+<th align="left">描述</th>
+<th align="left">区别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>console.log()</code></td>
+<td align="left">使用JavaScript直接进行日志打印</td>
+<td align="left">多用于在CLI模式中，<code>console.log()</code>直接输出到命令行界面，使用户可以实时查看。在RPC模式中，<code>console.log()</code>同样输出在命令行，但可能被Python脚本的输出内容掩盖。</td>
+</tr>
+<tr>
+<td align="left"><code>send()</code></td>
+<td align="left">Frida的专有方法，用于发送数据或日志到外部Python脚本</td>
+<td align="left">多用于RPC模式中，它允许JavaScript脚本发送数据到Python脚本，Python脚本可以进一步处理或记录这些数据。</td>
+</tr>
+</tbody></table>
+<h2 id="安装Frida代码提示"><a href="#安装Frida代码提示" class="headerlink" title="安装Frida代码提示"></a>安装Frida代码提示</h2><p>进入工程文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i @types/frida-gum</span><br></pre></td></tr></table></figure>
+
+<h1 id="Frida使用"><a href="#Frida使用" class="headerlink" title="Frida使用"></a>Frida使用</h1><p>Frida启动前注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida -U -f com.n1ng.app -l Hook.js</span><br></pre></td></tr></table></figure>
+
+<p>注入后app启动但停滞在启动界面，输入‘%resume’进入app，后面加‘–no–pause ’则不会停滞</p>
+<p>使用python来注入，此时使用的是ip加端口来连接，在启动服务端时需要监听端口，即加上 “-l 0.0.0.0:27042”</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> frida, sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">jsCode = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Java.perform(function()&#123;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    var RequestUtil = Java.use(&#x27;com.dodonew.online.http.RequestUtil&#x27;);</span></span><br><span class="line"><span class="string">    RequestUtil.encodeDesMap.overload(&#x27;java.lang.String&#x27;, &#x27;java.lang.String&#x27;, &#x27;java.lang.String&#x27;).implementation = function(a, b, c)&#123;</span></span><br><span class="line"><span class="string">        console.log(&#x27;data: &#x27;, a);</span></span><br><span class="line"><span class="string">        console.log(&#x27;desKey: &#x27;, b);</span></span><br><span class="line"><span class="string">        console.log(&#x27;desIV: &#x27;, c);</span></span><br><span class="line"><span class="string">        var retval = this.encodeDesMap(a, b, c);</span></span><br><span class="line"><span class="string">        console.log(&#x27;retval: &#x27;, retval);</span></span><br><span class="line"><span class="string">        return retval;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    var Utils = Java.use(&#x27;com.dodonew.online.util.Utils&#x27;);</span></span><br><span class="line"><span class="string">    Utils.md5.implementation = function(a)&#123;</span></span><br><span class="line"><span class="string">        console.log(&#x27;MD5 string: &#x27;, a);</span></span><br><span class="line"><span class="string">        var retval = this.md5(a);</span></span><br><span class="line"><span class="string">        console.log(&#x27;retval: &#x27;, retval);</span></span><br><span class="line"><span class="string">        return retval;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#def message(message, data):</span></span><br><span class="line"><span class="comment">#    if message[&quot;type&quot;] == &#x27;send&#x27;:</span></span><br><span class="line"><span class="comment">#        print(u&quot;[*] &#123;0&#125;&quot;.format(message[&#x27;payload&#x27;]))</span></span><br><span class="line"><span class="comment">#    else:</span></span><br><span class="line"><span class="comment">#        print(message)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#process = frida.get_usb_device().attach(27082)</span></span><br><span class="line"><span class="comment">#process = frida.get_remote_device().attach(&#x27;com.dodonew.online&#x27;)</span></span><br><span class="line">process1 = frida.get_device_manager().add_remote_device(<span class="string">&#x27;192.168.1.11:9999&#x27;</span>).attach(<span class="string">&#x27;com.dodonew.online&#x27;</span>)</span><br><span class="line">process2 = frida.get_device_manager().add_remote_device(<span class="string">&#x27;127.0.0.1:6666&#x27;</span>).attach(<span class="string">&#x27;com.dodonew.online&#x27;</span>)</span><br><span class="line">script1 = process1.create_script(jsCode)</span><br><span class="line">script2 = process2.create_script(jsCode)</span><br><span class="line"><span class="comment">#script.on(&quot;message&quot;, message)</span></span><br><span class="line"></span><br><span class="line">script1.load()</span><br><span class="line">script2.load()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;开始运行&quot;</span>);</span><br><span class="line"></span><br><span class="line">sys.stdin.read()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> frida, sys</span><br><span class="line"></span><br><span class="line">jscode = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">function hookTest1()&#123;</span></span><br><span class="line"><span class="string">    Java.perform(function()&#123;</span></span><br><span class="line"><span class="string">        var Utils = Java.use(&#x27;com.xiaojianbang.app.Utils&#x27;);</span></span><br><span class="line"><span class="string">        Utils.getCalc.implementation = function(a, b)&#123;</span></span><br><span class="line"><span class="string">            console.log(&#x27;getCalc: &#x27;, a, b);</span></span><br><span class="line"><span class="string">            var retval = this.getCalc(a, b);</span></span><br><span class="line"><span class="string">            console.log(&#x27;retval: &#x27;, retval);</span></span><br><span class="line"><span class="string">            return 4000;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">hookTest1();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">rdev = frida.get_usb_device()</span><br><span class="line">pid = rdev.spawn([<span class="string">&quot;com.xiaojianbang.app&quot;</span>])    <span class="comment">#已挂起方式创建进程</span></span><br><span class="line"><span class="built_in">print</span>(pid)</span><br><span class="line">process = rdev.attach(pid)                  <span class="comment">#附加到该进程</span></span><br><span class="line">script = process.create_script(jscode)</span><br><span class="line">script.load()</span><br><span class="line">rdev.resume(pid)            <span class="comment">#创建完脚本, 恢复进程运行</span></span><br><span class="line">sys.stdin.read()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line"> <span class="keyword">var</span> <span class="title class_">RequestUtil</span> = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&quot;com.dodonew.online.http.RequestUtil&quot;</span>);</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">RequestUtil</span>);</span><br><span class="line"> <span class="title class_">RequestUtil</span>.<span class="property">encodeDesMap</span>.<span class="property">implementation</span> = <span class="keyword">function</span>(<span class="params">a,b,c</span>)&#123;<span class="comment">//利用implementation来将encodeDesMap函数替换为function</span></span><br><span class="line"> <span class="keyword">var</span> retval = <span class="variable language_">this</span>.<span class="title function_">encodeDesMap</span>(a,b,c);<span class="comment">//调用原函数</span></span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(retval);</span><br><span class="line"> <span class="keyword">return</span> retval;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//如果报重载的错误则改为RequestUtil.encodeDesMap.overload(&#x27;java.lang.string&#x27;).implementation = function(a,b,c),overload内的参数即需要hook的重载函数的参数</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Hook-Java层-Hook底层函数"><a href="#Hook-Java层-Hook底层函数" class="headerlink" title="Hook Java层(Hook底层函数)"></a>Hook Java层(Hook底层函数)</h2><h3 id="可以去HookHashMap，ArrayList，自吐算法，String，JsonObject，StringBuilder（批量的字符串处理，如签名时排序，很多会用StringBuilder作为容器）"><a href="#可以去HookHashMap，ArrayList，自吐算法，String，JsonObject，StringBuilder（批量的字符串处理，如签名时排序，很多会用StringBuilder作为容器）" class="headerlink" title="可以去HookHashMap，ArrayList，自吐算法，String，JsonObject，StringBuilder（批量的字符串处理，如签名时排序，很多会用StringBuilder作为容器）"></a>可以去HookHashMap，ArrayList，自吐算法，String，JsonObject，StringBuilder（批量的字符串处理，如签名时排序，很多会用StringBuilder作为容器）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Map</span> =  <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&quot;Java.util.Map&quot;</span>);</span><br><span class="line"><span class="title class_">Map</span>.<span class="property">put</span>.<span class="property">implementation</span>=<span class="keyword">function</span>(<span class="params">a,b</span>)&#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Map:&quot;</span>,a,b);</span><br><span class="line">	<span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">put</span>(a,b);</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="函数调用栈的打印"><a href="#函数调用栈的打印" class="headerlink" title="函数调用栈的打印"></a>函数调用栈的打印</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">showStack</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="comment">//var log = Java.use(&#x27;android.util.log&#x27;);</span></span><br><span class="line">	<span class="comment">//var throwable = Java.use(&#x27;Java.lang.Thtowable&#x27;);</span></span><br><span class="line">	<span class="comment">//log.d(&#x27;n1ng&#x27;,&#x27;Stack Dump&#x27;,throwable.$new());</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> stack = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&#x27;android.util.log&#x27;</span>).<span class="title function_">getStackTraceString</span>(<span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&#x27;Java.lang.Throwable&#x27;</span>).$new());</span><br><span class="line">    <span class="comment">//利用getStackTraceString来得到堆栈</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(stack);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hook构造函数"><a href="#Hook构造函数" class="headerlink" title="Hook构造函数"></a>Hook构造函数</h2><p>需要加‘$init’</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hookTest2</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> money = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&quot;com.xiaojianbang.app.Money&quot;</span>);</span><br><span class="line">        money.<span class="property">$init</span>.<span class="title function_">overload</span>(<span class="string">&#x27;java.lang.String&#x27;</span>, <span class="string">&#x27;int&#x27;</span>).<span class="property">implementation</span> = <span class="keyword">function</span>(<span class="params">str, num</span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(str, num);</span><br><span class="line">            str = <span class="string">&quot;欧元&quot;</span>;</span><br><span class="line">            num = <span class="number">2000</span>;</span><br><span class="line">            <span class="variable language_">this</span>.$init(str, num);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hook修改类的字段"><a href="#Hook修改类的字段" class="headerlink" title="Hook修改类的字段"></a>Hook修改类的字段</h2><p>非静态字段使用Java.choose来选择对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">fuction <span class="title class_">Hooktest3</span>()&#123;</span><br><span class="line">	<span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">		<span class="keyword">var</span> money = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&#x27;com.xiaojianbang.app.Money&#x27;</span>);</span><br><span class="line">		<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;money.flag:&#x27;</span>,<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(money.<span class="property">flag</span>));</span><br><span class="line">		money.<span class="property">flag</span>.<span class="property">value</span>=<span class="string">&#x27;xiaojianbang&#x27;</span>;</span><br><span class="line">		<span class="variable language_">console</span>.<span class="title function_">log</span>(money.<span class="property">flag</span>.<span class="property">value</span>);<span class="comment">//静态字段直接用use获取类</span></span><br><span class="line">		</span><br><span class="line">		<span class="title class_">Java</span>.<span class="title function_">choose</span>(<span class="string">&#x27;com.xiaojianbang.app.Money&#x27;</span>,&#123;</span><br><span class="line">			<span class="attr">onMatch</span>: <span class="keyword">function</span>(<span class="params">obj</span>)&#123;</span><br><span class="line">				obj.<span class="property">_name</span>.<span class="property">value</span> = <span class="string">&#x27;ouyuan&#x27;</span>;<span class="comment">//若存在字段名和函数名相同时须在前面加个下划线</span></span><br><span class="line">				obj.<span class="property">num</span>.<span class="property">value</span> = <span class="number">150000</span>;</span><br><span class="line">			&#125;,<span class="comment">//choose的第二个参数，每遇到一个对象就调用</span></span><br><span class="line">			<span class="attr">onComplete</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">			</span><br><span class="line">			&#125;<span class="comment">//</span></span><br><span class="line">		&#125;);<span class="comment">//非静态字段用Java.choose</span></span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hook内部类中的方法，匿名类"><a href="#Hook内部类中的方法，匿名类" class="headerlink" title="Hook内部类中的方法，匿名类"></a>Hook内部类中的方法，匿名类</h2><p>在类后面加’$’再加上内部类的类名即可，</p>
+<p>匿名类没有名字因此加’$’在加1，即第几个匿名类，以此类推</p>
+<h2 id="主动调用"><a href="#主动调用" class="headerlink" title="主动调用"></a>主动调用</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">HookTest4</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="title class_">Utils</span> = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&quot;com.xiaojianbang.app.Utils&quot;</span>);</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">var</span> retval = <span class="title class_">Utils</span>.<span class="title function_">test</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(retval);</span><br><span class="line"></span><br><span class="line">        retval = <span class="title class_">Utils</span>.<span class="title function_">test</span>(<span class="number">666</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(retval);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> <span class="title class_">Money</span> = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&quot;comlxiaojianbang.app.Money&quot;</span>);</span><br><span class="line">        retval = <span class="title class_">Utils</span>.<span class="title function_">text</span>(<span class="title class_">Money</span>.$new(<span class="string">&quot;xiaojianbang&quot;</span>,<span class="number">777</span>));<span class="comment">//对于对象类的参数用$new来实例化即可</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(retval);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="枚举所有的类和所有的方法"><a href="#枚举所有的类和所有的方法" class="headerlink" title="枚举所有的类和所有的方法"></a>枚举所有的类和所有的方法</h2><p>使用enumerateLoadedClassesSync</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//同步方式，所有找完后统一处理</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">HookTest5</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> classes = <span class="title class_">Java</span>.<span class="title function_">enumerateLoadedClassesSync</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;classes.<span class="property">length</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(classes[i].<span class="title function_">indexof</span>(<span class="string">&quot;com.xiaojianbang.app&quot;</span>)!=-<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;classes[i]&#x27;</span>);</span><br><span class="line">            <span class="keyword">var</span> clazz = <span class="title class_">Java</span>.<span class="title function_">use</span>(classes[i]);</span><br><span class="line">            <span class="keyword">var</span> methods = clazz.<span class="property">class</span>.<span class="title function_">getDeclaredMethods</span>();<span class="comment">//getDeclaredMethods可以获取所有方法，getMethods可以获取公开的方法</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>;j&lt;methods.<span class="property">length</span>;j++)&#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(methods[j]);</span><br><span class="line">                &#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//异步方式,每枚举到一个就进行处理</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title class_">HookTest6</span>&#123;</span><br><span class="line">    <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="title class_">Java</span>.<span class="title function_">enumerateLoadedClasses</span>(&#123;</span><br><span class="line">            <span class="attr">onMatch</span>: <span class="keyword">function</span>(<span class="params">name,handle</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(name.<span class="title function_">indexof</span>(<span class="string">&quot;com.xiaojianbang.app&quot;</span>)!=-<span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(name);</span><br><span class="line">                    <span class="keyword">var</span> calzz = <span class="title class_">Java</span>.<span class="title function_">use</span>(name);</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(clazz);</span><br><span class="line">                    <span class="keyword">var</span> methods = clazz.<span class="property">class</span>.<span class="title function_">getDeclaredMethods</span>();</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;methods.<span class="property">length</span>;i++)&#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(methods[i]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">onComplete</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Hook类的所有方法"><a href="#Hook类的所有方法" class="headerlink" title="Hook类的所有方法"></a>Hook类的所有方法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">HookTest7</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">hookAll</span>(<span class="params">md5, methodsName</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> k = <span class="number">0</span>;k&lt;md5[methodsName].<span class="property">overloads</span>.<span class="property">length</span>;k++)&#123;</span><br><span class="line">            md5[methodsName].<span class="property">overloads</span>[k].<span class="property">implenmentation</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">                <span class="keyword">for</span>(car i = <span class="number">0</span>;i&lt;<span class="variable language_">arguments</span>.<span class="property">length</span>;i++)&#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>[i]);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(methodsName);</span><br><span class="line">                <span class="keyword">return</span> <span class="variable language_">this</span>[methodsName].<span class="title function_">apple</span>(<span class="variable language_">this</span>,<span class="variable language_">arguments</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">       <span class="keyword">var</span> md5 = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&#x27;com.xiaojianbang.app.MD5&#x27;</span>);</span><br><span class="line">        <span class="keyword">var</span> methods = md5.<span class="property">class</span>.<span class="title function_">getDeclaredMethods</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>; j&lt;methods.<span class="property">length</span>;j++)&#123;</span><br><span class="line">            <span class="keyword">var</span> methodsName = methods[j].<span class="title function_">getName</span>();<span class="comment">//获取方法的名字</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(methodsName);</span><br><span class="line">            <span class="title function_">hookAll</span>(md5,methodsName);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Hook动态加载的dex"><a href="#Hook动态加载的dex" class="headerlink" title="Hook动态加载的dex"></a>Hook动态加载的dex</h2><p>因为class loader不是默认的，因此直接hook会找不到，在frida中采用枚举class loader的方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">HookTest8</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="comment">//安卓7.0以上才可以用</span></span><br><span class="line">        <span class="title class_">Java</span>.<span class="title function_">enumerateClassLoaders</span>(&#123;</span><br><span class="line">            <span class="attr">onMatch</span>: <span class="keyword">function</span>(<span class="params">loader</span>)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span>(loader.<span class="title function_">loadClass</span>(<span class="string">&quot;com.xiaojianbang.app.Dynamic&quot;</span>))&#123;</span><br><span class="line">                        <span class="title class_">Java</span>.<span class="property">classFactory</span>.<span class="property">loader</span> = loader;</span><br><span class="line">                        <span class="keyword">var</span> <span class="title class_">Dynamic</span> = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&quot;com.xiaojianbang.app.Dynamic&quot;</span>);</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Dynamic</span>);</span><br><span class="line">                        <span class="title class_">Dynamic</span>.<span class="property">sayHello</span>.<span class="property">implementation</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="string">&quot;jingyi&quot;</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;  </span><br><span class="line">                &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">onComplete</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Hook特殊类型"><a href="#Hook特殊类型" class="headerlink" title="Hook特殊类型"></a>Hook特殊类型</h2><p>可以使用java的方法来遍历，但要符合js的语法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">HookTest9</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="title class_">ShufferMap</span> = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&quot;com.xiaojianbang.app.ShufferMap&quot;</span>);<span class="comment">//console.log(ShufferMap);</span></span><br><span class="line">        <span class="title class_">ShufferMap</span>.<span class="property">show</span>.<span class="property">implementation</span> = <span class="keyword">function</span>(<span class="params">map</span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(map));</span><br><span class="line">            map.<span class="title function_">put</span>(<span class="string">&#x27;pass&#x27;</span>,<span class="string">&#x27;jingyi&#x27;</span>);</span><br><span class="line">            map.<span class="title function_">put</span>(<span class="string">&#x27;guanwang&#x27;</span>,<span class="string">&#x27;bbs&#x27;</span>);<span class="comment">//put是Java中map类的方法</span></span><br><span class="line">            <span class="keyword">var</span> retval = <span class="variable language_">this</span>.<span class="title function_">show</span>(map);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(retval);</span><br><span class="line">            <span class="keyword">return</span> retval;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Hook-so层"><a href="#Hook-so层" class="headerlink" title="Hook so层"></a>Hook so层</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hook_so</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> soAddr = <span class="title class_">Moudle</span>.<span class="title function_">findBaseAddress</span>(<span class="string">&quot;libtre.so&quot;</span>);<span class="comment">//so文件的基址</span></span><br><span class="line">    <span class="keyword">var</span> base64_encode_new = soAddr.<span class="title function_">add</span>(<span class="number">0x152c</span>+<span class="number">1</span>);<span class="comment">//加上想要hook的函数的偏移，但因为时thumb指令需要再加1，arm指令则不用，分辨thumb指令可以通过查看机器码（对于32位的so，option-&gt;general-&gt;将opcode bytes改为4后就能显示机器码），机器码有两个字节也有四个字节的是thumb指令，都是四个字节的是arm指令，也可以在plt表-&gt;got表后查看，有+1的就是thumb指令</span></span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(base64_encode_new,&#123;<span class="comment">//so层用此函数附加，第一个参数为函数地址，第二个则是一个对象，对象中有两个方法</span></span><br><span class="line">        <span class="attr">onEnter</span>: <span class="keyword">function</span>(<span class="params">args</span>)&#123;<span class="comment">//进入函数时候执行此方法</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;args[o]: &quot;</span>,args[<span class="number">0</span>]);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;args[o]: &quot;</span>,<span class="title function_">hexdump</span>(args[<span class="number">0</span>]);<span class="comment">//利用hexdump函数将地址中的值打印，注意传入的参数必须是地址</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;args[o]: &quot;</span>,<span class="title function_">ptr</span>(args[<span class="number">0</span>]).<span class="title function_">readCString</span>());<span class="comment">//对于cstr可以这样打印出来，可以先用dexdump，如果是C语言的字符串再用这个</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">args1</span> = args[<span class="number">1</span>];</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;args[o]: &quot;</span>,args[<span class="number">1</span>]);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;args[o]: &quot;</span>,<span class="title function_">hexdump</span>(args[<span class="number">1</span>]);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;args[o]: &quot;</span>,args[<span class="number">2</span>]);</span><br><span class="line">        &#125;，</span><br><span class="line">        <span class="attr">onLeave</span>: <span class="keyword">function</span>(<span class="params">retval</span>)&#123;<span class="comment">//离开时执行</span></span><br><span class="line">        	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;retval: &quot;</span>,retval);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;retval: &quot;</span>,<span class="title function_">hexdump</span>(retval));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;retval: &quot;</span>,<span class="title function_">ptr</span>(<span class="variable language_">this</span>.<span class="property">args1</span>).<span class="title function_">readCString</span>());<span class="comment">//hook so层时某个参数的地址和返回值的地址一样，这是c语言中常用的方法,可以通过这样的方法来打印，即先记录地址，离开再打印</span></span><br><span class="line">    &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="算法转发"><a href="#算法转发" class="headerlink" title="算法转发"></a>算法转发</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"><span class="keyword">import</span> uvicorn</span><br><span class="line"><span class="keyword">import</span> frida</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">jsCode = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">function hookTest(username, passward)&#123;</span></span><br><span class="line"><span class="string">    var result;</span></span><br><span class="line"><span class="string">    Java.perform(function()&#123;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        var time = new Date().getTime();</span></span><br><span class="line"><span class="string">        time = &#x27;1597582774344&#x27;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        var string = Java.use(&#x27;java.lang.String&#x27;);</span></span><br><span class="line"><span class="string">        var signData = string.$new(&#x27;equtype=ANDROID&amp;loginImei=Android352689082129358&amp;timeStamp=&#x27; + </span></span><br><span class="line"><span class="string">        time + &#x27;&amp;userPwd=&#x27; + passward + &#x27;&amp;username=&#x27; + username + &#x27;&amp;key=sdlkjsdljf0j2fsjk&#x27;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        var Utils = Java.use(&#x27;com.dodonew.online.util.Utils&#x27;);</span></span><br><span class="line"><span class="string">        var sign = Utils.md5(signData).toUpperCase();</span></span><br><span class="line"><span class="string">        console.log(&#x27;sign: &#x27;, sign);</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        var encryptData = &#x27;&#123;&quot;equtype&quot;:&quot;ANDROID&quot;,&quot;loginImei&quot;:&quot;Android352689082129358&quot;,&quot;sign&quot;:&quot;&#x27;+ </span></span><br><span class="line"><span class="string">        sign +&#x27;&quot;,&quot;timeStamp&quot;:&quot;&#x27;+ time +&#x27;&quot;,&quot;userPwd&quot;:&quot;&#x27; + passward + &#x27;&quot;,&quot;username&quot;:&quot;&#x27; + username + &#x27;&quot;&#125;&#x27;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        var RequestUtil = Java.use(&#x27;com.dodonew.online.http.RequestUtil&#x27;);</span></span><br><span class="line"><span class="string">        var Encrypt = RequestUtil.encodeDesMap(encryptData, &#x27;65102933&#x27;, &#x27;32028092&#x27;);</span></span><br><span class="line"><span class="string">        console.log(&#x27;Encrypt: &#x27;, Encrypt);</span></span><br><span class="line"><span class="string">        result = Encrypt;</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">    return result;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">rpc.exports = &#123;</span></span><br><span class="line"><span class="string">    xiaojianbang: hookTest</span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">#调用frida脚本</span></span><br><span class="line">process = frida.get_device_manager().add_remote_device(<span class="string">&#x27;192.168.1.11:27042&#x27;</span>).attach(<span class="string">&quot;com.dodonew.online&quot;</span>)</span><br><span class="line">script = process.create_script(jsCode)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;[*] Running 小肩膀&#x27;</span>)</span><br><span class="line">script.load()</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/get&quot;</span></span>) </span><span class="comment">#注意这里url上没有定义参数</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">getEchoApi</span>(<span class="params">item_id, item_user, item_pass</span>):</span><br><span class="line">    <span class="comment">#fastapi会聪明的发现它不是URL参数,然后自动将他识别为param参数</span></span><br><span class="line">    <span class="comment">#RPC远程调用</span></span><br><span class="line">    result = script.exports.xiaojianbang(item_user, item_pass)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;item_id&quot;</span>: item_id, <span class="string">&quot;item_retval&quot;</span>: result&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    uvicorn.run(app, port = <span class="number">8080</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="Objection的安装与使用"><a href="#Objection的安装与使用" class="headerlink" title="Objection的安装与使用"></a>Objection的安装与使用</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install objection -i https://pypi.tuna.tsinghua.edu.cn/simple/ --trusted-host pypi.tuna.tsinghua.edu.cn</span><br></pre></td></tr></table></figure>
+
+<h2 id="注入进程"><a href="#注入进程" class="headerlink" title="注入进程"></a>注入进程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objection -g com.xiaojianbang.app explore</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objection -N -h 192.168.1.3 -p 9999 -g com.xiaojianbang.app explore//以网络的方式连接,启动前注入则在后面加 --start--command &quot;android hooking watch class &#x27;com.xiaojianbang.app.MD5&#x27;&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android hooking search  classes &lt;name&gt;//枚举类,name为类名</span><br><span class="line"></span><br><span class="line">android hooking list class_methods com.xiaojianbang.app.MD5//列出类的所有方法</span><br><span class="line"></span><br><span class="line">android hooking watch class com.xiaojianbang.app.MD5//hook类的所有方法</span><br><span class="line"></span><br><span class="line">jobs list//查看hook的类</span><br><span class="line">jobs kill xxjobid</span><br><span class="line"></span><br><span class="line">android hooking watch class_methods com.xiaojianbang.app.MD5.md5_1 --dump--args --dump--return --dump--backtrack//hook方法的参数，返回，调用堆栈，会hook所有的重载，如果要hook其中的某一个函数则需要加上“参数类型”</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">android  heap execute 地址 getinfo//主动调用方法</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2024/03/14/DontEatMe/" class="pre-post btn btn-default" title='DontEatMe'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            DontEatMe</span>
+    </a>
+    
+    
+    <a href="/2023/09/03/string/" class="next-post btn btn-default" title='string'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            string</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='shenliyang/snippet-comment'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                    <canvas id="canvas" width="1440" height="900" ></canvas>
+                    <script type="text/javascript" src="/js/DigitalRain.js"></script>
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Frida%E5%8E%9F%E7%90%86"><span class="toc-text">Frida原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Frida%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4"><span class="toc-text">Frida基础指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%93%8D%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">1.操作模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%B3%A8%E5%85%A5%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">2.注入模式和启动命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-text">3.基础语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA%E8%AF%AD%E6%B3%95"><span class="toc-text">4.日志输出语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Frida%E4%BB%A3%E7%A0%81%E6%8F%90%E7%A4%BA"><span class="toc-text">安装Frida代码提示</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Frida%E4%BD%BF%E7%94%A8"><span class="toc-text">Frida使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hook-Java%E5%B1%82-Hook%E5%BA%95%E5%B1%82%E5%87%BD%E6%95%B0"><span class="toc-text">Hook Java层(Hook底层函数)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E5%8E%BBHookHashMap%EF%BC%8CArrayList%EF%BC%8C%E8%87%AA%E5%90%90%E7%AE%97%E6%B3%95%EF%BC%8CString%EF%BC%8CJsonObject%EF%BC%8CStringBuilder%EF%BC%88%E6%89%B9%E9%87%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86%EF%BC%8C%E5%A6%82%E7%AD%BE%E5%90%8D%E6%97%B6%E6%8E%92%E5%BA%8F%EF%BC%8C%E5%BE%88%E5%A4%9A%E4%BC%9A%E7%94%A8StringBuilder%E4%BD%9C%E4%B8%BA%E5%AE%B9%E5%99%A8%EF%BC%89"><span class="toc-text">可以去HookHashMap，ArrayList，自吐算法，String，JsonObject，StringBuilder（批量的字符串处理，如签名时排序，很多会用StringBuilder作为容器）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%89%93%E5%8D%B0"><span class="toc-text">函数调用栈的打印</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hook%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">Hook构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hook%E4%BF%AE%E6%94%B9%E7%B1%BB%E7%9A%84%E5%AD%97%E6%AE%B5"><span class="toc-text">Hook修改类的字段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hook%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%8C%E5%8C%BF%E5%90%8D%E7%B1%BB"><span class="toc-text">Hook内部类中的方法，匿名类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8"><span class="toc-text">主动调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E6%89%80%E6%9C%89%E7%9A%84%E7%B1%BB%E5%92%8C%E6%89%80%E6%9C%89%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">枚举所有的类和所有的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hook%E7%B1%BB%E7%9A%84%E6%89%80%E6%9C%89%E6%96%B9%E6%B3%95"><span class="toc-text">Hook类的所有方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hook%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E7%9A%84dex"><span class="toc-text">Hook动态加载的dex</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hook%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B"><span class="toc-text">Hook特殊类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hook-so%E5%B1%82"><span class="toc-text">Hook so层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%BD%AC%E5%8F%91"><span class="toc-text">算法转发</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Objection%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-text">Objection的安装与使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E8%BF%9B%E7%A8%8B"><span class="toc-text">注入进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">常用命令</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

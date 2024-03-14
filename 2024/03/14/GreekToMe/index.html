@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="n1ng&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="Greek_to_meangr使用，socket编程，TCP，UnicornSocket（套接字）是什么它是计算机之间进行通信的一种约定或一种方式。通过 socket 这种约定，一台计算机可以接..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    GreekToMe |
+    
+    n1ng&#39;s blog
+</title>
+
+<link rel="alternate" href="/atom.xml" title="n1ng&#39;s blog" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://hexo-theme-snippet-1251680922.cos.ap-beijing.myqcloud.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='n1ng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        n1ng&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Develop/"><i class="fa "></i>
+                                Develop</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Android/"><i class="fa "></i>
+                                Android</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/BUU/"><i class="fa "></i>
+                                BUU</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="GreekToMe">
+            
+            GreekToMe
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/BUU/">BUU</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2024/03/14</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="Greek-to-me"><a href="#Greek-to-me" class="headerlink" title="Greek_to_me"></a>Greek_to_me</h1><h2 id="angr使用，socket编程，TCP，Unicorn"><a href="#angr使用，socket编程，TCP，Unicorn" class="headerlink" title="angr使用，socket编程，TCP，Unicorn"></a>angr使用，socket编程，TCP，Unicorn</h2><h2 id="Socket（套接字）是什么"><a href="#Socket（套接字）是什么" class="headerlink" title="Socket（套接字）是什么"></a>Socket（套接字）是什么</h2><h4 id="它是计算机之间进行通信的一种约定或一种方式。通过-socket-这种约定，一台计算机可以接收其他计算机的数据，也可以向其他计算机发送数据。"><a href="#它是计算机之间进行通信的一种约定或一种方式。通过-socket-这种约定，一台计算机可以接收其他计算机的数据，也可以向其他计算机发送数据。" class="headerlink" title="它是计算机之间进行通信的一种约定或一种方式。通过 socket 这种约定，一台计算机可以接收其他计算机的数据，也可以向其他计算机发送数据。"></a>它是计算机之间进行通信的一种约定或一种方式。通过 socket 这种约定，一台计算机可以接收其他计算机的数据，也可以向其他计算机发送数据。</h4><p>socket起源于Unix，而Unix&#x2F;Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write&#x2F;read –&gt; 关闭close”模式来操作。Socket就是该模式的一个实现， socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读&#x2F;写IO、打开、关闭）.<br>说白了Socket是应用层与TCP&#x2F;IP协议族通信的中间软件抽象层，<strong>它是一组接口</strong>。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP&#x2F;IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议。</p>
+<p>注意：其实socket也没有层的概念，它只是一个facade设计模式的应用，让编程变的更简单。是一个软件抽象层。在网络编程中，我们大量用的都是通过socket实现的。</p>
+<p>服务器端先初始化Socket，然后与端口绑定(<strong>bind</strong>)，对端口进行监听(<strong>listen</strong>)，调用<strong>accept</strong>阻塞，等待客户端连接。在这时如果有个客户端初始化一个Socket，然后连接服务器(<strong>connect</strong>)，如果连接成功，这时客户端与服务器端的连接就建立了。客户端发送数据请求，服务器端接收请求并处理请求，然后把回应数据发送给客户端，客户端读取数据，最后关闭连接，一次交互结束。</p>
+<p>在这道题目中有这段代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">SOCKET __cdecl <span class="title function_">sub_401121</span><span class="params">(<span class="type">char</span> *buf)</span></span><br><span class="line">&#123;</span><br><span class="line">  SOCKET v2; <span class="comment">// esi</span></span><br><span class="line">  SOCKET v3; <span class="comment">// eax</span></span><br><span class="line">  SOCKET v4; <span class="comment">// edi</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">WSAData</span> <span class="title">WSAData</span>;</span> <span class="comment">// [esp+0h] [ebp-1A0h] BYREF</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> <span class="title">name</span>;</span> <span class="comment">// [esp+190h] [ebp-10h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( WSAStartup(<span class="number">0x202</span>u, &amp;WSAData) )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  v2 = socket(<span class="number">2</span>, <span class="number">1</span>, <span class="number">6</span>);</span><br><span class="line">  <span class="keyword">if</span> ( v2 != <span class="number">-1</span> )                               <span class="comment">// socket初始化</span></span><br><span class="line">  &#123;</span><br><span class="line">    name.sa_family = <span class="number">2</span>;</span><br><span class="line">    *(_DWORD *)&amp;name.sa_data[<span class="number">2</span>] = inet_addr(<span class="string">&quot;127.0.0.1&quot;</span>);<span class="comment">// 设置ip</span></span><br><span class="line">    *(_WORD *)name.sa_data = htons(<span class="number">2222u</span>);      <span class="comment">// 设置端口</span></span><br><span class="line">    <span class="keyword">if</span> ( bind(v2, &amp;name, <span class="number">16</span>) != <span class="number">-1</span> &amp;&amp; listen(v2, <span class="number">0x7FFFFFFF</span>) != <span class="number">-1</span> )<span class="comment">// bind(端口绑定)，listen(端口监听)</span></span><br><span class="line">    &#123;</span><br><span class="line">      v3 = accept(v2, <span class="number">0</span>, <span class="number">0</span>);                    <span class="comment">// 调用accept阻塞，等待客户端连接</span></span><br><span class="line">      v4 = v3;</span><br><span class="line">      <span class="keyword">if</span> ( v3 != <span class="number">-1</span> )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( recv(v3, buf, <span class="number">4</span>, <span class="number">0</span>) &gt; <span class="number">0</span> )          <span class="comment">// recv函数接受数据</span></span><br><span class="line">          <span class="keyword">return</span> v4;</span><br><span class="line">        closesocket(v4);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    closesocket(v2);</span><br><span class="line">  &#125;</span><br><span class="line">  WSACleanup();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就是创建了一个监听本地TCP端口2222的套接字</p>
+<p>再看汇编，比较容易分析出来整体的逻辑就是创建TCP通信，传入buf，实际上只传了buf[0]，然后对loc_40107c进行异或再加34，然后进行一个校验，因此需要先知道传入的是什么，可以采用爆破的方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">ip=<span class="string">&#x27;127.0.0.1&#x27;</span></span><br><span class="line">port=<span class="number">2222</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">    os.startfile(<span class="string">&quot;E:\\Edge\\buu\\greek_to_me.exe&quot;</span>)</span><br><span class="line">    s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">    s.connect((ip,port))</span><br><span class="line">    s.send(<span class="built_in">chr</span>(i).encode(<span class="string">&#x27;latin1&#x27;</span>))</span><br><span class="line">    data=s.recv(<span class="number">1024</span>)</span><br><span class="line">    s.close()</span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&#x27;Congratulations&#x27;</span> <span class="keyword">in</span> data:</span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">chr</span>(i).encode(<span class="string">&#x27;latin1&#x27;</span>),<span class="string">&#x27;&#x27;</span>,i,data)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<p>运行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b&#x27;\xa2&#x27;  162 b&quot;Congratulations! But wait, where&#x27;s my flag?&quot;</span><br></pre></td></tr></table></figure>
+
+<p>即应该传入162</p>
+<p>然后开始调试![屏幕截图 2023-11-26 151125](E:\Note\BUU刷题记录\pic\屏幕截图 2023-11-26 151125.png)</p>
+<p>写脚本传数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">ip=<span class="string">&#x27;127.0.0.1&#x27;</span></span><br><span class="line">port=<span class="number">2222</span></span><br><span class="line"></span><br><span class="line">os.startfile(<span class="string">&quot;E:\\Edge\\buu\\greek_to_me.exe&quot;</span>)</span><br><span class="line">s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">s.connect((ip,port))</span><br><span class="line">s.send(<span class="built_in">chr</span>(<span class="number">162</span>).encode(<span class="string">&#x27;latin1&#x27;</span>))</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<p>运行后找到loc_40107c</p>
+<p>按c转化为code</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">loc_40107C:                             ; CODE XREF: sub_401008+5B↑j</span><br><span class="line">.text:0040107C                                         ; DATA XREF: sub_401008:loc_401029↑o</span><br><span class="line">.text:0040107C                                         ; sub_401008+29↑o</span><br><span class="line">.text:0040107C                                         ; sub_401008+3F↑o</span><br><span class="line">.text:0040107C mov     bl, 65h ; &#x27;e&#x27;</span><br><span class="line">.text:0040107E mov     [ebp+var_2B], bl</span><br><span class="line">.text:00401081 mov     [ebp+var_2A], 74h ; &#x27;t&#x27;</span><br><span class="line">.text:00401085 mov     dl, 5Fh ; &#x27;_&#x27;</span><br><span class="line">.text:00401087 mov     [ebp+var_29], dl</span><br><span class="line">.text:0040108A mov     [ebp+var_28], 74h ; &#x27;t&#x27;</span><br><span class="line">.text:0040108E mov     [ebp+var_27], 75h ; &#x27;u&#x27;</span><br><span class="line">.text:00401092 mov     [ebp+var_26], dl</span><br><span class="line">.text:00401095 mov     [ebp+var_25], 62h ; &#x27;b&#x27;</span><br><span class="line">.text:00401099 mov     [ebp+var_24], 72h ; &#x27;r&#x27;</span><br><span class="line">.text:0040109D mov     [ebp+var_23], 75h ; &#x27;u&#x27;</span><br><span class="line">.text:004010A1 mov     [ebp+var_22], 74h ; &#x27;t&#x27;</span><br><span class="line">.text:004010A5 mov     [ebp+var_21], bl</span><br><span class="line">.text:004010A8 mov     [ebp+var_20], dl</span><br><span class="line">.text:004010AB mov     [ebp+var_1F], 66h ; &#x27;f&#x27;</span><br><span class="line">.text:004010AF mov     [ebp+var_1E], 6Fh ; &#x27;o&#x27;</span><br><span class="line">.text:004010B3 mov     [ebp+var_1D], 72h ; &#x27;r&#x27;</span><br><span class="line">.text:004010B7 mov     [ebp+var_1C], 63h ; &#x27;c&#x27;</span><br><span class="line">.text:004010BB mov     [ebp+var_1B], bl</span><br><span class="line">.text:004010BE mov     [ebp+var_1A], 40h ; &#x27;@&#x27;</span><br><span class="line">.text:004010C2 mov     [ebp+var_19], 66h ; &#x27;f&#x27;</span><br><span class="line">.text:004010C6 mov     [ebp+var_18], 6Ch ; &#x27;l&#x27;</span><br><span class="line">.text:004010CA mov     [ebp+var_17], 61h ; &#x27;a&#x27;</span><br><span class="line">.text:004010CE mov     [ebp+var_16], 72h ; &#x27;r&#x27;</span><br><span class="line">.text:004010D2 mov     [ebp+var_15], bl</span><br><span class="line">.text:004010D5 mov     [ebp+var_14], 2Dh ; &#x27;-&#x27;</span><br><span class="line">.text:004010D9 mov     [ebp+var_13], 6Fh ; &#x27;o&#x27;</span><br><span class="line">.text:004010DD mov     [ebp+var_12], 6Eh ; &#x27;n&#x27;</span><br><span class="line">.text:004010E1 mov     [ebp+var_11], 2Eh ; &#x27;.&#x27;</span><br><span class="line">.text:004010E5 mov     [ebp+var_10], 63h ; &#x27;c&#x27;</span><br><span class="line">.text:004010E9 mov     [ebp+var_F], 6Fh ; &#x27;o&#x27;</span><br><span class="line">.text:004010ED mov     [ebp+var_E], 6Dh ; &#x27;m&#x27;</span><br><span class="line">.text:004010F1 mov     [ebp+var_D], 0</span><br></pre></td></tr></table></figure>
+
+<p>得到flag</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2024/03/14/dodonew%E7%99%BB%E5%BD%95%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/" class="pre-post btn btn-default" title='dodonew登录算法逆向'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            dodonew登录算法逆向</span>
+    </a>
+    
+    
+    <a href="/2024/03/14/Whoishe/" class="next-post btn btn-default" title='Whoishe'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Whoishe</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='shenliyang/snippet-comment'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                    <canvas id="canvas" width="1440" height="900" ></canvas>
+                    <script type="text/javascript" src="/js/DigitalRain.js"></script>
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Greek-to-me"><span class="toc-text">Greek_to_me</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#angr%E4%BD%BF%E7%94%A8%EF%BC%8Csocket%E7%BC%96%E7%A8%8B%EF%BC%8CTCP%EF%BC%8CUnicorn"><span class="toc-text">angr使用，socket编程，TCP，Unicorn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Socket%EF%BC%88%E5%A5%97%E6%8E%A5%E5%AD%97%EF%BC%89%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">Socket（套接字）是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%83%E6%98%AF%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E8%BF%9B%E8%A1%8C%E9%80%9A%E4%BF%A1%E7%9A%84%E4%B8%80%E7%A7%8D%E7%BA%A6%E5%AE%9A%E6%88%96%E4%B8%80%E7%A7%8D%E6%96%B9%E5%BC%8F%E3%80%82%E9%80%9A%E8%BF%87-socket-%E8%BF%99%E7%A7%8D%E7%BA%A6%E5%AE%9A%EF%BC%8C%E4%B8%80%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%AF%E4%BB%A5%E6%8E%A5%E6%94%B6%E5%85%B6%E4%BB%96%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%90%91%E5%85%B6%E4%BB%96%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E3%80%82"><span class="toc-text">它是计算机之间进行通信的一种约定或一种方式。通过 socket 这种约定，一台计算机可以接收其他计算机的数据，也可以向其他计算机发送数据。</span></a></li></ol></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
