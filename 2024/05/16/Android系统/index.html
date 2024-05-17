@@ -1,0 +1,376 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="n1ng&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="Android本质就是在标准的Linux系统上增加了Java虚拟机Dalvik&#x2F;ART，并在Dalvik&#x2F;ART虚拟机上搭建了一个JAVA的application frame..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Android系统 |
+    
+    n1ng&#39;s blog
+</title>
+
+<link rel="alternate" href="/atom.xml" title="n1ng&#39;s blog" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://hexo-theme-snippet-1251680922.cos.ap-beijing.myqcloud.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='n1ng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        n1ng&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Develop/"><i class="fa "></i>
+                                Develop</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Android/"><i class="fa "></i>
+                                Android</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/BUU/"><i class="fa "></i>
+                                BUU</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Android系统">
+            
+            Android系统
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Android/">Android</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2024/05/16</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <p>Android本质就是在标准的Linux系统上增加了Java虚拟机Dalvik&#x2F;ART，并在Dalvik&#x2F;ART虚拟机上搭建了一个JAVA的application framework，所有的应用程序都是基于JAVA的application framework之上。</p>
+<p>Android系统由linux内核，函数库，android runtime，应用程序框架以及应用程序组成。</p>
+<p>android分为四层</p>
+<ul>
+<li>应用程序层，提供了一些核心程序包，例如电子邮件，短信，浏览器等</li>
+<li>应用程序框架层（Java Framework），为开发人员提供了可以开发应用程序所需要的api</li>
+<li>系统运行库层，包括C&#x2F;C++程序库（C&#x2F;C++程序库可以被android系统的不同组件所使用）和Android运行时库（分为核心库和art&#x2F;dalvik，核心库提供了java语言核心库的大多数功能，dalvik专门为移动设备而定制，允许在有限的内存中同时运行多个虚拟机的实例）</li>
+<li>Linux内核层，Android的核心系统服务基于LInux内核，在此基础上添加了部分Android专用的驱动，系统的安全性，内存管理，进程管理，网络协议栈和驱动模型等都依赖于Linux内核</li>
+</ul>
+<h2 id="Android文件格式"><a href="#Android文件格式" class="headerlink" title="Android文件格式"></a>Android文件格式</h2><ul>
+<li>apk，安卓的安装包格式，包含android应用的所有代码和资源，包括AndroidManifest.xml，META-INF（保存apk的签名信息），classes.dex（程序的可执行代码）以及资源文件夹res</li>
+<li>class，编写的代码是java文件，jvm运行的是class文件，需要jdk工具将java文件转化为class文件</li>
+<li>jar，编译后的java代码的class文件的集合</li>
+<li>aar.android studio全新的库文件格式，包含代码，资源数据</li>
+<li>dex，android虚拟机的可执行字节码文件，java文件首先通过javac编译为class文件，然后再通过dx根据处理生成dex文件，dex文件主要包含四个部分，dex文件头，索引结构区，data数据区，静态链接数据区</li>
+<li>odex和oat，优化程序执行的文件，dalvik在执行dex前会把dex优化后生成odex（在第一次安装时优化），然后把dex删除，可以加快软件启动，减少ram占用等，再dalvik中是odex，再art中是oat，在应用首次安装时dex2oat就会把classes.dex文件编译为机器码，生成elf格式的oat文件</li>
+</ul>
+<h2 id="Android启动流程"><a href="#Android启动流程" class="headerlink" title="Android启动流程"></a>Android启动流程</h2><p>按下开机键后，引导芯片从固化的rom处执行预设的代码，将bootloader加载到RAM中，bootloader设置硬件参数，检查RAM，将操作系统映像文件拷贝到RAM然后跳转到入口处执行，linux内核启动，加载各种驱动和数据结构，开始启动android系统，创建第一个内核进程idle进程，最终会创建第一个用户进程init，init进程创建zygote进程</p>
+<h3 id="init进程"><a href="#init进程" class="headerlink" title="init进程"></a>init进程</h3><h4 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h4><p>挂载以及创建基本的文件系统，设置访问权限，挂载system，cache，data等系统分区，加载.rc文件</p>
+<h4 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h4><p>selinux初始化完成后使用execv函数重新执行main方法，初始化和启动属性服务，解析init.rc文件</p>
+<p>init进程在解析完init.rc文件后依次执行on early-init&#x3D;&gt;init&#x3D;&gt;late-init，late-init触发时就会启动zygote</p>
+<h3 id="Zygote"><a href="#Zygote" class="headerlink" title="Zygote"></a>Zygote</h3><p>zygote进程是所有android进程的父进程，包括SystemServer和各种应用进程都是从zygote进程fork出来的</p>
+<p>zygote进程有linux进程的init进程启动，即init进程&#x3D;&gt;Zygote进程&#x3D;&gt;SystemServer&#x3D;&gt;各种应用进程</p>
+<h4 id="zygote进程"><a href="#zygote进程" class="headerlink" title="zygote进程"></a>zygote进程</h4><ol>
+<li>初始化DDMS，通过registerZygoteSocket函数注册Server端的Socket。当Zygote进程将SystemServer进程启动后，就会在这个服务端的Socket上来等待ActivityManagerService请求Zygote进程来创建新的应用程序进程。</li>
+<li>预加载类和资源（perloadClasses(),perloadShareLibrareis()等）</li>
+<li>启动SystemServer进程</li>
+<li>监听Socket，启动应用进程</li>
+</ol>
+<h3 id="应用启动"><a href="#应用启动" class="headerlink" title="应用启动"></a>应用启动</h3><p>PMS，开机后遍历data&#x2F;app目录，找到apk，解压apk，通过dom解析最后找到包含Launcher对应的Activity，然后存放在Package缓存中（得到应用程序的相关信息，如应用程序的组件Package，Activity，Service等），保存到PMS的mPackages，mActivities等成员变量（HashMap类型）</p>
+<p>AMS 加载Activity并且管理 Activity<br>当我们要启动一个应用的时候，需要加载Activity，还需要PMS提供对应的信息。</p>
+<h4 id="Launcher启动"><a href="#Launcher启动" class="headerlink" title="Launcher启动"></a>Launcher启动</h4><p>Android应用程序安装Android系统在启动的过程中zygote进程启动SystemServer进程，SystemServer启动PackageManagerService（PMS），PMS扫描data&#x2F;app目录找到apk并解析，得到应用的相关信息，完成安装。此时应用程序相当于在PMS服务中注册好了，还需要一个Home应用程序（Android中默认为Launcher）才能在桌面上看到这个应用程序。</p>
+<p>当点击桌面上的应用程序时会调用Launcher的startActivitySafely方法，之后会调用Instrucmentation的execStartActivity方法，这个方法会调用ActivityManagerNative的getDefault方法（Binder机制）来获取ActivityManagerService（AMS）的代理对象，然后调用它的startActivity方法启动一个Activity，AMS时Launcher栈最顶端的Activity进入onPause状态，AMS通知Process使用Socket和zygote进程通信，请求创建一个新进程，zygote收到socket请求后fork出一个进程，调用ActivityThread main方法，ActivityThread通过Binder通知AMS启动应用程序，AMS通知ActivityStackSupervisor真正的启动Activity，ActivityStackSupervisor通知ApplicationThread启动Activity，ApplicationThread发消息给ActivityThread，需要启动一个Activity，ActivityThread又通知LoadedApk创建Application，并调用其onCreate方法，ActivityThread装载目标Activity类，调用Activity.attach()，ActivityThread通知Instrumentation调用Activity.onCreate()，Instrumentation调用Activity.perfoemCreate()，在该方法中调用自身onCreate()方法</p>
+<h2 id="Dalvik与Art"><a href="#Dalvik与Art" class="headerlink" title="Dalvik与Art"></a>Dalvik与Art</h2><p>在Android4.4之前使用的是Dalvik虚拟机，之后则是Art虚拟机，Art虚拟机能够向下兼容，提供了对Dalvik可执行格式以及字节码规范的支持。</p>
+<h3 id="Dalvik的特点"><a href="#Dalvik的特点" class="headerlink" title="Dalvik的特点"></a>Dalvik的特点</h3><ul>
+<li>体积小，占用内存小</li>
+<li>专有的dex文件体积小，执行速度快</li>
+<li>常量池采用32位索引值，对类方法名，字段名，常量的寻址速度快</li>
+<li>基于寄存器架构，拥有完整的一套指令系统</li>
+<li>提供了对象生命周期管理，堆栈管理，线程管理，安全和异常管理以及垃圾回收等重要功能</li>
+<li>所有的android程序都运行在Android系统进程中，每个进程都和一个Dalvik虚拟机实例对应</li>
+</ul>
+<h3 id="与Java虚拟机的区别"><a href="#与Java虚拟机的区别" class="headerlink" title="与Java虚拟机的区别"></a>与Java虚拟机的区别</h3><ul>
+<li>运行的字节码不同，JVM运行的是java字节码，Dalvik运行的是Dalvik字节码，Java程序&#x3D;&gt;java字节码&#x3D;&gt;保存至class文件&#x3D;&gt;jvm解码class来运行程序，而Dalvik是Java字节码&#x3D;&gt;dalvik字节码&#x3D;&gt;打包到dex&#x3D;&gt;dalvik解释dex文件来执行字节码</li>
+<li>dakvik的可执行文件体积更小，dx工具在将java字节码转换为dalvik字节码时会消除在类文件中出现的冗余信息，通过共享常量池的方法（java中有多个方法签名，引用方法时签名也会被复制，所以会有很多冗余信息）</li>
+<li>架构不同，jvm基于栈架构，cpu资源耗费大（对栈频繁的读写，指令分配，内存访问），dalvik基于寄存器架构，数据的访问在寄存器之间传递</li>
+</ul>
+<h3 id="Dalvik和Art的区别"><a href="#Dalvik和Art的区别" class="headerlink" title="Dalvik和Art的区别"></a>Dalvik和Art的区别</h3><ul>
+<li>art虚拟机执行的是本地机器码采用的是AOT（ahead-of-time）编译，应用在第一次安装时就会预先编译成机器码，app运行时就不用解释字节码了</li>
+<li>dalvik采用的是JIT（just-in-time）编译，运行时先把dex文件解释翻译为机器码之后才能运行，因此art应用启动速度快，运行快，电池续航高，但是占用空间大</li>
+</ul>
+<h2 id="Binder"><a href="#Binder" class="headerlink" title="Binder"></a>Binder</h2><p>binder是一种进程间通信机制（IPC），用于在不同进程间的通信和数据交换，底层实现是通过内存共享，数据传输和读取的速度更快。</p>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><ul>
+<li>binder驱动，binder机制的实现依赖于linux内核中的binder驱动，负责处理进程间通信的底层细节，包括进程注册，线程创建，消息传递等</li>
+<li>binder服务，是在一个进程中提供服务的组件，可以被其他进程通过binder机制调用，每个binder服务有一个唯一的标识符（binder对象的引用）用于进行跨进程通信</li>
+<li>binder代理，是在客户端进程中的一个中间组件，用于处理客户端和服务端之间的通信，负责将客户端的请求转发给服务端，并将服务端的响应返回给客户端</li>
+<li>binder通信，通过跨进程的消息传递进行，客户端通过向服务端发送请求消息，服务端接收并处理请求，然后将响应返回给客户端</li>
+</ul>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ol>
+<li>客户端获取服务端的binder引用（通过binder引用获取服务端的接口）</li>
+<li>客户端发送请求消息</li>
+<li>服务端接收请求消息</li>
+<li>服务端处理请求并发送响应消息</li>
+<li>客户端接收响应消息</li>
+</ol>
+<h2 id="Android的签名机制"><a href="#Android的签名机制" class="headerlink" title="Android的签名机制"></a>Android的签名机制</h2><h3 id="签名的作用"><a href="#签名的作用" class="headerlink" title="签名的作用"></a>签名的作用</h3><ul>
+<li>发送者的身份认证 由于开发商可能通过使用相同的 Package Name 来混淆替换已经安装的程序，以此保证签名不同的包不被替换</li>
+<li>保证应用的完整性，签名对于包中的每个文件进行处理，确保包中的内容不被替换</li>
+<li>应用升级校验，当应用需要升级时，系统会检查新版本的签名是否和旧版本一致</li>
+<li>权限授予，某些系统级权限的授予会基于apk的签名</li>
+</ul>
+<h3 id="APK签名的机制和原理"><a href="#APK签名的机制和原理" class="headerlink" title="APK签名的机制和原理"></a>APK签名的机制和原理</h3><ul>
+<li>数字签名技术，开发者使用私钥对apk进行签名，生成签名文件（META-INF目录下），当android系统或其他设备需要验证apk时，会使用公钥来验证签名文件</li>
+<li>android的安全机制，在安装apk时，系统会检查签名文件的完整性和有效性，如果缺失或无效，系统会拒绝安装该应用，同时还会记录每个应用的签名信息用于后续的应用升级和权限校验</li>
+</ul>
+<h3 id="签名检测"><a href="#签名检测" class="headerlink" title="签名检测"></a>签名检测</h3><h2 id="SELinux"><a href="#SELinux" class="headerlink" title="SELinux"></a>SELinux</h2><h3 id="SELinux核心概念"><a href="#SELinux核心概念" class="headerlink" title="SELinux核心概念"></a>SELinux核心概念</h3><ul>
+<li>安全上下文，每个进程，文件，设备和网络套接字都有一个唯一的安全上下文呢，有用户标识符UID，角色标识符RID和类型标识符TID组成</li>
+<li>策略规则，通过策略规则来定义和强制访问控制</li>
+<li>强制访问控制</li>
+<li>上下文转换，进程需要切换不同的安全上下文时需要进行上下文转换</li>
+</ul>
+<h3 id="SELinux工作原理"><a href="#SELinux工作原理" class="headerlink" title="SELinux工作原理"></a>SELinux工作原理</h3><ul>
+<li>在系统引导过程SELinux加载策略文件并初始化</li>
+<li>当进程，文件，设备或网络套接字被创建时，SELinux为其分配唯一的安全上下文</li>
+<li>当进程试图访问受限资源时，SELinux会根据策略规则进行决策</li>
+<li>当进程需要切换不同的安全上下文时需要进行上下文转换</li>
+</ul>
+<h2 id="Android-app可访问文件的路径"><a href="#Android-app可访问文件的路径" class="headerlink" title="Android app可访问文件的路径"></a>Android app可访问文件的路径</h2><ul>
+<li>应用程序内部存储（Internal Storage），每个应用都有自己的私有目录，可以创建和访问应用所私有的文件（&#x2F;data&#x2F;data&#x2F;<package_name>）</package_name></li>
+<li>外部存储（External Storage），设备共享媒体文件等数据的存储位置（storage&#x2F;emulated&#x2F;0&#x2F;）</li>
+<li>缓存目录（Cache Directory），临时缓存文件，系统在需要释放空间时可能会去除该目录的文件（&#x2F;data&#x2F;data&#x2F;<package_name>&#x2F;cache&#x2F;）</package_name></li>
+<li>SD卡目录（SD Card Directory），（&#x2F;mnt&#x2F;sdcad&#x2F;或&#x2F;storage&#x2F;sdcard&#x2F;）</li>
+</ul>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/2024/05/16/Xposed%E5%8E%9F%E7%90%86/" class="next-post btn btn-default" title='Xposed原理'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Xposed原理</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='shenliyang/snippet-comment'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                    <canvas id="canvas" width="1440" height="900" ></canvas>
+                    <script type="text/javascript" src="/js/DigitalRain.js"></script>
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Android%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-text">Android文件格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Android%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="toc-text">Android启动流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#init%E8%BF%9B%E7%A8%8B"><span class="toc-text">init进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5"><span class="toc-text">第一阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5"><span class="toc-text">第二阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zygote"><span class="toc-text">Zygote</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#zygote%E8%BF%9B%E7%A8%8B"><span class="toc-text">zygote进程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8"><span class="toc-text">应用启动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Launcher%E5%90%AF%E5%8A%A8"><span class="toc-text">Launcher启动</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dalvik%E4%B8%8EArt"><span class="toc-text">Dalvik与Art</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dalvik%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-text">Dalvik的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8EJava%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">与Java虚拟机的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dalvik%E5%92%8CArt%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">Dalvik和Art的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binder"><span class="toc-text">Binder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">核心概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">工作流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Android%E7%9A%84%E7%AD%BE%E5%90%8D%E6%9C%BA%E5%88%B6"><span class="toc-text">Android的签名机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">签名的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#APK%E7%AD%BE%E5%90%8D%E7%9A%84%E6%9C%BA%E5%88%B6%E5%92%8C%E5%8E%9F%E7%90%86"><span class="toc-text">APK签名的机制和原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E6%A3%80%E6%B5%8B"><span class="toc-text">签名检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SELinux"><span class="toc-text">SELinux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SELinux%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">SELinux核心概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SELinux%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">SELinux工作原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-app%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%96%87%E4%BB%B6%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="toc-text">Android app可访问文件的路径</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
