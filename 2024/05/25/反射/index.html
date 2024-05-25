@@ -708,7 +708,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-05-25 11:44:51'>2024-05-25 11:42</time>
+            Created At : <time class="date" title='Updated At: 2024-05-25 13:37:46'>2024-05-25 11:42</time>
         
     </div>
     <div class="article-meta">
@@ -746,7 +746,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>JVM为每个加载的class创建了对应的Class实例，并在实例中保存了该class的所有信息（类名，包名，父类，接口，方法，字段等），因此只要获取了某个Class实例，就能通过这个实例获取对应的class的所有信息，这就是反射（Reflection）</p>
+        <style>
+pre {
+  overflow-y: auto;
+  max-height: 300px;
+}
+</style>
+
+<p>JVM为每个加载的class创建了对应的Class实例，并在实例中保存了该class的所有信息（类名，包名，父类，接口，方法，字段等），因此只要获取了某个Class实例，就能通过这个实例获取对应的class的所有信息，这就是反射（Reflection）</p>
 <p>获取一个class的Class实例的方法有</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//直接通过class的静态变量class获取</span><br><span class="line">Class clazz = String.class;</span><br></pre></td></tr></table></figure>
 
