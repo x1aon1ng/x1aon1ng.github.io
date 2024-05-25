@@ -1,0 +1,414 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="n1ng&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="基础知识JDK：Java Development Kit，即Java开发包
+JRE：Java Runtime Environment，即运行Java字节码的虚拟机，而Java源码编译为Java字..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Java_Basic |
+    
+    n1ng&#39;s blog
+</title>
+
+<link rel="alternate" href="/atom.xml" title="n1ng&#39;s blog" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://hexo-theme-snippet-1251680922.cos.ap-beijing.myqcloud.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='n1ng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        n1ng&#39;s blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Develop/"><i class="fa "></i>
+                                Develop</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Android/"><i class="fa "></i>
+                                Android</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/BUU/"><i class="fa "></i>
+                                BUU</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Java_Basic">
+            
+            Java_Basic
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Develop/">Develop</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2024/05/25</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>JDK：Java Development Kit，即Java开发包</p>
+<p>JRE：Java Runtime Environment，即运行Java字节码的虚拟机，而Java源码编译为Java字节码就需要JDK</p>
+<p>简单来说二者关系即：JRE&#x3D;JVM+Runtime Library，JDK&#x3D;JRE+Compiler+debugger+etc</p>
+<p>一个简单的java代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义了一个名为Hello的public类，里面有一个静态的方法实现了一个打印的操作</span></span><br></pre></td></tr></table></figure>
+
+<p>要运行这个程序需要经过source code-&gt;byte code-&gt;Run on JVM这样的流程，即源码-&gt;字节码-&gt;虚拟机运行</p>
+<h2 id="Java程序的基本结构"><a href="#Java程序的基本结构" class="headerlink" title="Java程序的基本结构"></a>Java程序的基本结构</h2><p>作为面向对象的语言，Java程序的基本单位是类，类名必须以英文字母开头，有字母，下划线，数字组成，一般以大写字母开头</p>
+<p>在上面的代码中可以看到定义类时有一个public关键字，这是访问修饰符，public即该类是公开的</p>
+<p>在类的内部可以定义方法，如上面的main，也有访问修饰符，方法命名与类相同，但一般以小写字母开头</p>
+<h2 id="Java中的变量以及数据类型"><a href="#Java中的变量以及数据类型" class="headerlink" title="Java中的变量以及数据类型"></a>Java中的变量以及数据类型</h2><h3 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h3><p>基本类型直接储存在栈内存中，他们的值是实际的数据</p>
+<ul>
+<li>整型：byte，short，int，long</li>
+<li>浮点数类型：float，double</li>
+<li>字符：char</li>
+<li>布尔：boolean</li>
+</ul>
+<p>其中，byte占一个字节，short和char两个，int和float四个，long和double八个</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//整型定义</span></span><br><span class="line"><span class="type">int</span> <span class="variable">i3</span> <span class="operator">=</span> <span class="number">2_000_000_000</span>; <span class="comment">// 加下划线更容易识别</span></span><br><span class="line"><span class="type">long</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">9000000000000000000L</span>; <span class="comment">// long型的结尾需要加L</span></span><br><span class="line"><span class="type">long</span> <span class="variable">n2</span> <span class="operator">=</span> <span class="number">900</span>; <span class="comment">// 没有加L，此处900为int，但int类型可以赋值给long</span></span><br><span class="line"><span class="type">int</span> <span class="variable">i6</span> <span class="operator">=</span> <span class="number">900L</span>; <span class="comment">// 错误：不能把long型赋值给int</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//浮点数定义</span></span><br><span class="line"><span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">1.79e308</span>;<span class="comment">//double末尾不加f</span></span><br><span class="line"><span class="type">float</span> <span class="variable">f1</span> <span class="operator">=</span> <span class="number">3.14f</span>;<span class="comment">//float需要加f</span></span><br><span class="line"><span class="type">float</span> <span class="variable">f2</span> <span class="operator">=</span> <span class="number">3.14e38f</span>; <span class="comment">// 科学计数法表示的3.14x10^38</span></span><br><span class="line"><span class="type">float</span> <span class="variable">f3</span> <span class="operator">=</span> <span class="number">1.0</span>; <span class="comment">// 错误：double类型不能赋值给float</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//字符类型定义</span></span><br><span class="line"><span class="type">char</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&#x27;n&#x27;</span><span class="comment">//使用单引号，字符串使用双引号</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><p>引用类型储存在堆内存中，实际上储存的是地址</p>
+<p>除去基本类型外其他的都是引用类型，最常见的就是String</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;n1ng&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>定义变量时如果加上final修饰符就变成了常量，而常量在定义时进行初始化后就不可以再次赋值</p>
+<h3 id="var关键字"><a href="#var关键字" class="headerlink" title="var关键字"></a>var关键字</h3><p>在定义变量的时候如果类型的名字很长，可以用var关键字来省略变量类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">var</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h3><h4 id="整数和浮点运算：略"><a href="#整数和浮点运算：略" class="headerlink" title="整数和浮点运算：略"></a>整数和浮点运算：略</h4><h4 id="布尔运算"><a href="#布尔运算" class="headerlink" title="布尔运算"></a>布尔运算</h4><p>关系运算符的优先级</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">！</span><br><span class="line">&gt; , &gt;= , &lt; , &lt;=</span><br><span class="line">== , !=</span><br><span class="line">&amp;&amp;</span><br><span class="line">||</span><br></pre></td></tr></table></figure>
+
+<p>三元运算符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b?x:y</span><br><span class="line">即如果b则返回x，否则返回y</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符和字符串"><a href="#字符和字符串" class="headerlink" title="字符和字符串"></a>字符和字符串</h3><p>Java在内存中使用unicode来表示字符，不论是英文还是中文都是一个char</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以直接将char赋值给int，值为unicode编码</span></span><br><span class="line"><span class="type">int</span> <span class="variable">a1</span> <span class="operator">=</span> <span class="string">&#x27;A&#x27;</span>;<span class="comment">//此时a1的值为&#x27;A&#x27;的unicode编码</span></span><br><span class="line"><span class="type">int</span> <span class="variable">a2</span> <span class="operator">=</span> <span class="string">&#x27;啊&#x27;</span>;<span class="comment">//此时a2的值为&#x27;啊&#x27;的unicode编码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//也可以通过转义字符&#x27;\u&#x27;+unicode编码来表示一个字符</span></span><br><span class="line"><span class="type">char</span> <span class="variable">b1</span> <span class="operator">=</span> <span class="string">&#x27;\u0041&#x27;</span>;<span class="comment">//即0x41，表示&#x27;A&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>前面提到String类型需要用双引号来包裹，如果字符串中本来就含有双引号那么就需要用转义字符”\“来表示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">c1</span> <span class="operator">=</span> <span class="string">&quot;n1ng\&quot;n2ng&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>因为“\”是转义字符，所以两个“\”，即\表示\，常见的转义字符有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\n，换行</span><br><span class="line">\r，回车</span><br><span class="line">\u####，unicode编码的字符</span><br></pre></td></tr></table></figure>
+
+<p>字符串的连接可以用+号直接连接，数据类型会自动转化，多行字符串连接时可以用”””…”””来表示（Text Blocks），如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">	select * from</span></span><br><span class="line"><span class="string">	 users </span></span><br><span class="line"><span class="string">	where id &gt; 100 </span></span><br><span class="line"><span class="string">	order by name</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>多行字符串的每行之前的共同的空格会被删掉，末尾其实还有一个\n，如果不需要就把最后的三个引号紧跟着最后的字符</p>
+<p>字符串一个不可变的类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        System.out.println(s); <span class="comment">// 显示 hello</span></span><br><span class="line">        s = <span class="string">&quot;world&quot;</span>;</span><br><span class="line">        System.out.println(s); <span class="comment">// 显示 world</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码运行后可以发现，虽然两次输出的s是不同的，但其实并不是hello被修改成了world，而是重新创建了一个字符串hello，然后再使s指向hello</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">t</span> <span class="operator">=</span> s;</span><br><span class="line">        s = <span class="string">&quot;world&quot;</span>;</span><br><span class="line">        System.out.println(t); <span class="comment">// t是&quot;hello&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过这个例子就能发现”hello”其实并没有被修改</p>
+<p>需要注意的是，想要比较字符串是否相同时需要用equals方法而不能用&#x3D;&#x3D;</p>
+<p>常用的方法有：</p>
+<ul>
+<li>splilt()，分割字符串</li>
+<li>join()，拼接字符串</li>
+<li>format()静态方法和formatted()方法，传入参数替换占位符生成新的字符串&#x2F;&#x2F;String s &#x3D;”Hello %s”;s.formatted(“n1ng”);String.format(s,”n1ng”)</li>
+<li>valueOf()，将其他类型转换为字符串，String.valueOf(123)</li>
+<li>parsexxx()，将字符串转换为其他类型，如parseInt(),parseBoolean()</li>
+<li>toCharArray()，String转换为char[]&#x2F;&#x2F;char[] n1ng &#x3D; “n1ng”.toCharArray();String s &#x3D; new String(n1ng);</li>
+</ul>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>数组也是引用类型</p>
+<p>实际上字符串在String内部是通过char[]数组表示的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//定义</span><br><span class="line">int[] d1 = new int [5];//默认初始为0，布尔类型则为false</span><br><span class="line"></span><br><span class="line">int[] d2 = new int[] &#123;1,2,3,4,5&#125;;</span><br><span class="line"></span><br><span class="line">int [] d3 = &#123;1,2,3,4,5&#125;;</span><br><span class="line"></span><br><span class="line">String[] e1 = &#123;&quot;abc&quot;,&quot;def&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>字符串数组中存储的是每个字符串的地址</p>
+<h2 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h2><p>StringBuilder是一个可变对象，可以预分配缓冲区，在往StringBuilder中添加字符时不会再像普通的String那样创建新的临时对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="number">1024</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; <span class="number">100</span>; i++)&#123;</span><br><span class="line">	sb.append(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">	sb.append(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">100</span>; i++)&#123;</span><br><span class="line">    sb.append(<span class="string">&quot;,&quot;</span>).append(i);<span class="comment">//也可以进行链式操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> sb.toString();</span><br></pre></td></tr></table></figure>
+
+<h2 id="StringJoiner"><a href="#StringJoiner" class="headerlink" title="StringJoiner"></a>StringJoiner</h2><p>方便实现使用分隔符拼接数组这里需求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String[] names = &#123;<span class="string">&quot;n1ng&quot;</span>,<span class="string">&quot;n2ng&quot;</span>,<span class="string">&quot;n3ng&quot;</span>&#125;;</span><br><span class="line"><span class="type">StringJoiner</span> <span class="variable">sj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringJoiner</span>(<span class="string">&quot;, &quot;</span>,<span class="string">&quot;Hello &quot;</span>, <span class="string">&quot;!&quot;</span>);<span class="comment">//以&quot;, &quot;为分隔符，开头为&quot;Hello &quot;,结尾为&quot;!&quot;</span></span><br><span class="line"><span class="keyword">for</span>(String name : names)&#123;</span><br><span class="line">	sj.add(name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> sj.toString();</span><br></pre></td></tr></table></figure>
+
+<p>同时也提供了一个静态方法join()，在不需要指定开头和结尾的情况下更加方便</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] names = &#123;<span class="string">&quot;n1ng&quot;</span>,<span class="string">&quot;n2ng&quot;</span>,<span class="string">&quot;n3ng&quot;</span>&#125;;</span><br><span class="line"><span class="type">var</span> <span class="variable">s</span> <span class="operator">=</span> String.join(<span class="string">&quot;,&quot;</span>,names);</span><br></pre></td></tr></table></figure>
+
+<h2 id="包装类型"><a href="#包装类型" class="headerlink" title="包装类型"></a>包装类型</h2><p>定义一个包装类可以将基本类型变为引用类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Interger</span>&#123;<span class="comment">//将int包装为Integer</span></span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> value;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Integer</span><span class="params">(<span class="type">int</span> value)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.value = value;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">intValue</span><span class="params">()</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时int和Interger可以相互转换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer n1 = null;</span><br><span class="line">Integer n2 = new Integer(100);</span><br><span class="line">int n3 = n2.intValue();</span><br></pre></td></tr></table></figure>
+
+<p>Java核心库为每种基本类型都提供了对应的包装类型</p>
+<table>
+<thead>
+<tr>
+<th align="left">基本类型</th>
+<th align="left">对应的引用类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">boolean</td>
+<td align="left">java.lang.Boolean</td>
+</tr>
+<tr>
+<td align="left">byte</td>
+<td align="left">java.lang.Byte</td>
+</tr>
+<tr>
+<td align="left">short</td>
+<td align="left">java.lang.Short</td>
+</tr>
+<tr>
+<td align="left">int</td>
+<td align="left">java.lang.Integer</td>
+</tr>
+<tr>
+<td align="left">long</td>
+<td align="left">java.lang.Long</td>
+</tr>
+<tr>
+<td align="left">float</td>
+<td align="left">java.lang.Float</td>
+</tr>
+<tr>
+<td align="left">double</td>
+<td align="left">java.lang.Double</td>
+</tr>
+<tr>
+<td align="left">char</td>
+<td align="left">java.lang.Character</td>
+</tr>
+</tbody></table>
+<h2 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h2><p>让编译期能够自动检查某个值在枚举的集合内，可以使用enum来定义枚举类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">enum WeekDay()&#123;</span><br><span class="line">	SUN,MON,TUE,WED,THU,FRI,SAT;//WeekDay.SUN这样调用即可</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/2024/05/25/%E5%8F%8D%E5%B0%84/" class="next-post btn btn-default" title='反射'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            反射</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='shenliyang/snippet-comment'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                    <canvas id="canvas" width="1440" height="900" ></canvas>
+                    <script type="text/javascript" src="/js/DigitalRain.js"></script>
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-text">Java程序的基本结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%E4%BB%A5%E5%8F%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">Java中的变量以及数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="toc-text">基本类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">引用类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#var%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">var关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97"><span class="toc-text">运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E5%92%8C%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%EF%BC%9A%E7%95%A5"><span class="toc-text">整数和浮点运算：略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97"><span class="toc-text">布尔运算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">字符和字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-text">数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#StringBuilder"><span class="toc-text">StringBuilder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#StringJoiner"><span class="toc-text">StringJoiner</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B"><span class="toc-text">包装类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB"><span class="toc-text">枚举类</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

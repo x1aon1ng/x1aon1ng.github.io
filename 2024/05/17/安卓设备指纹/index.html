@@ -22,9 +22,9 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="ACTF新生赛
-
- 拖进exeinfope先查壳，发现upx的壳，先脱壳  再用32位ida打开 shift+F12查看字符串，发现可疑字符串“you are correcr!”,跟进查看伪代码..." />
+<meta name="description" content="通过采集手机的某些字段，从而实现得到设备的唯一的标识
+设备指纹主要分为三部分，Java层设备指纹，Native设备指纹，popen执行一些命令获取设备信息，包括一些核心的设备指纹
+IPC代理An..." />
 
 
 <meta name="robots" content="all" />
@@ -35,7 +35,7 @@
 
 <title>
     
-    ACTF2020ezre |
+    安卓设备指纹 |
     
     n1ng&#39;s blog
 </title>
@@ -142,16 +142,16 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="ACTF2020ezre">
+        <h1 id="安卓设备指纹">
             
-            ACTF2020ezre
+            安卓设备指纹
             
         </h1>
         <div class="post-meta">
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a class="category-link" href="/categories/BUU/">BUU</a>
+        <a class="category-link" href="/categories/Android/">Android</a>
     </span>
     
     
@@ -167,25 +167,37 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2023/06/23</span>
+            2024/05/17</span>
     </span>
     
     
 </div>
         
         
-        <p class="fa fa-exclamation-triangle warning">
-            本文于<strong>
-                336</strong>
-            天之前发表，文中内容可能已经过时。
-        </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <p>ACTF新生赛</p>
-<span id="more"></span>
-<p><img src="p1.png" alt="p1"><br> 拖进exeinfope先查壳，发现upx的壳，先脱壳<br><br> <img src="p2.png" alt="p2"><br> 再用32位ida打开<br> shift+F12查看字符串，发现可疑字符串“you are correcr!”,跟进查看伪代码，<br><br> <img src="p3.png" alt="p3"><br> 找到”you are correct!”，往上看，是一个循环，很有可能就是flag，这个循环是在判断v4的值和_data_start_是否相等，全都相等则输出”you are correct!”,根据这个写脚本<br><br> <img src="p4.png" alt="p4"><br> 得到flag<br><br> <img src="p5.png" alt="p5"></p>
+        <p>通过采集手机的某些字段，从而实现得到设备的唯一的标识</p>
+<p>设备指纹主要分为三部分，Java层设备指纹，Native设备指纹，popen执行一些命令获取设备信息，包括一些核心的设备指纹</p>
+<h2 id="IPC代理"><a href="#IPC代理" class="headerlink" title="IPC代理"></a>IPC代理</h2><p>Android是基础的cs架构（客户端和服务端），Android有context用来调用各种安卓本身提供的基础api（如PackageManager，ActivityManager等），这些Manager都有一个代理人，当调用这个Manager里的一些api时，对于简单的api可以直接在本进程实现，如果是复杂的字段（如查询系统信息，调用系统关键函数），他就需要调用”IPC代理人“，他是向服务端通讯的关键，通讯的内容就是对应的IPC协议（通过底层的共享内存Binder传递）</p>
+<h2 id="Java层设备指纹"><a href="#Java层设备指纹" class="headerlink" title="Java层设备指纹"></a>Java层设备指纹</h2><h3 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h3><p>最常用的就是获取android id（在设备首次启动时会随机生成一个64位数字，并以16进制字符串的形式保存，但是恢复出厂设置或者刷机等，即wipe之后会重置）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Settings.Secure.getString(context.getContentResolver(),Settings.Secure.ANDROID_ID)</span><br></pre></td></tr></table></figure>
+
+<p>在Global中还有一些比较隐蔽的设备指纹（Settings.Global存放了一些全局变量，Settings.Secure放了一些与安全相关）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Settings.Global.getString(context.getContentResolver(),&quot;mi_helth_id&quot;)//还有&quot;gcbooster_uuid&quot;,&quot;key_mqs_uuid&quot;,&quot;ad_aaid&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="修改测试"><a href="#修改测试" class="headerlink" title="修改测试"></a>修改测试</h3><h4 id="hook"><a href="#hook" class="headerlink" title="hook"></a>hook</h4><p>Global和Secure都是实现的NameValueTable接口，底层调用的是getStringForUser(resolver,name,resolver.getUserId())，可以hook这个方法</p>
+<h4 id="内存反射"><a href="#内存反射" class="headerlink" title="内存反射"></a>内存反射</h4><p>查看getStringForUser方法可以发现整体的cache放在sNameValueCache变量和MOVED_TO_GLOBAL变量内部存储</p>
+<p>可以反射MOVED_TO_GLOBAL（HashSet类型）或sNameValueCache（高版本为对象，低版本为ArrayMap）去获取值，只要绕过反射限制后就能通过反射变量的方法去获取。sNameValueCache的修改则可以调用putStringForUser这个api</p>
+<h2 id="蓝牙网卡MAC"><a href="#蓝牙网卡MAC" class="headerlink" title="蓝牙网卡MAC"></a>蓝牙网卡MAC</h2><h3 id="获取-1"><a href="#获取-1" class="headerlink" title="获取"></a>获取</h3><p>通过BluetoothAdapter的getAddress方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getAddress</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> mManagerService.getAddress(mAttributionSource);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">            Log.e(TAG, <span class="string">&quot;&quot;</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改测试-1"><a href="#修改测试-1" class="headerlink" title="修改测试"></a>修改测试</h3><p>获取的方法主要通过IPC的代理类方式获取，所以可以先去hook代理的IPC类 </p>
+<h2 id="serial（序列号）"><a href="#serial（序列号）" class="headerlink" title="serial（序列号）"></a>serial（序列号）</h2><h3 id="获取-2"><a href="#获取-2" class="headerlink" title="获取"></a>获取</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(Build.VERSION.SDK_INT &gt;= Build.VERSION_CONDES.O)&#123;</span><br><span class="line">	return Build.getSerial();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><p>也可以直接对IPC类进行处理，Hook getSerialForPackage方法即可</p>
 
     </div>
     
@@ -204,17 +216,17 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/2023/07/03/wusctf2020level3/" class="pre-post btn btn-default" title='wusctf2020level3'>
+    <a href="/2024/05/17/hook%E6%A3%80%E6%B5%8B/" class="pre-post btn btn-default" title='hook检测'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            wusctf2020level3</span>
+            hook检测</span>
     </a>
     
     
-    <a href="/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/" class="next-post btn btn-default" title='相册'>
+    <a href="/2024/05/16/Android%20Framework/" class="next-post btn btn-default" title='Android Framework'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            相册</span><i class="fa fa-angle-right fa-fw"></i>
+            Android Framework</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -250,7 +262,7 @@
             Table of Contents
         </h3>
         
-        <p>暂无目录</p>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IPC%E4%BB%A3%E7%90%86"><span class="toc-text">IPC代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E5%B1%82%E8%AE%BE%E5%A4%87%E6%8C%87%E7%BA%B9"><span class="toc-text">Java层设备指纹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96"><span class="toc-text">获取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%B5%8B%E8%AF%95"><span class="toc-text">修改测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hook"><span class="toc-text">hook</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%8F%8D%E5%B0%84"><span class="toc-text">内存反射</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%93%9D%E7%89%99%E7%BD%91%E5%8D%A1MAC"><span class="toc-text">蓝牙网卡MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96-1"><span class="toc-text">获取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%B5%8B%E8%AF%95-1"><span class="toc-text">修改测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#serial%EF%BC%88%E5%BA%8F%E5%88%97%E5%8F%B7%EF%BC%89"><span class="toc-text">serial（序列号）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96-2"><span class="toc-text">获取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9"><span class="toc-text">修改</span></a></li></ol></li></ol>
         
     </div>
 </aside>
