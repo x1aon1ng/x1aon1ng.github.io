@@ -1,180 +1,751 @@
-<!DOCTYPE HTML>
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <!--Setting-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta http-equiv="Cache-Control" content="no-siteapp">
-    <meta http-equiv="Cache-Control" content="no-transform">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="n1ng&#39;s blog">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="browsermode" content="application">
-    <meta name="screen-orientation" content="portrait">
-    <meta name="theme-version" content="1.3.0">
-    <meta name="root" content="/">
-    <link rel="dns-prefetch" href="http://example.com">
-    <!--SEO-->
-
-<meta name="keywords" content="" />
+  <meta charset="utf-8">
+  <title>Activity | n1ng&#39;s blog</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="Activity | n1ng&#39;s blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://example.com/categories/index.html">
+<meta property="og:site_name" content="n1ng&#39;s blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-03-14T07:09:42.000Z">
+<meta property="article:modified_time" content="2024-03-14T07:10:58.909Z">
+<meta property="article:author" content="n1ng">
+<meta name="twitter:card" content="summary">
 
 
-<meta name="description" content="生命周期生命周期状态Activity的生命周期是指一个Activity从启动到销毁的过程，包括五个状态：启动状态，运行状态，暂停状态，停止状态，销毁状态，其中启动和销毁是过渡状态，Activit..." />
+<link rel="icon" href="/img/avatar.jpg">
 
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
 
-<meta name="robots" content="all" />
-<meta name="google" content="all" />
-<meta name="googlebot" content="all" />
-<meta name="verify" content="all" />
-    <!--Title-->
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
 
-<title>
-    
-    Activity |
-    
-    n1ng&#39;s blog
-</title>
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
 
-<link rel="alternate" href="/atom.xml" title="n1ng&#39;s blog" type="application/atom+xml">
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
 
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
 
-<link rel="icon" href="/favicon.ico">
-
-    
-
-
-<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
-<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
-<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
-
-    
-<div class="hide">
-    <script type="text/javascript">
-    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-</div>
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
 
 
 
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
 
-    
+<script src="/js/iconfont.js?v=1.1.0" ></script>
 
 <meta name="generator" content="Hexo 6.3.0"></head>
-<!--[if lte IE 8]>
-<style>
-    html{ font-size: 1em }
-</style>
-<![endif]-->
-<!--[if lte IE 9]>
-<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
-<![endif]-->
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
 <body>
-    <header class="main-header"  style="background-image:url(
-    https://hexo-theme-snippet-1251680922.cos.ap-beijing.myqcloud.com/img/banner.jpg)"
-     >
-    <div class="main-header-box">
-        <a class="header-avatar" href="/" title='n1ng'>
-            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
-        </a>
-        <div class="branding">
-            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
-            
-            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
-            
-        </div>
-    </div>
-</header>
-    <nav class="main-navigation">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
-                        <span class="sr-only"></span>
-                        <i class="fa fa-bars"></i>
-                    </span>
-                    <a class="navbar-brand" href="http://example.com">
-                        n1ng&#39;s blog</a>
-                </div>
-                <div class="collapse navbar-collapse" id="main-menu">
-                    <ul class="menu">
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/"><i class="fa "></i>
-                                Home</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/categories/Develop/"><i class="fa "></i>
-                                Develop</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/categories/Android/"><i class="fa "></i>
-                                Android</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/categories/BUU/"><i class="fa "></i>
-                                BUU</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
-                            <a href="/archives/"><i class="fa "></i>
-                                时间轴</a>
-                        </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-    <section class="content-wrap">
-        <div class="container">
-            <div class="row">
-                <main class="col-md-8 main-content m-post">
-                    <p id="process"></p>
-<article class="post">
-    <div class="post-head">
-        <h1 id="Activity">
-            
-            Activity
-            
-        </h1>
-        <div class="post-meta">
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>n1ng</span>
+</div>
+
+<div class="icon">
     
-    <span class="categories-meta fa-wrap">
-        <i class="fa fa-folder-open-o"></i>
-        <a class="category-link" href="/categories/Develop/">Develop</a>
-    </span>
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
     
+        
+            <a title="github"
+               href="https://github.com/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
     
-    <span class="fa-wrap">
-        <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-        </span>
-    </span>
+        
+            <a title="facebook"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-facebook"></use>
+                    </svg>
+                
+            </a>
+        
     
+        
     
+        
     
-    <span class="fa-wrap">
-        <i class="fa fa-clock-o"></i>
-        <span class="date-meta">
-            2024/03/14</span>
-    </span>
+        
+            <a title="instagram"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-instagram"></use>
+                    </svg>
+                
+            </a>
+        
     
+        
+            <a title="reddit"
+               href="https://www.reddit.com/user/yelog/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-reddit"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="weibo"
+               href="http://weibo.com/u/2307534817"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-weibo"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="jianshu"
+               href="https://www.jianshu.com/u/ff56736de7cf"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-jianshu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="zhihu"
+               href="https://www.zhihu.com/people/jaytp/activities"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-zhihu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="oschina"
+               href="https://my.oschina.net/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-oschina"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:jaytp@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=872336115&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="kugou"
+               href="https://www.kugou.com/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-kugou"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=88151013"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
     
 </div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(34)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="Android">
+            
+            Android
+            <small>(6)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="BUU">
+            
+            BUU
+            <small>(14)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="Develop">
+            
+            Develop
+            <small>(10)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+            <a class="about  hasFriend  site_url"
+               
+               href="/about">About</a>
+        
+        <a style="width: 50%"
+                
+                                           class="friends">Friends</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="34">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="search shortcut key i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="switch to outline view shortcut key w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="return"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="case sensitive"></i>
+            <i class="iconfont icon-tag" data-title="label"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">outline</div>
+            <i class="iconfont icon-list" data-title="switch to article list"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/Java-Basic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Java_Basic">Java_Basic</span>
+            <span class="post-date" title="2024-05-25 11:47:15">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E5%8F%8D%E5%B0%84/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2024-05-25 11:42:16">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/Java%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Java流程控制">Java流程控制</span>
+            <span class="post-date" title="2024-05-25 11:42:01">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2024-05-25 11:41:47">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E9%80%9A%E8%AE%AF%E5%BD%95/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="通讯录">通讯录</span>
+            <span class="post-date" title="2024-05-25 11:38:50">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2024/05/17/hook%E6%A3%80%E6%B5%8B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="hook检测">hook检测</span>
+            <span class="post-date" title="2024-05-17 22:21:24">2024/05/17</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/17/%E5%AE%89%E5%8D%93%E8%AE%BE%E5%A4%87%E6%8C%87%E7%BA%B9/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安卓设备指纹">安卓设备指纹</span>
+            <span class="post-date" title="2024-05-17 19:37:00">2024/05/17</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/16/Android%20Framework/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android Framework">Android Framework</span>
+            <span class="post-date" title="2024-05-16 08:49:02">2024/05/16</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/16/Xposed%E5%8E%9F%E7%90%86/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Xposed原理">Xposed原理</span>
+            <span class="post-date" title="2024-05-16 08:27:38">2024/05/16</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2024/03/17/%E5%AE%89%E6%B4%B5%E6%9D%AF2023%E5%A4%8D%E7%8E%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安洵杯2023复现">安洵杯2023复现</span>
+            <span class="post-date" title="2024-03-17 20:11:42">2024/03/17</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/RadoiButton/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="RadoiButton">RadoiButton</span>
+            <span class="post-date" title="2024-03-14 19:05:45">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Imageview/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Imageview">Imageview</span>
+            <span class="post-date" title="2024-03-14 19:05:30">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Dialog/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Dialog">Dialog</span>
+            <span class="post-date" title="2024-03-14 19:05:06">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Basic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Basic">Basic</span>
+            <span class="post-date" title="2024-03-14 19:04:52">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Activity/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Activity">Activity</span>
+            <span class="post-date" title="2024-03-14 19:04:35">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/Xposed%E4%BD%BF%E7%94%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Xposed使用">Xposed使用</span>
+            <span class="post-date" title="2024-03-14 18:57:35">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/dodonew%E7%99%BB%E5%BD%95%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="dodonew登录算法逆向">dodonew登录算法逆向</span>
+            <span class="post-date" title="2024-03-14 18:54:57">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/GreekToMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GreekToMe">GreekToMe</span>
+            <span class="post-date" title="2024-03-14 18:44:40">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/Whoishe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Whoishe">Whoishe</span>
+            <span class="post-date" title="2024-03-14 18:44:03">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/DigtheWay/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="DigtheWay">DigtheWay</span>
+            <span class="post-date" title="2024-03-14 18:43:50">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/easistRe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="easistRe">easistRe</span>
+            <span class="post-date" title="2024-03-14 18:43:20">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/DontEatMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="DontEatMe">DontEatMe</span>
+            <span class="post-date" title="2024-03-14 18:42:28">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/Frida/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Frida">Frida</span>
+            <span class="post-date" title="2024-03-14 15:16:49">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2023/09/03/string/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="string">string</span>
+            <span class="post-date" title="2023-09-03 15:40:16">2023/09/03</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/09/01/snake/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="snake">snake</span>
+            <span class="post-date" title="2023-09-01 14:36:53">2023/09/01</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/15/re3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="re3">re3</span>
+            <span class="post-date" title="2023-08-15 16:47:59">2023/08/15</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/10/findkey/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="findkey">findkey</span>
+            <span class="post-date" title="2023-08-10 16:02:28">2023/08/10</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/09/num-game/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="num_game">num_game</span>
+            <span class="post-date" title="2023-08-09 16:02:08">2023/08/09</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/14/xxor/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="xxor">xxor</span>
+            <span class="post-date" title="2023-07-14 23:27:19">2023/07/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/12/IgniteMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="IgniteMe">IgniteMe</span>
+            <span class="post-date" title="2023-07-12 21:58:02">2023/07/12</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/03/wusctf2020level3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="wusctf2020level3">wusctf2020level3</span>
+            <span class="post-date" title="2023-07-03 16:50:17">2023/07/03</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/06/23/ACTF2020ezre/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ACTF2020ezre">ACTF2020ezre</span>
+            <span class="post-date" title="2023-06-23 21:53:08">2023/06/23</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="相册">相册</span>
+            <span class="post-date" title="2023-06-23 21:22:45">2023/06/23</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2023/06/20/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Here&#39;s n1ng&#39;s blog">Here&#39;s n1ng&#39;s blog</span>
+            <span class="post-date" title="2023-06-20 22:14:51">2023/06/20</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="Toggle full screen shortcut key s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-Activity" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Activity</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Develop">Develop</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-03-14 19:17:44'>2024-03-14 19:04</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
         
         
     </div>
     
-    <div class="post-body post-content">
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%8A%B6%E6%80%81"><span class="toc-text">生命周期状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%96%B9%E6%B3%95"><span class="toc-text">生命周期方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#onCreate-%E6%96%B9%E6%B3%95"><span class="toc-text">onCreate()方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onStart%E6%96%B9%E6%B3%95"><span class="toc-text">onStart方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onResume%E6%96%B9%E6%B3%95"><span class="toc-text">onResume方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onPause%E6%96%B9%E6%B3%95"><span class="toc-text">onPause方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onStop%E6%96%B9%E6%B3%95"><span class="toc-text">onStop方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onDestroy"><span class="toc-text">onDestroy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onRestart"><span class="toc-text">onRestart</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">启动模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-standard"><span class="toc-text">1.standard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-singleTop"><span class="toc-text">2.singleTop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-singleTask"><span class="toc-text">3.singleTask</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-singleInstance"><span class="toc-text">4.singleInstance</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity%E7%9A%84%E8%B7%B3%E8%BD%AC"><span class="toc-text">Activity的跳转</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%98%BE%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="toc-text">1.显示意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%9A%90%E5%BC%8F%E6%84%8F%E5%9B%BE"><span class="toc-text">2.隐式意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83%EF%BC%88%E6%89%93%E5%BC%80%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%89"><span class="toc-text">实战演练（打开浏览器）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="toc-text">数据传递</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
         <h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><h2 id="生命周期状态"><a href="#生命周期状态" class="headerlink" title="生命周期状态"></a>生命周期状态</h2><p>Activity的生命周期是指一个Activity从启动到销毁的过程，包括五个状态：<strong>启动状态，运行状态，暂停状态，停止状态，销毁状态</strong>，其中启动和销毁是过渡状态，Activity不会在这两个状态停止</p>
 <p><img src="Note\Android\pic\20180613172450735.png" alt="20180613172450735"></p>
 <h2 id="生命周期方法"><a href="#生命周期方法" class="headerlink" title="生命周期方法"></a>生命周期方法</h2><h3 id="onCreate-方法"><a href="#onCreate-方法" class="headerlink" title="onCreate()方法"></a>onCreate()方法</h3><p>在Activity创建时调用，通常做一些初始化的设置</p>
@@ -232,114 +803,194 @@
 
 <p>先通过getIntent方法获取Intent对象，再调用geiStringExtra方法根据传入的键值取出相应的数据，根据数据类型采用不同的方法，这里是字符串，因此用getStringExtra()方法</p>
 
-    </div>
-    
-    <div class="post-footer">
-        <div>
-            
-            转载声明：
-            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
-            
-            
-        </div>
-        <div>
-            
-        </div>
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
     </div>
 </article>
-<div class="article-nav prev-next-wrap clearfix">
-    
-    <a href="/2024/03/14/Basic/" class="pre-post btn btn-default" title='Basic'>
-        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-        <span class="hidden-xs">
-            Basic</span>
-    </a>
-    
-    
-    <a href="/2024/03/14/Xposed%E4%BD%BF%E7%94%A8/" class="next-post btn btn-default" title='Xposed使用'>
-        <span class="hidden-lg">下一篇</span>
-        <span class="hidden-xs">
-            Xposed使用</span><i class="fa fa-angle-right fa-fw"></i>
-    </a>
-    
-</div>
 
-<div id="comments">
-    
-    
-<div class="utteranc">
-  
-  <script
-    src='https://utteranc.es/client.js'
-    repo='shenliyang/snippet-comment'
-    issue-term='pathname'
-    issue-number=''
-    theme='github-light'
-    label=''
-    crossorigin='anonymous'
-    async
-  ></script>
-</div>
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">💰</a>
+</p>
 
 
 
-</div>
 
-                    <canvas id="canvas" width="1440" height="900" ></canvas>
-                    <script type="text/javascript" src="/js/DigitalRain.js"></script>
-                </main>
-                
-                    <aside id="article-toc" role="navigation" class="col-md-4">
-    <div class="widget">
-        <h3 class="title">
-            Table of Contents
-        </h3>
-        
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%8A%B6%E6%80%81"><span class="toc-text">生命周期状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%96%B9%E6%B3%95"><span class="toc-text">生命周期方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#onCreate-%E6%96%B9%E6%B3%95"><span class="toc-text">onCreate()方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onStart%E6%96%B9%E6%B3%95"><span class="toc-text">onStart方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onResume%E6%96%B9%E6%B3%95"><span class="toc-text">onResume方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onPause%E6%96%B9%E6%B3%95"><span class="toc-text">onPause方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onStop%E6%96%B9%E6%B3%95"><span class="toc-text">onStop方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onDestroy"><span class="toc-text">onDestroy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onRestart"><span class="toc-text">onRestart</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">启动模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-standard"><span class="toc-text">1.standard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-singleTop"><span class="toc-text">2.singleTop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-singleTask"><span class="toc-text">3.singleTask</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-singleInstance"><span class="toc-text">4.singleInstance</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Activity%E7%9A%84%E8%B7%B3%E8%BD%AC"><span class="toc-text">Activity的跳转</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%98%BE%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="toc-text">1.显示意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%9A%90%E5%BC%8F%E6%84%8F%E5%9B%BE"><span class="toc-text">2.隐式意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83%EF%BC%88%E6%89%93%E5%BC%80%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%89"><span class="toc-text">实战演练（打开浏览器）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="toc-text">数据传递</span></a></li></ol>
-        
+
+
+    
+
+
+
+
     </div>
-</aside>
-                
-            </div>
-        </div>
-    </section>
-    <footer class="main-footer">
-    <div class="container">
-        <div class="row">
-        </div>
-    </div>
-</footer>
-<a id="back-to-top" class="icon-btn hide">
-    <i class="fa fa-chevron-up"></i>
-</a>
     <div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="busuanzi">
-    
-</div>
-            </div>
-            <div class="col-sm-12">
-                <span>Copyright &copy;
-                    2017
-                    
-                </span> |
-                <span>
-                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
-                </span> |
-                <span>
-                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
-                </span>
-            </div>
-        </div>
+        <p class="footer-entry">
+    ©2016-2020 Yelog
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="Toggle full screen shortcut key s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
     </div>
 </div>
 
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>Help us with donation</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
 
-
-
-<script src="/js/app.js?rev=@@hash.js"></script>
 
 </body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
 </html>
