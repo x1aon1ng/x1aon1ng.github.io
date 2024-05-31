@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PM代理对抗签名校验 | n1ng&#39;s blog</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="PM代理对抗签名校验 | n1ng&#39;s blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://example.com/categories/index.html">
+<meta property="og:site_name" content="n1ng&#39;s blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-03-14T07:09:42.000Z">
+<meta property="article:modified_time" content="2024-03-14T07:10:58.909Z">
+<meta property="article:author" content="n1ng">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>n1ng</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="facebook"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-facebook"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+            <a title="instagram"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-instagram"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="reddit"
+               href="https://www.reddit.com/user/yelog/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-reddit"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="weibo"
+               href="http://weibo.com/u/2307534817"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-weibo"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="jianshu"
+               href="https://www.jianshu.com/u/ff56736de7cf"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-jianshu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="zhihu"
+               href="https://www.zhihu.com/people/jaytp/activities"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-zhihu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="oschina"
+               href="https://my.oschina.net/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-oschina"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:jaytp@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=872336115&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="kugou"
+               href="https://www.kugou.com/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-kugou"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=88151013"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(37)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="Android">
+            
+            Android
+            <small>(9)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="BUU">
+            
+            BUU
+            <small>(14)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="Develop">
+            
+            Develop
+            <small>(10)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+            <a class="about  hasFriend  site_url"
+               
+               href="/about">About</a>
+        
+        <a style="width: 50%"
+                
+                                           class="friends">Friends</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="37">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="search shortcut key i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="switch to outline view shortcut key w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="return"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="case sensitive"></i>
+            <i class="iconfont icon-tag" data-title="label"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">outline</div>
+            <i class="iconfont icon-list" data-title="switch to article list"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All Android "
+           href="/2024/05/31/xhs%E8%BF%87%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="xhs过签名校验">xhs过签名校验</span>
+            <span class="post-date" title="2024-05-31 19:48:47">2024/05/31</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/31/PM%E4%BB%A3%E7%90%86%E5%AF%B9%E6%8A%97%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="PM代理对抗签名校验">PM代理对抗签名校验</span>
+            <span class="post-date" title="2024-05-31 19:48:28">2024/05/31</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/31/%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="签名校验（working...）">签名校验（working...）</span>
+            <span class="post-date" title="2024-05-31 19:47:42">2024/05/31</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/Java-Basic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Java_Basic">Java_Basic</span>
+            <span class="post-date" title="2024-05-25 11:47:15">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E5%8F%8D%E5%B0%84/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2024-05-25 11:42:16">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/Java%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Java流程控制">Java流程控制</span>
+            <span class="post-date" title="2024-05-25 11:42:01">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2024-05-25 11:41:47">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E9%80%9A%E8%AE%AF%E5%BD%95/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="通讯录">通讯录</span>
+            <span class="post-date" title="2024-05-25 11:38:50">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2024/05/17/hook%E6%A3%80%E6%B5%8B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="hook检测">hook检测</span>
+            <span class="post-date" title="2024-05-17 22:21:24">2024/05/17</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/17/%E5%AE%89%E5%8D%93%E8%AE%BE%E5%A4%87%E6%8C%87%E7%BA%B9/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安卓设备指纹">安卓设备指纹</span>
+            <span class="post-date" title="2024-05-17 19:37:00">2024/05/17</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/16/Android%20Framework/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android Framework">Android Framework</span>
+            <span class="post-date" title="2024-05-16 08:49:02">2024/05/16</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/16/Xposed%E5%8E%9F%E7%90%86/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Xposed原理">Xposed原理</span>
+            <span class="post-date" title="2024-05-16 08:27:38">2024/05/16</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2024/03/17/%E5%AE%89%E6%B4%B5%E6%9D%AF2023%E5%A4%8D%E7%8E%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安洵杯2023复现">安洵杯2023复现</span>
+            <span class="post-date" title="2024-03-17 20:11:42">2024/03/17</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/RadoiButton/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="RadoiButton">RadoiButton</span>
+            <span class="post-date" title="2024-03-14 19:05:45">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Imageview/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Imageview">Imageview</span>
+            <span class="post-date" title="2024-03-14 19:05:30">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Dialog/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Dialog">Dialog</span>
+            <span class="post-date" title="2024-03-14 19:05:06">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Basic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Basic">Basic</span>
+            <span class="post-date" title="2024-03-14 19:04:52">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Activity/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Activity">Activity</span>
+            <span class="post-date" title="2024-03-14 19:04:35">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/Xposed%E4%BD%BF%E7%94%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Xposed使用">Xposed使用</span>
+            <span class="post-date" title="2024-03-14 18:57:35">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/dodonew%E7%99%BB%E5%BD%95%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="dodonew登录算法逆向">dodonew登录算法逆向</span>
+            <span class="post-date" title="2024-03-14 18:54:57">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/GreekToMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GreekToMe">GreekToMe</span>
+            <span class="post-date" title="2024-03-14 18:44:40">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/Whoishe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Whoishe">Whoishe</span>
+            <span class="post-date" title="2024-03-14 18:44:03">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/DigtheWay/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="DigtheWay">DigtheWay</span>
+            <span class="post-date" title="2024-03-14 18:43:50">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/easistRe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="easistRe">easistRe</span>
+            <span class="post-date" title="2024-03-14 18:43:20">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/DontEatMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="DontEatMe">DontEatMe</span>
+            <span class="post-date" title="2024-03-14 18:42:28">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/Frida/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Frida">Frida</span>
+            <span class="post-date" title="2024-03-14 15:16:49">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2023/09/03/string/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="string">string</span>
+            <span class="post-date" title="2023-09-03 15:40:16">2023/09/03</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/09/01/snake/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="snake">snake</span>
+            <span class="post-date" title="2023-09-01 14:36:53">2023/09/01</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/15/re3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="re3">re3</span>
+            <span class="post-date" title="2023-08-15 16:47:59">2023/08/15</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/10/findkey/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="findkey">findkey</span>
+            <span class="post-date" title="2023-08-10 16:02:28">2023/08/10</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/09/num-game/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="num_game">num_game</span>
+            <span class="post-date" title="2023-08-09 16:02:08">2023/08/09</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/14/xxor/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="xxor">xxor</span>
+            <span class="post-date" title="2023-07-14 23:27:19">2023/07/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/12/IgniteMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="IgniteMe">IgniteMe</span>
+            <span class="post-date" title="2023-07-12 21:58:02">2023/07/12</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/03/wusctf2020level3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="wusctf2020level3">wusctf2020level3</span>
+            <span class="post-date" title="2023-07-03 16:50:17">2023/07/03</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/06/23/ACTF2020ezre/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ACTF2020ezre">ACTF2020ezre</span>
+            <span class="post-date" title="2023-06-23 21:53:08">2023/06/23</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="相册">相册</span>
+            <span class="post-date" title="2023-06-23 21:22:45">2023/06/23</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2023/06/20/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Here&#39;s n1ng&#39;s blog">Here&#39;s n1ng&#39;s blog</span>
+            <span class="post-date" title="2023-06-20 22:14:51">2023/06/20</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="Toggle full screen shortcut key s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-PM代理对抗签名校验" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">PM代理对抗签名校验</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Android">Android</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-05-31 19:55:15'>2024-05-31 19:48</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2mPM"><span class="toc-text">替换mPM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86HookPMS"><span class="toc-text">动态代理HookPMS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E8%BF%87%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C"><span class="toc-text">实战过签名校验</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">getSignature</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">PackageInfo</span> <span class="variable">packageInfo</span> <span class="operator">=</span> getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);</span><br><span class="line">            Log.i(SHARK, <span class="string">&quot;len:&quot;</span>+packageInfo.signatures.length);</span><br><span class="line">            <span class="keyword">if</span> (packageInfo.signatures != <span class="literal">null</span>) &#123;</span><br><span class="line">                Log.i(SHARK, <span class="string">&quot;sig:&quot;</span>+packageInfo.signatures[<span class="number">0</span>].toCharsString());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用PMS可以很容易的获取到apk的签名信息</p>
+<p>通过查看getPackageManager方法，我们可以发现其实是调用了mBase的getPackageManager方法，mBase是一个Context（attachBaseContext方法中引入），最终调用mBase.getPackageManager的其实是Context的子类Contextimpl，查看getPackageInfo方法可以发现，最后获得包的信息是通过mPM（IPackageManager），所以只需要将mPM替换即可</p>
+<h3 id="替换mPM"><a href="#替换mPM" class="headerlink" title="替换mPM"></a>替换mPM</h3><p>查看getPackageManager方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ActivityThread.java</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">volatile</span> IPackageManager sPackageManager;</span><br><span class="line">...</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> IPackageManager <span class="title function_">getPackageManager</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (sPackageManager != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> sPackageManager;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">IBinder</span> <span class="variable">b</span> <span class="operator">=</span> ServiceManager.getService(<span class="string">&quot;package&quot;</span>);</span><br><span class="line">        sPackageManager = IPackageManager.Stub.asInterface(b);</span><br><span class="line">        <span class="keyword">return</span> sPackageManager;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实就是返回了sPackageManager</p>
+<p>就需要用替换掉ActivityThread的静态变量sPackageManager，ApplicationPackageManager对象中的mPM变量</p>
+<h2 id="动态代理HookPMS"><a href="#动态代理HookPMS" class="headerlink" title="动态代理HookPMS"></a>动态代理HookPMS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//PmsHookBinderinvocationHandler</span></span><br><span class="line"><span class="keyword">package</span> cn.n1ng.hookpm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageInfo;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageManager;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.Signature;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PmsHookBinderInvocationHandler</span> <span class="keyword">implements</span> <span class="title class_">InvocationHandler</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Object base;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">N1</span> <span class="operator">=</span> <span class="string">&quot;n2ng&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//应用正确的签名信息</span></span><br><span class="line">    <span class="keyword">private</span> String SIGN;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">appPkgName</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PmsHookBinderInvocationHandler</span><span class="params">(Object base, String sign, String appPkgName, <span class="type">int</span> hashCode)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.base = base;</span><br><span class="line">            <span class="built_in">this</span>.SIGN = sign;</span><br><span class="line">            <span class="built_in">this</span>.appPkgName = appPkgName;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            Log.d(N1, <span class="string">&quot;error:&quot;</span>+ Log.getStackTraceString(e));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        Log.i(N1, method.getName());</span><br><span class="line">        <span class="comment">//查看是否是getPackageInfo方法</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="string">&quot;getPackageInfo&quot;</span>.equals(method.getName()))&#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">pkgName</span> <span class="operator">=</span> (String)args[<span class="number">0</span>];</span><br><span class="line">            <span class="type">Integer</span> <span class="variable">flag</span> <span class="operator">=</span> (Integer)args[<span class="number">1</span>];</span><br><span class="line">            <span class="comment">//是否是获取我们需要hook apk的签名</span></span><br><span class="line">            <span class="keyword">if</span>(flag == PackageManager.GET_SIGNATURES &amp;&amp; appPkgName.equals(pkgName))&#123;</span><br><span class="line">                <span class="comment">//将构造方法中传进来的新的签名覆盖掉原来的签名</span></span><br><span class="line">                <span class="type">Signature</span> <span class="variable">sign</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Signature</span>(SIGN);</span><br><span class="line">                <span class="type">PackageInfo</span> <span class="variable">info</span> <span class="operator">=</span> (PackageInfo) method.invoke(base, args);</span><br><span class="line">                info.signatures[<span class="number">0</span>] = sign;</span><br><span class="line">                <span class="keyword">return</span> info;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> method.invoke(base, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ServerManagerWraper</span></span><br><span class="line"><span class="keyword">package</span> cn.n1ng.hookpm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageManager;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServerManagerWraper</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">N1</span> <span class="operator">=</span> <span class="string">&quot;n2ng&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">hookPMS</span><span class="params">(Context context, String signed, String appPkgName, <span class="type">int</span> hashCode)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 获取全局的ActivityThread对象</span></span><br><span class="line">            Class&lt;?&gt; activityThreadClass = Class.forName(<span class="string">&quot;android.app.ActivityThread&quot;</span>);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">currentActivityThreadMethod</span> <span class="operator">=</span></span><br><span class="line">                    activityThreadClass.getDeclaredMethod(<span class="string">&quot;currentActivityThread&quot;</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">currentActivityThread</span> <span class="operator">=</span> currentActivityThreadMethod.invoke(<span class="literal">null</span>);</span><br><span class="line">            <span class="comment">// 获取ActivityThread里面原始的sPackageManager</span></span><br><span class="line">            <span class="type">Field</span> <span class="variable">sPackageManagerField</span> <span class="operator">=</span> activityThreadClass.getDeclaredField(<span class="string">&quot;sPackageManager&quot;</span>);</span><br><span class="line">            sPackageManagerField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">sPackageManager</span> <span class="operator">=</span> sPackageManagerField.get(currentActivityThread);</span><br><span class="line">            <span class="comment">// 准备好代理对象, 用来替换原始的对象</span></span><br><span class="line">            Class&lt;?&gt; iPackageManagerInterface = Class.forName(<span class="string">&quot;android.content.pm.IPackageManager&quot;</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">proxy</span> <span class="operator">=</span> Proxy.newProxyInstance(</span><br><span class="line">                    iPackageManagerInterface.getClassLoader(),</span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">Class</span>&lt;?&gt;[]&#123;iPackageManagerInterface&#125;,</span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">PmsHookBinderInvocationHandler</span>(sPackageManager, signed, appPkgName, <span class="number">0</span>));</span><br><span class="line">            <span class="comment">// 1. 替换掉ActivityThread里面的 sPackageManager 字段</span></span><br><span class="line">            sPackageManagerField.set(currentActivityThread, proxy);</span><br><span class="line">            <span class="comment">// 2. 替换 ApplicationPackageManager里面的 mPM对象</span></span><br><span class="line">            <span class="type">PackageManager</span> <span class="variable">pm</span> <span class="operator">=</span> context.getPackageManager();</span><br><span class="line">            <span class="type">Field</span> <span class="variable">mPmField</span> <span class="operator">=</span> pm.getClass().getDeclaredField(<span class="string">&quot;mPM&quot;</span>);</span><br><span class="line">            mPmField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">            mPmField.set(pm, proxy);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            Log.d(N1, <span class="string">&quot;hook pms error:&quot;</span> + Log.getStackTraceString(e));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">hookPMS</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">Sign</span> <span class="operator">=</span> <span class="string">&quot;111111&quot;</span>;</span><br><span class="line">        hookPMS(context, Sign, <span class="string">&quot;cn.n1ng.hookpm&quot;</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Main</span></span><br><span class="line"><span class="keyword">package</span> cn.n1ng.hookpm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.app.Application;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageInfo;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageManager;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">getSignature</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">PackageInfo</span> <span class="variable">packageInfo</span> <span class="operator">=</span> getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);</span><br><span class="line">            Log.i(<span class="string">&quot;n2ng&quot;</span>, <span class="string">&quot;len:&quot;</span>+packageInfo.signatures.length);</span><br><span class="line">            <span class="keyword">if</span> (packageInfo.signatures != <span class="literal">null</span>) &#123;</span><br><span class="line">                Log.i(<span class="string">&quot;n2ng &quot;</span>, <span class="string">&quot;sig:&quot;</span>+packageInfo.signatures[<span class="number">0</span>].toCharsString());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            Log.i(<span class="string">&quot;n2ng&quot;</span>,<span class="string">&quot;catch error&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">attachBaseContext</span><span class="params">(Context newBase)</span>&#123;</span><br><span class="line">        ServerManagerWraper.hookPMS(newBase);</span><br><span class="line">        <span class="built_in">super</span>.attachBaseContext(newBase);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        getSignature();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先看ServerManagerWraper类中的hookPMS方法，他先通过反射获取到全局的ActivityThread对象，然后通过ActivityThread的静态方法currentActivityThread获得当前的ActivityThread，然后获取ActivityThread中的初始的sPackageManager，再创建一个代理，指定实现iPackageManagerInterface接口，以及一个InvocationHandler用于处理代理对象的方法调用，这里传进去的就是PmsHookBinderInvocationHandler（实现了InvocationHandler接口），主要实现了覆盖原签名的作用，通过context.getPackageManager获得ApplicationPackageManager对象，最后将sPackageManager和mPM替换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以看到签名已经被修改</span></span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">07.797</span> <span class="number">19251</span>-<span class="number">19251</span> n2ng                    cn.n1ng.hookpm                       I  getServiceInfo</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">10.785</span> <span class="number">19251</span>-<span class="number">19251</span> n2ng                    cn.n1ng.hookpm                       I  hasSystemFeature</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">13.882</span> <span class="number">19251</span>-<span class="number">19251</span> n2ng                    cn.n1ng.hookpm                       I  getActivityInfo</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">13.943</span> <span class="number">19251</span>-<span class="number">19251</span> n2ng                    cn.n1ng.hookpm                       I  getActivityInfo</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.047</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  getPackageInfo</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.063</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  getApplicationInfo</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.159</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  notifyPackageUse</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.283</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  notifyDexLoadWithStatus</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.395</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  notifyDexLoadWithStatus</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.496</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  notifyDexLoadWithStatus</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.595</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  notifyDexLoadWithStatus</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.633</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  getPackageInfo</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.645</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  getPackageInfo</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.654</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  getApplicationInfo</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">14.724</span> <span class="number">19251</span>-<span class="number">19284</span> n2ng                    cn.n1ng.hookpm                       I  notifyPackageUse</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">17.461</span> <span class="number">19251</span>-<span class="number">19251</span> n2ng                    cn.n1ng.hookpm                       I  getPackageInfo</span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">17.471</span> <span class="number">19251</span>-<span class="number">19251</span> n2ng                    cn.n1ng.hookpm                       I  len:<span class="number">1</span></span><br><span class="line"><span class="number">2024</span>-<span class="number">05</span>-<span class="number">30</span> <span class="number">16</span>:<span class="number">21</span>:<span class="number">17.472</span> <span class="number">19251</span>-<span class="number">19251</span> n2ng                    cn.n1ng.hookpm                       I  sig:<span class="number">111111</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="实战过签名校验"><a href="#实战过签名校验" class="headerlink" title="实战过签名校验"></a>实战过签名校验</h2><p>以52pj正己安卓逆向课程的教程demo为例</p>
+<p>先将上面的hookpm编译为dex，然后放进apk包中并改名为classes3.dex</p>
+<p>接下来需要修改hookpmdex中的签名数据以及包名，先找到ServiceManagerWraper，将const string v0的值改为apk原包的十六进制签名值（可以通过np管理器的查看签名功能获取），然后修改const string v1为包名，这里是com.zj.wuaipojie，保存并退出</p>
+<p>最后还需要调用hookPMS方法，在classes.dex中搜索attachBaseContext，找到在MainApplication类下的attachBaseContext，在invoke-super步骤前添加调用hookPMS的smali代码，这样就过掉了普通的签名校验</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//调用了zhengji.Hook.ServiceManagerWraper类下的hookPMS方法</span><br><span class="line">invoke-static &#123;p1&#125;, Lzhengji/Hook/ServiceManagerWraper;-&gt;hookPMS(Landroid/content/Context;)V</span><br></pre></td></tr></table></figure>
+
+
+
+<p>参考文章</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/C559852c4878">Android PMS HOOK - 简书 (jianshu.com)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/fourbrother/HookPmsSignature">HookPmsSignature</a></li>
+</ul>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">💰</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yelog
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="Toggle full screen shortcut key s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>Help us with donation</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

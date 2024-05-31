@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>签名校验（working...） | n1ng&#39;s blog</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="签名校验（working...） | n1ng&#39;s blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://example.com/categories/index.html">
+<meta property="og:site_name" content="n1ng&#39;s blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-03-14T07:09:42.000Z">
+<meta property="article:modified_time" content="2024-03-14T07:10:58.909Z">
+<meta property="article:author" content="n1ng">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>n1ng</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="facebook"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-facebook"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+            <a title="instagram"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-instagram"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="reddit"
+               href="https://www.reddit.com/user/yelog/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-reddit"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="weibo"
+               href="http://weibo.com/u/2307534817"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-weibo"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="jianshu"
+               href="https://www.jianshu.com/u/ff56736de7cf"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-jianshu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="zhihu"
+               href="https://www.zhihu.com/people/jaytp/activities"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-zhihu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="oschina"
+               href="https://my.oschina.net/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-oschina"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:jaytp@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=872336115&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="kugou"
+               href="https://www.kugou.com/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-kugou"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=88151013"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(37)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="Android">
+            
+            Android
+            <small>(9)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="BUU">
+            
+            BUU
+            <small>(14)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="Develop">
+            
+            Develop
+            <small>(10)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+            <a class="about  hasFriend  site_url"
+               
+               href="/about">About</a>
+        
+        <a style="width: 50%"
+                
+                                           class="friends">Friends</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="37">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="search shortcut key i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="switch to outline view shortcut key w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="return"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="case sensitive"></i>
+            <i class="iconfont icon-tag" data-title="label"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">outline</div>
+            <i class="iconfont icon-list" data-title="switch to article list"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All Android "
+           href="/2024/05/31/xhs%E8%BF%87%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="xhs过签名校验">xhs过签名校验</span>
+            <span class="post-date" title="2024-05-31 19:48:47">2024/05/31</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/31/PM%E4%BB%A3%E7%90%86%E5%AF%B9%E6%8A%97%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="PM代理对抗签名校验">PM代理对抗签名校验</span>
+            <span class="post-date" title="2024-05-31 19:48:28">2024/05/31</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/31/%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="签名校验（working...）">签名校验（working...）</span>
+            <span class="post-date" title="2024-05-31 19:47:42">2024/05/31</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/Java-Basic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Java_Basic">Java_Basic</span>
+            <span class="post-date" title="2024-05-25 11:47:15">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E5%8F%8D%E5%B0%84/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2024-05-25 11:42:16">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/Java%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Java流程控制">Java流程控制</span>
+            <span class="post-date" title="2024-05-25 11:42:01">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2024-05-25 11:41:47">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E9%80%9A%E8%AE%AF%E5%BD%95/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="通讯录">通讯录</span>
+            <span class="post-date" title="2024-05-25 11:38:50">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2024/05/17/hook%E6%A3%80%E6%B5%8B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="hook检测">hook检测</span>
+            <span class="post-date" title="2024-05-17 22:21:24">2024/05/17</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/17/%E5%AE%89%E5%8D%93%E8%AE%BE%E5%A4%87%E6%8C%87%E7%BA%B9/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安卓设备指纹">安卓设备指纹</span>
+            <span class="post-date" title="2024-05-17 19:37:00">2024/05/17</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/16/Android%20Framework/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android Framework">Android Framework</span>
+            <span class="post-date" title="2024-05-16 08:49:02">2024/05/16</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/16/Xposed%E5%8E%9F%E7%90%86/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Xposed原理">Xposed原理</span>
+            <span class="post-date" title="2024-05-16 08:27:38">2024/05/16</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2024/03/17/%E5%AE%89%E6%B4%B5%E6%9D%AF2023%E5%A4%8D%E7%8E%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安洵杯2023复现">安洵杯2023复现</span>
+            <span class="post-date" title="2024-03-17 20:11:42">2024/03/17</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/RadoiButton/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="RadoiButton">RadoiButton</span>
+            <span class="post-date" title="2024-03-14 19:05:45">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Imageview/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Imageview">Imageview</span>
+            <span class="post-date" title="2024-03-14 19:05:30">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Dialog/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Dialog">Dialog</span>
+            <span class="post-date" title="2024-03-14 19:05:06">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Basic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Basic">Basic</span>
+            <span class="post-date" title="2024-03-14 19:04:52">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Activity/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Activity">Activity</span>
+            <span class="post-date" title="2024-03-14 19:04:35">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/Xposed%E4%BD%BF%E7%94%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Xposed使用">Xposed使用</span>
+            <span class="post-date" title="2024-03-14 18:57:35">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/dodonew%E7%99%BB%E5%BD%95%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="dodonew登录算法逆向">dodonew登录算法逆向</span>
+            <span class="post-date" title="2024-03-14 18:54:57">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/GreekToMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GreekToMe">GreekToMe</span>
+            <span class="post-date" title="2024-03-14 18:44:40">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/Whoishe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Whoishe">Whoishe</span>
+            <span class="post-date" title="2024-03-14 18:44:03">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/DigtheWay/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="DigtheWay">DigtheWay</span>
+            <span class="post-date" title="2024-03-14 18:43:50">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/easistRe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="easistRe">easistRe</span>
+            <span class="post-date" title="2024-03-14 18:43:20">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/DontEatMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="DontEatMe">DontEatMe</span>
+            <span class="post-date" title="2024-03-14 18:42:28">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/Frida/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Frida">Frida</span>
+            <span class="post-date" title="2024-03-14 15:16:49">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2023/09/03/string/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="string">string</span>
+            <span class="post-date" title="2023-09-03 15:40:16">2023/09/03</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/09/01/snake/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="snake">snake</span>
+            <span class="post-date" title="2023-09-01 14:36:53">2023/09/01</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/15/re3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="re3">re3</span>
+            <span class="post-date" title="2023-08-15 16:47:59">2023/08/15</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/10/findkey/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="findkey">findkey</span>
+            <span class="post-date" title="2023-08-10 16:02:28">2023/08/10</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/09/num-game/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="num_game">num_game</span>
+            <span class="post-date" title="2023-08-09 16:02:08">2023/08/09</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/14/xxor/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="xxor">xxor</span>
+            <span class="post-date" title="2023-07-14 23:27:19">2023/07/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/12/IgniteMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="IgniteMe">IgniteMe</span>
+            <span class="post-date" title="2023-07-12 21:58:02">2023/07/12</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/03/wusctf2020level3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="wusctf2020level3">wusctf2020level3</span>
+            <span class="post-date" title="2023-07-03 16:50:17">2023/07/03</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/06/23/ACTF2020ezre/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ACTF2020ezre">ACTF2020ezre</span>
+            <span class="post-date" title="2023-06-23 21:53:08">2023/06/23</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="相册">相册</span>
+            <span class="post-date" title="2023-06-23 21:22:45">2023/06/23</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2023/06/20/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Here&#39;s n1ng&#39;s blog">Here&#39;s n1ng&#39;s blog</span>
+            <span class="post-date" title="2023-06-20 22:14:51">2023/06/20</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="Toggle full screen shortcut key s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-签名校验" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">签名校验（working...）</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Android">Android</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-05-31 19:55:17'>2024-05-31 19:47</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#apk%E7%AD%BE%E5%90%8D"><span class="toc-text">apk签名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88"><span class="toc-text">签名方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C"><span class="toc-text">签名校验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C%E7%9A%84%E5%AF%B9%E6%8A%97"><span class="toc-text">签名校验的对抗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%9F%90%E4%BA%9B%E5%B7%A5%E5%85%B7"><span class="toc-text">通过某些工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HookPMS"><span class="toc-text">HookPMS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">IO重定向</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="apk签名"><a href="#apk签名" class="headerlink" title="apk签名"></a>apk签名</h2><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul>
+<li>发送者的身份认证， 由于开发商可能通过使用相同的 Package Name 来混淆替换已经安装的程序，以此保证签名不同的包不被替换</li>
+<li>保证应用的完整性，签名对于包中的每个文件进行处理，确保包中的内容不被替换</li>
+<li>应用升级校验，当应用需要升级时，系统会检查新版本的签名是否和旧版本一致</li>
+<li>权限授予，某些系统级权限的授予会基于apk的签名</li>
+</ul>
+<p>没有签名的apk会被android系统拒绝安装，同时软件包管理器也会验证apk是否被正确的签名，通过签名证书，数据摘要验证apk是否被篡改</p>
+<h3 id="签名方案"><a href="#签名方案" class="headerlink" title="签名方案"></a>签名方案</h3><ul>
+<li><p>v1，基于jar签名，v1的签名机制主要在META-INF目录下的三个文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MANIFEST.MF，摘要文件，程序遍历apk包中的所有文件，对于非文件夹非签名的文件，逐个用sha1生成摘要信息再继续base64编码</span><br><span class="line">ANDROID.SF，对摘要的签名文件，使用sha1-rsa算法，通过开发者的私钥进行签名，安装时用公钥进行解密，解密后和摘要信息MANIFEST-MF文件对比</span><br><span class="line">ANDROID.RSA，该文件保存了公钥以及采用的加密算法等信息</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>v2，Android7中引入，将apk文件视为一个bolb（二进制大对象）,并对整个文件进行签名检查，对apk的任何修改都会使apk签名作废</p>
+</li>
+<li><p>v3，Android9中引入</p>
+</li>
+<li><p>v4，Android11中引入</p>
+</li>
+</ul>
+<h2 id="签名校验"><a href="#签名校验" class="headerlink" title="签名校验"></a>签名校验</h2><p>系统将应用的签名学习封装在PackageInfo中，调用PackageManager的getPackageInfo(Srting packageName , int flags)方法即可获取指定包名的签名信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">PackageInfo</span> <span class="variable">packageInfo</span> <span class="operator">=</span> getPackageManager().getPackageInfo(getPackageName(),PackageManager.GET_SIGNATURES);</span><br><span class="line">        Signature[] signs = packageInfo.signatures;<span class="comment">//获取指定包名的签名信息</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">signBase64</span> <span class="operator">=</span> Base64Util.encodeToString(signs[<span class="number">0</span>].toByteArray());</span><br><span class="line">        <span class="type">String</span> <span class="variable">SignMD5</span> <span class="operator">=</span> MD5Utils.MD5(signBase64);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="签名校验的对抗"><a href="#签名校验的对抗" class="headerlink" title="签名校验的对抗"></a>签名校验的对抗</h2><h3 id="通过某些工具"><a href="#通过某些工具" class="headerlink" title="通过某些工具"></a>通过某些工具</h3><p>核心破解，实现不签名直接安装apk</p>
+<p>mt管理器，ARMPro等工具一键去除apk的签名校验</p>
+<h3 id="HookPMS"><a href="#HookPMS" class="headerlink" title="HookPMS"></a>HookPMS</h3><p>PMS，即PackageManagerServer，开机后遍历data&#x2F;app目录，找到apk，解压apk，通过dom解析最后找到包含Launcher对应的Activity，然后存放在Package缓存中（得到应用程序的相关信息，如应用程序的组件Package，Activity，Service等），保存到PMS的mPackages，mActivities等成员变量（HashMap类型）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//52pj上zj大佬的hook代码</span></span><br><span class="line"><span class="keyword">package</span> com.zj.hookpms;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageManager;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServiceManagerWraper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">ZJ</span> <span class="operator">=</span> <span class="string">&quot;ZJ595&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">hookPMS</span><span class="params">(Context context, String signed, String appPkgName, <span class="type">int</span> hashCode)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 获取全局的ActivityThread对象</span></span><br><span class="line">            Class&lt;?&gt; activityThreadClass = Class.forName(<span class="string">&quot;android.app.ActivityThread&quot;</span>);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">currentActivityThreadMethod</span> <span class="operator">=</span></span><br><span class="line">                    activityThreadClass.getDeclaredMethod(<span class="string">&quot;currentActivityThread&quot;</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">currentActivityThread</span> <span class="operator">=</span> currentActivityThreadMethod.invoke(<span class="literal">null</span>);</span><br><span class="line">            <span class="comment">// 获取ActivityThread里面原始的sPackageManager</span></span><br><span class="line">            <span class="type">Field</span> <span class="variable">sPackageManagerField</span> <span class="operator">=</span> activityThreadClass.getDeclaredField(<span class="string">&quot;sPackageManager&quot;</span>);</span><br><span class="line">            sPackageManagerField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">sPackageManager</span> <span class="operator">=</span> sPackageManagerField.get(currentActivityThread);</span><br><span class="line">            <span class="comment">// 准备好代&#123;过&#125;&#123;滤&#125;理对象, 用来替换原始的对象</span></span><br><span class="line">            Class&lt;?&gt; iPackageManagerInterface = Class.forName(<span class="string">&quot;android.content.pm.IPackageManager&quot;</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">proxy</span> <span class="operator">=</span> Proxy.newProxyInstance(</span><br><span class="line">                    iPackageManagerInterface.getClassLoader(),</span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">Class</span>&lt;?&gt;[]&#123;iPackageManagerInterface&#125;,</span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">PmsHookBinderInvocationHandler</span>(sPackageManager, signed, appPkgName, <span class="number">0</span>));</span><br><span class="line">            <span class="comment">// 1. 替换掉ActivityThread里面的 sPackageManager 字段</span></span><br><span class="line">            sPackageManagerField.set(currentActivityThread, proxy);</span><br><span class="line">            <span class="comment">// 2. 替换 ApplicationPackageManager里面的 mPM对象</span></span><br><span class="line">            <span class="type">PackageManager</span> <span class="variable">pm</span> <span class="operator">=</span> context.getPackageManager();</span><br><span class="line">            <span class="type">Field</span> <span class="variable">mPmField</span> <span class="operator">=</span> pm.getClass().getDeclaredField(<span class="string">&quot;mPM&quot;</span>);</span><br><span class="line">            mPmField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">            mPmField.set(pm, proxy);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            Log.d(ZJ, <span class="string">&quot;hook pms error:&quot;</span> + Log.getStackTraceString(e));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">hookPMS</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">Sign</span> <span class="operator">=</span> <span class="string">&quot;原包的签名信息&quot;</span>;</span><br><span class="line">        hookPMS(context, Sign, <span class="string">&quot;com.zj.hookpms&quot;</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>分析上面的代码可以知道其实就是，通过反射获取ActivityThread的sPackageManger，然后通创建一个对象代理，传入代理对象sPackageManager的类加载器，被代理对象iPackageManagerInterface接口，然后替换掉ActivityThread中的sPackageManager，类似的，获取ApplicationPackageManager中的mPm对象并替换</p>
+<h3 id="IO重定向"><a href="#IO重定向" class="headerlink" title="IO重定向"></a>IO重定向</h3><p>编写一个自定义的文件打开函数来替代或修改标准的文件打开函数，该函数可以实现io重定向的逻辑，比如将文件的读写重定向到其他的文件，通过io重定向，不仅可以过掉apk的签名检测，还可以进行一些风控对抗，过root检测，xposed检测</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br></pre></td><td class="code"><pre><span class="line">using namespace <span class="built_in">std</span>;  </span><br><span class="line"><span class="built_in">string</span> packname;  </span><br><span class="line"><span class="built_in">string</span> origpath;  </span><br><span class="line"><span class="built_in">string</span> fakepath;  </span><br><span class="line"></span><br><span class="line"><span class="type">int</span> (*orig_open)(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags, ...);  </span><br><span class="line"><span class="type">int</span> (*orig_openat)(<span class="type">int</span>,<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags, ...);  </span><br><span class="line">FILE *(*orig_fopen)(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">const</span> <span class="type">char</span> *mode);  </span><br><span class="line"><span class="type">static</span> <span class="title function_">long</span> <span class="params">(*orig_syscall)</span><span class="params">(<span class="type">long</span> number, ...)</span>;  </span><br><span class="line"><span class="type">int</span> (*orig__NR_openat)(<span class="type">int</span>,<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags, ...);  </span><br><span class="line"></span><br><span class="line"><span class="type">void</span>* (*orig_dlopen_CI)(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">int</span> flag);  </span><br><span class="line"><span class="type">void</span>* (*orig_dlopen_CIV)(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">int</span> flag, <span class="type">const</span> <span class="type">void</span> *extinfo);  </span><br><span class="line"><span class="type">void</span>* (*orig_dlopen_CIVV)(<span class="type">const</span> <span class="type">char</span> *name, <span class="type">int</span> flags, <span class="type">const</span> <span class="type">void</span> *extinfo, <span class="type">void</span> *caller_addr);  </span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">bool</span> <span class="title function_">needs_mode</span><span class="params">(<span class="type">int</span> flags)</span> &#123;  </span><br><span class="line">    <span class="keyword">return</span> ((flags &amp; O_CREAT) == O_CREAT) || ((flags &amp; O_TMPFILE) == O_TMPFILE);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="type">bool</span> <span class="title function_">startsWith</span><span class="params">(<span class="built_in">string</span> str, <span class="built_in">string</span> sub)</span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> str.find(sub)==<span class="number">0</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> <span class="title function_">endsWith</span><span class="params">(<span class="built_in">string</span> s,<span class="built_in">string</span> sub)</span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> s.rfind(sub)==(s.length()-sub.length());  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="type">bool</span> <span class="title function_">isOrigAPK</span><span class="params">(<span class="built_in">string</span>  path)</span>&#123;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(path==origpath)&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//该函数的功能是在打开一个文件时进行拦截，并在满足特定条件时将文件路径替换为另一个路径  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//fake_open 函数有三个参数：  </span></span><br><span class="line"><span class="comment">//pathname：一个字符串，表示要打开的文件的路径。  </span></span><br><span class="line"><span class="comment">//flags：一个整数，表示打开文件的方式，例如只读、只写、读写等。  </span></span><br><span class="line"><span class="comment">//mode（可选参数）：一个整数，表示打开文件时应用的权限模式。  </span></span><br><span class="line"><span class="type">int</span> <span class="title function_">fake_open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags, ...)</span> &#123;  </span><br><span class="line">    <span class="type">mode_t</span> mode = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">if</span> (needs_mode(flags)) &#123;  </span><br><span class="line">        va_list args;  </span><br><span class="line">        va_start(args, flags);  </span><br><span class="line">        mode = static_cast&lt;<span class="type">mode_t</span>&gt;(va_arg(args, <span class="type">int</span>));  </span><br><span class="line">        va_end(args);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">//LOGI(&quot;open,  path: %s, flags: %d, mode: %d&quot;,pathname, flags ,mode);  </span></span><br><span class="line">    <span class="built_in">string</span> cpp_path= pathname;  </span><br><span class="line">    <span class="keyword">if</span>(isOrigAPK(cpp_path))&#123;  </span><br><span class="line">        LOGI(<span class="string">&quot;libc_open, redirect: %s, ---&gt;: %s&quot;</span>,pathname, fakepath.data());  </span><br><span class="line">        <span class="keyword">return</span> orig_open(<span class="string">&quot;/data/user/0/com.zj.wuaipojie/files/base.apk&quot;</span>, flags, mode);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span>  orig_open(pathname, flags, mode);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//该函数的功能是在打开一个文件时进行拦截，并在满足特定条件时将文件路径替换为另一个路径  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//fake_openat 函数有四个参数：  </span></span><br><span class="line"><span class="comment">//fd：一个整数，表示要打开的文件的文件描述符。  </span></span><br><span class="line"><span class="comment">//pathname：一个字符串，表示要打开的文件的路径。  </span></span><br><span class="line"><span class="comment">//flags：一个整数，表示打开文件的方式，例如只读、只写、读写等。  </span></span><br><span class="line"><span class="comment">//mode（可选参数）：一个整数，表示打开文件时应用的权限模式。  </span></span><br><span class="line"><span class="comment">//openat 函数的作用类似于 open 函数，但是它使用文件描述符来指定文件路径，而不是使用文件路径本身。这样，就可以在打开文件时使用相对路径，而不必提供完整的文件路径。  </span></span><br><span class="line"><span class="comment">//例如，如果要打开相对于当前目录的文件，可以使用 openat 函数，而不是 open 函数，因为 open 函数只能使用绝对路径。  </span></span><br><span class="line"><span class="comment">//  </span></span><br><span class="line"><span class="type">int</span> <span class="title function_">fake_openat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags, ...)</span> &#123;  </span><br><span class="line">    <span class="type">mode_t</span> mode = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">if</span> (needs_mode(flags)) &#123;  </span><br><span class="line">        va_list args;  </span><br><span class="line">        va_start(args, flags);  </span><br><span class="line">        mode = static_cast&lt;<span class="type">mode_t</span>&gt;(va_arg(args, <span class="type">int</span>));  </span><br><span class="line">        va_end(args);  </span><br><span class="line">    &#125;  </span><br><span class="line">    LOGI(<span class="string">&quot;openat, fd: %d, path: %s, flags: %d, mode: %d&quot;</span>,fd ,pathname, flags ,mode);  </span><br><span class="line">    <span class="built_in">string</span> cpp_path= pathname;  </span><br><span class="line">    <span class="keyword">if</span>(isOrigAPK(cpp_path))&#123;  </span><br><span class="line">        LOGI(<span class="string">&quot;libc_openat, redirect: %s, ---&gt;: %s&quot;</span>,pathname, fakepath.data());  </span><br><span class="line">        <span class="keyword">return</span>  orig_openat(fd,fakepath.data(), flags, mode);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> orig_openat(fd,pathname, flags, mode);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line">FILE *<span class="title function_">fake_fopen</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">const</span> <span class="type">char</span> *mode)</span> &#123;  </span><br><span class="line"></span><br><span class="line">    <span class="built_in">string</span> cpp_path= filename;  </span><br><span class="line">    <span class="keyword">if</span>(isOrigAPK(cpp_path))&#123;  </span><br><span class="line">        <span class="keyword">return</span>  orig_fopen(fakepath.data(), mode);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> orig_fopen(filename, mode);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//该函数的功能是在执行系统调用时进行拦截，并在满足特定条件时修改系统调用的参数。  </span></span><br><span class="line"><span class="comment">//syscall 函数是一个系统调用，是程序访问内核功能的方法之一。使用 syscall 函数可以调用大量的系统调用，它们用于实现操作系统的各种功能，例如打开文件、创建进程、分配内存等。  </span></span><br><span class="line"><span class="comment">//  </span></span><br><span class="line"><span class="type">static</span> <span class="type">long</span> <span class="title function_">fake_syscall</span><span class="params">(<span class="type">long</span> number, ...)</span> &#123;  </span><br><span class="line">    <span class="type">void</span> *arg[<span class="number">7</span>];  </span><br><span class="line">    va_list <span class="built_in">list</span>;  </span><br><span class="line"></span><br><span class="line">    va_start(<span class="built_in">list</span>, number);  </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">7</span>; ++i) &#123;  </span><br><span class="line">        arg[i] = va_arg(<span class="built_in">list</span>, <span class="type">void</span> *);  </span><br><span class="line">    &#125;  </span><br><span class="line">    va_end(<span class="built_in">list</span>);  </span><br><span class="line">    <span class="keyword">if</span> (number == __NR_openat)&#123;  </span><br><span class="line">        <span class="type">const</span> <span class="type">char</span> *cpp_path = static_cast&lt;<span class="type">const</span> <span class="type">char</span> *&gt;(arg[<span class="number">1</span>]);  </span><br><span class="line">        LOGI(<span class="string">&quot;syscall __NR_openat, fd: %d, path: %s, flags: %d, mode: %d&quot;</span>,arg[<span class="number">0</span>] ,arg[<span class="number">1</span>], arg[<span class="number">2</span>], arg[<span class="number">3</span>]);  </span><br><span class="line">        <span class="keyword">if</span> (isOrigAPK(cpp_path))&#123;  </span><br><span class="line">            LOGI(<span class="string">&quot;syscall __NR_openat, redirect: %s, ---&gt;: %s&quot;</span>,arg[<span class="number">1</span>], fakepath.data());  </span><br><span class="line">            <span class="keyword">return</span> orig_syscall(number,arg[<span class="number">0</span>], fakepath.data() ,arg[<span class="number">2</span>],arg[<span class="number">3</span>]);  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> orig_syscall(number, arg[<span class="number">0</span>], arg[<span class="number">1</span>], arg[<span class="number">2</span>], arg[<span class="number">3</span>], arg[<span class="number">4</span>], arg[<span class="number">5</span>], arg[<span class="number">6</span>]);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//函数的功能是获取当前应用的包名、APK 文件路径以及库文件路径，并将这些信息保存在全局变量中  </span></span><br><span class="line"><span class="comment">//函数调用 GetObjectClass 和 GetMethodID 函数来获取 context 对象的类型以及 getPackageName 方法的 ID。然后，函数调用 CallObjectMethod 函数来调用 getPackageName 方法，获取当前应用的包名。最后，函数使用 GetStringUTFChars 函数将包名转换为 C 字符串，并将包名保存在 packname 全局变量中  </span></span><br><span class="line"><span class="comment">//接着，函数使用 fakepath 全局变量保存了 /data/user/0/&lt;packname&gt;/files/base.apk 这样的路径，其中 &lt;packname&gt; 是当前应用的包名。  </span></span><br><span class="line"><span class="comment">//然后，函数再次调用 GetObjectClass 和 GetMethodID 函数来获取 context 对象的类型以及 getApplicationInfo 方法的 ID。然后，函数调用 CallObjectMethod 函数来调用 getApplicationInfo 方法，获取当前应用的 ApplicationInfo 对象。  </span></span><br><span class="line"><span class="comment">//它先调用 GetObjectClass 函数获取 ApplicationInfo 对象的类型，然后调用 GetFieldID 函数获取 sourceDir 字段的 ID。接着，函数使用 GetObjectField 函数获取 sourceDir 字段的值，并使用 GetStringUTFChars 函数将其转换为 C 字符串。最后，函数将 C 字符串保存在 origpath 全局变量中，表示当前应用的 APK 文件路径。  </span></span><br><span class="line"><span class="comment">//最后，函数使用 GetFieldID 和 GetObjectField 函数获取 nativeLibraryDir 字段的值，并使用 GetStringUTFChars 函数将其转换为 C 字符串。函数最后调用 LOGI 函数打印库文件路径，但是并没有将其保存在全局变量中。  </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> JNIEXPORT <span class="type">void</span> JNICALL  </span><br><span class="line"><span class="title function_">Java_com_zj_wuaipojie_util_SecurityUtil_hook</span><span class="params">(JNIEnv *env, jclass clazz, jobject context)</span> &#123;  </span><br><span class="line">    jclass conext_class = env-&gt;GetObjectClass(context);  </span><br><span class="line">    jmethodID methodId_pack = env-&gt;GetMethodID(conext_class, <span class="string">&quot;getPackageName&quot;</span>,  </span><br><span class="line">                                               <span class="string">&quot;()Ljava/lang/String;&quot;</span>);  </span><br><span class="line">    <span class="keyword">auto</span> packname_js = reinterpret_cast&lt;jstring&gt;(env-&gt;CallObjectMethod(context, methodId_pack));  </span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *pn = env-&gt;GetStringUTFChars(packname_js, <span class="number">0</span>);  </span><br><span class="line">    packname = <span class="built_in">string</span>(pn);  </span><br><span class="line"></span><br><span class="line">    env-&gt;ReleaseStringUTFChars(packname_js, pn);  </span><br><span class="line">    <span class="comment">//LOGI(&quot;packname: %s&quot;, packname.data());  </span></span><br><span class="line">    fakepath= <span class="string">&quot;/data/user/0/&quot;</span>+ packname +<span class="string">&quot;/files/base.apk&quot;</span>;  </span><br><span class="line"></span><br><span class="line">    jclass conext_class2 = env-&gt;GetObjectClass(context);  </span><br><span class="line">    jmethodID methodId_pack2 = env-&gt;GetMethodID(conext_class2,<span class="string">&quot;getApplicationInfo&quot;</span>,<span class="string">&quot;()Landroid/content/pm/ApplicationInfo;&quot;</span>);  </span><br><span class="line">    jobject application_info = env-&gt;CallObjectMethod(context,methodId_pack2);  </span><br><span class="line">    jclass pm_clazz = env-&gt;GetObjectClass(application_info);  </span><br><span class="line"></span><br><span class="line">    jfieldID package_info_id = env-&gt;GetFieldID(pm_clazz,<span class="string">&quot;sourceDir&quot;</span>,<span class="string">&quot;Ljava/lang/String;&quot;</span>);  </span><br><span class="line">    <span class="keyword">auto</span> sourceDir_js = reinterpret_cast&lt;jstring&gt;(env-&gt;GetObjectField(application_info,package_info_id));  </span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *sourceDir = env-&gt;GetStringUTFChars(sourceDir_js, <span class="number">0</span>);  </span><br><span class="line">    origpath = <span class="built_in">string</span>(sourceDir);  </span><br><span class="line">    LOGI(<span class="string">&quot;sourceDir: %s&quot;</span>, sourceDir);  </span><br><span class="line"></span><br><span class="line">    jfieldID package_info_id2 = env-&gt;GetFieldID(pm_clazz,<span class="string">&quot;nativeLibraryDir&quot;</span>,<span class="string">&quot;Ljava/lang/String;&quot;</span>);  </span><br><span class="line">    <span class="keyword">auto</span> nativeLibraryDir_js = reinterpret_cast&lt;jstring&gt;(env-&gt;GetObjectField(application_info,package_info_id2));  </span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *nativeLibraryDir = env-&gt;GetStringUTFChars(nativeLibraryDir_js, <span class="number">0</span>);  </span><br><span class="line">    LOGI(<span class="string">&quot;nativeLibraryDir: %s&quot;</span>, nativeLibraryDir);  </span><br><span class="line">    <span class="comment">//LOGI(&quot;%s&quot;, &quot;Start Hook&quot;);  </span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//启动hook  </span></span><br><span class="line">    <span class="type">void</span> *handle = dlopen(<span class="string">&quot;libc.so&quot;</span>,RTLD_NOW);  </span><br><span class="line">    <span class="keyword">auto</span> pagesize = sysconf(_SC_PAGE_SIZE);  </span><br><span class="line">    <span class="keyword">auto</span> addr = ((<span class="type">uintptr_t</span>)dlsym(handle,<span class="string">&quot;open&quot;</span>) &amp; (-pagesize));  </span><br><span class="line">    <span class="keyword">auto</span> addr2 = ((<span class="type">uintptr_t</span>)dlsym(handle,<span class="string">&quot;openat&quot;</span>) &amp; (-pagesize));  </span><br><span class="line">    <span class="keyword">auto</span> addr3 = ((<span class="type">uintptr_t</span>)fopen) &amp; (-pagesize);  </span><br><span class="line">    <span class="keyword">auto</span> addr4 = ((<span class="type">uintptr_t</span>)syscall) &amp; (-pagesize);  </span><br><span class="line"></span><br><span class="line">    <span class="comment">//解除部分机型open被保护  </span></span><br><span class="line">    mprotect((<span class="type">void</span>*)addr, pagesize, PROT_READ | PROT_WRITE | PROT_EXEC);  </span><br><span class="line">    mprotect((<span class="type">void</span>*)addr2, pagesize, PROT_READ | PROT_WRITE | PROT_EXEC);  </span><br><span class="line">    mprotect((<span class="type">void</span>*)addr3, pagesize, PROT_READ | PROT_WRITE | PROT_EXEC);  </span><br><span class="line">    mprotect((<span class="type">void</span>*)addr4, pagesize, PROT_READ | PROT_WRITE | PROT_EXEC);  </span><br><span class="line"></span><br><span class="line">    DobbyHook((<span class="type">void</span> *)dlsym(handle,<span class="string">&quot;open&quot;</span>), (<span class="type">void</span> *)fake_open, (<span class="type">void</span> **)&amp;orig_open);  </span><br><span class="line">    DobbyHook((<span class="type">void</span> *)dlsym(handle,<span class="string">&quot;openat&quot;</span>), (<span class="type">void</span> *)fake_openat, (<span class="type">void</span> **)&amp;orig_openat);  </span><br><span class="line">    DobbyHook((<span class="type">void</span> *)fopen, (<span class="type">void</span> *)fake_fopen, (<span class="type">void</span>**)&amp;orig_fopen);  </span><br><span class="line">    DobbyHook((<span class="type">void</span> *)syscall, (<span class="type">void</span> *)fake_syscall, (<span class="type">void</span> **)&amp;orig_syscall);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">💰</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yelog
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="Toggle full screen shortcut key s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>Help us with donation</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
