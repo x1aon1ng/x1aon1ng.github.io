@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>re3 | n1ng&#39;s blog</title>
+  <title>Binder | n1ng&#39;s blog</title>
   <meta name="keywords" content="">
-  <meta name="description" content="re3 | n1ng&#39;s blog">
+  <meta name="description" content="Binder | n1ng&#39;s blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -743,9 +743,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-re3" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Binder" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">re3</h1>
+        <h1 class="article-title">Binder</h1>
     
     <div class="article-meta">
         
@@ -755,7 +755,9 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="BUU">BUU</a>
+            <a  data-rel="Android">Android</a> > 
+            
+            <a  data-rel="Android&lt;---&gt;Develop">Develop</a>
             
         </span>
         
@@ -763,7 +765,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-03-14 15:15:48'>2023-08-15 16:47</time>
+            Created At : <time class="date" title='Updated At: 2024-06-03 18:13:20'>2024-06-03 18:12</time>
         
     </div>
     <div class="article-meta">
@@ -785,7 +787,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E8%83%8C%E6%99%AF"><span class="toc-text">Linux背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binder%E9%80%9A%E4%BF%A1"><span class="toc-text">Binder通信</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -801,9 +803,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>idc脚本|AES加密</p>
-<span id="more"></span>
-<p>进入main函数，发现一个循环和两个函数，其中循环是对第二个函数进行异或，因此需要用脚本将他解出来<br><br><img src="p1.png" alt="p1"><br><img src="p2.png" alt="p2"><br>点击file，再点scpirt command，点import导入脚本<br><br><img src="p3.png" alt="p3"><br>再找到该函数，都是数据，选中全部数据，按d转化为data形式，再选中数据，右键分析选中区域，再点击force强制执行，最后按P生成函数<br><br>之后就可以分析了，按shift+alt+f可以使用findcrypt插件查看加密<br><br><img src="p4.png" alt="p4"><br>最后写出脚本<br><br><img src="p5.png" alt="p5"><br>关于AES加密：AES是高级加密标准，在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，目前已经被全世界广泛使用，同时AES已经成为对称密钥加密中最流行的算法之一。AES支持三种长度的密钥：128位，192位，256位。</p>
+        <p>Binder是一种进程间通信（IPC）机制，提供了远程过程调用（RPC）功能，对于Server进程，Binder指的是Binder本地对象，对于Client则是指Binder代理对象，他只是Binder本地对象的一个远程代理，在传输过程中，Binder是可以进行跨进程传递的对象，Bidner驱动自动完成代理对象和本地对象的转换</p>
+<h2 id="Linux背景"><a href="#Linux背景" class="headerlink" title="Linux背景"></a>Linux背景</h2><p>Linux Keynel是操作系统的核心，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。出于安全考虑，将Kernel和上层的应用程序抽象的隔离，分为内核空间（Kernel Space）和用户空间（User Space）。</p>
+<p>用户空间只能通过系统调用来访问内核空间，所有的资源访问都在内核的控制下执行，此时进程的状态称为内核态，而进程执行用户自己的代码时称为用户态。</p>
+<p>传统的Linux通信机制（pipe，socket）都是内核支持的，但Binder并不是，他通过Binder驱动（是一个Linux的动态可加载模块）负责各个用户进程的Binder通信。</p>
+<h2 id="Binder通信"><a href="#Binder通信" class="headerlink" title="Binder通信"></a>Binder通信</h2><p>两个运行在用户空间的进程（Server和Client）需要在Binder驱动和SM（ServiceManager）的帮助下才能完成通信，基本的步骤为</p>
+<ul>
+<li>进程先向Binder驱动申请建立SM（负责管理Service）</li>
+<li>Server在SM中注册，每个Server段启动后向SM报告，SM中就有了一张表，记录了Server的名字和地址等信息</li>
+<li>Client向Server通信时，先查询SM，通过SM得到地址，然后开始通信</li>
+</ul>
+<p>其实Binder跨进程传输并没有真正的跨进程，而是通过代理的对象完成了跨进程通信，当Client向SM查询后，Binder驱动并不会向Client返回一个真正的object对象，而是一个代理对象objectProxy，他有着和object一样的方法，但并没有实现方法的能力，他只能将参数包装后传给Binder驱动，然后驱动通知Server进程，调用真正的object对象的方法然后将结果发送给Binder驱动，最后发送给Client</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
