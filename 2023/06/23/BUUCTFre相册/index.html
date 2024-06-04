@@ -81,7 +81,7 @@
     
         
             <a title="github"
-               href="https://github.com/yelog"
+               href="https://github.com/"
                target="_blank">
                 
                     <svg class="iconfont-svg" aria-hidden="true">
@@ -185,7 +185,7 @@
     
         
             <a title="email"
-               href="mailto:jaytp@qq.com"
+               href="mailto:3049155267@qq.com"
                target="_blank">
                 
                     <svg class="iconfont-svg" aria-hidden="true">
@@ -197,7 +197,7 @@
     
         
             <a title="qq"
-               href="http://wpa.qq.com/msgrd?v=3&uin=872336115&site=qq&menu=yes"
+               href="http://wpa.qq.com/msgrd?v=3&uin=3049155267&site=qq&menu=yes"
                target="_blank">
                 
                     <svg class="iconfont-svg" aria-hidden="true">
@@ -327,8 +327,6 @@
     </div>
     <div class="friends-content">
         <ul>
-            
-            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
             
         </ul>
     </div>
@@ -796,7 +794,7 @@
 <p>提取文件，发现是apk文件，用jadx打开，根据题面，flag和邮箱有关，在jadx中搜索mail，发现一个mailsendbyjavamail函数,<br><br><img src="buure%E7%9B%B8%E5%86%8C1.png" alt="buure相册1"><br>跟进，<br><br><img src="buure%E7%9B%B8%E5%86%8C2.png" alt="buure相册2"><br>跟进c2，发现mailserver，就是我们需要的邮箱， 他是so文件经过nativemethod函数返回的值（好像是这么个意思，我也是看了wp才知道），<br><br><img src="buure%E7%9B%B8%E5%86%8C3.png" alt="buure相册3"><br>这里有三个字符串，用ida打开so文件，找到这三个字符串，<br><br><img src="buure%E7%9B%B8%E5%86%8C4.png" alt="buure相册4"><br>发现三个可疑字符串，base64解密，<br><br><img src="buure%E7%9B%B8%E5%86%8C5.png" alt="buure相册5"><br>得到一个邮箱，即为flag</p>
 
       
-       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 3049155267@qq.com </span>
     </div>
 </article>
 
