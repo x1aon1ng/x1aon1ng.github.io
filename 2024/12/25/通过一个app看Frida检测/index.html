@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>n1ng&#39;s blog</title>
+  <title>通过一个app来看Frida检测 | n1ng&#39;s blog</title>
   <meta name="keywords" content="">
-  <meta name="description" content="n1ng&#39;s blog">
+  <meta name="description" content="通过一个app来看Frida检测 | n1ng&#39;s blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
@@ -253,7 +253,7 @@
         <div data-rel="Android">
             
             Android
-            <small>(11)</small>
+            <small>(12)</small>
         </div>
         
     </li>
@@ -363,12 +363,12 @@
     <nav id="title-list-nav">
         
         
-        <a  class="All "
-           href="/2024/12/25/dw_anti_frida/"
+        <a  class="All Android "
+           href="/2024/12/25/%E9%80%9A%E8%BF%87%E4%B8%80%E4%B8%AAapp%E7%9C%8BFrida%E6%A3%80%E6%B5%8B/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2024-12-25 20:13:46">2024/12/25</span>
+            <span class="post-title" title="通过一个app来看Frida检测">通过一个app来看Frida检测</span>
+            <span class="post-date" title="2024-12-25 20:18:09">2024/12/25</span>
         </a>
         
         
@@ -713,17 +713,27 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-dw_anti_frida" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-通过一个app看Frida检测" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">通过一个app来看Frida检测</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Android">Android</a>
+            
+        </span>
+        
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-12-25 20:13:08'>2024-12-25 20:13</time>
+            Created At : <time class="date" title='Updated At: 2024-12-25 20:20:29'>2024-12-25 20:18</time>
         
     </div>
     <div class="article-meta">
@@ -778,7 +788,7 @@
 <p>hook后发现并没有JNI_OnLoad字眼，那么检测就在JNI_OnLoad之前，hook的时机选择上面提到的call_constructors，hook thread_create。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//获取call_constructors的偏移</span><br><span class="line">C:\Users\n1ng&gt;adb shell</span><br><span class="line">cepheus:/ $ readelf -sW /apex/com.android.runtime/bin/linker64 | grep call_constructors</span><br><span class="line">   715: 000000000004b140   556 FUNC    LOCAL  HIDDEN    11 __dl__ZN6soinfo17call_constructorsEv</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function hook_linker_call_constructors() &#123;</span><br><span class="line">    let linker64_base_addr = Module.getBaseAddress(&#x27;linker64&#x27;)</span><br><span class="line">    let offset = 0x4b140    // __dl__ZN6soinfo17call_constructorsEv</span><br><span class="line">    let call_constructors = linker64_base_addr.add(offset)</span><br><span class="line">    let listener = Interceptor.attach(call_constructors,&#123;</span><br><span class="line">        onEnter:function(args)&#123;</span><br><span class="line">            console.log(&#x27;hook_linker_call_constructors onEnter&#x27;)</span><br><span class="line">            let secmodule = Process.findModuleByName(&quot;libmsaoaidsec.so&quot;)</span><br><span class="line">            if (secmodule != null)&#123;</span><br><span class="line">                // do something</span><br><span class="line">                hook_pthred_create();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">function hook_pthred_create()&#123;</span><br><span class="line">    console.log(&quot;[*] libmaoaidsec.so &quot;+ Process.findModuleByName(&quot;libmsaoaidsec.so&quot;).base)</span><br><span class="line">    Interceptor.attach(Module.findExportByName(&#x27;libc.so&#x27;,&#x27;pthread_create&#x27;),&#123;</span><br><span class="line">        onEnter(args)&#123;</span><br><span class="line">            let func_addr = args[2]</span><br><span class="line">            console.log(`The thread Called function address is: $&#123;func_addr&#125;`)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function hook_linker_call_constructors() &#123;</span><br><span class="line">    let linker64_base_addr = Module.getBaseAddress(&#x27;linker64&#x27;)</span><br><span class="line">    let offset = 0x4b140    // __dl__ZN6soinfo17call_constructorsEv</span><br><span class="line">    let call_constructors = linker64_base_addr.add(offset)</span><br><span class="line">    let listener = Interceptor.attach(call_constructors,&#123;</span><br><span class="line">        onEnter:function(args)&#123;</span><br><span class="line">            console.log(&#x27;hook_linker_call_constructors onEnter&#x27;)</span><br><span class="line">            let secmodule = Process.findModuleByName(&quot;libmsaoaidsec.so&quot;)</span><br><span class="line">            if (secmodule != null)&#123;</span><br><span class="line">                // do something</span><br><span class="line">                hook_pthred_create();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">function hook_pthred_create()&#123;</span><br><span class="line">    console.log(&quot;[*] libmaoaidsec.so &quot;+ Process.findModuleByName(&quot;libmsaoaidsec.so&quot;).base)</span><br><span class="line">    Interceptor.attach(Module.findExportByName(&#x27;libc.so&#x27;,&#x27;pthread_create&#x27;),&#123;</span><br><span class="line">        onEnter(args)&#123;</span><br><span class="line">            let func_addr = args[2]</span><br><span class="line">            console.log(`The thread Called function address is: $&#123;func_addr&#125;`)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>hook结果</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">hook_linker_call_constructors onEnter</span><br><span class="line">[*] libmaoaidsec.so 0x6ed6140000</span><br><span class="line">The thread Called function address is: 0x6ed615c544</span><br><span class="line">The thread Called function address is: 0x6ed615c544</span><br><span class="line">The thread Called function address is: 0x6ed615c544</span><br><span class="line">The thread Called function address is: 0x6ed615c544</span><br><span class="line">The thread Called function address is: 0x6ed615c544</span><br><span class="line">The thread Called function address is: 0x6ed615c544</span><br><span class="line">The thread Called function address is: 0x6ed615c544</span><br><span class="line">The thread Called function address is: 0x6ed615c544</span><br><span class="line">The thread Called function address is: 0x6ed615b8d4</span><br><span class="line">The thread Called function address is: 0x6ed615b8d4</span><br><span class="line">The thread Called function address is: 0x6ed615b8d4</span><br><span class="line">The thread Called function address is: 0x6ed615b8d4</span><br><span class="line">The thread Called function address is: 0x6ed615b8d4</span><br><span class="line">The thread Called function address is: 0x6ed615b8d4</span><br><span class="line">The thread Called function address is: 0x6ed615b8d4</span><br><span class="line">The thread Called function address is: 0x6ed615b8d4</span><br><span class="line">hook_linker_call_constructors onEnter</span><br><span class="line">[*] libmaoaidsec.so 0x6ed6140000</span><br><span class="line">The thread Called function address is: 0x6ed6166e5c</span><br><span class="line">The thread Called function address is: 0x6ed6166e5c</span><br><span class="line">The thread Called function address is: 0x6ed6166e5c</span><br><span class="line">The thread Called function address is: 0x6ed6166e5c</span><br><span class="line">The thread Called function address is: 0x6ed6166e5c</span><br><span class="line">The thread Called function address is: 0x6ed6166e5c</span><br><span class="line">The thread Called function address is: 0x6ed6166e5c</span><br><span class="line">The thread Called function address is: 0x6ed6166e5c</span><br><span class="line">The thread Called function address is: 0x6ed6166e5c</span><br><span class="line">Process terminated</span><br><span class="line">[MI 9::com.shizhuang.duapp ]-&gt;</span><br></pre></td></tr></table></figure>
