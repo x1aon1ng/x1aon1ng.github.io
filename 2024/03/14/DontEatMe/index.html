@@ -241,7 +241,7 @@
     <li>
         <div class="all active" data-rel="All">All
             
-                <small>(41)</small>
+                <small>(36)</small>
             
         </div>
     </li>
@@ -253,7 +253,7 @@
         <div data-rel="Android">
             
             Android
-            <small>(12)</small>
+            <small>(11)</small>
         </div>
         
     </li>
@@ -268,7 +268,7 @@
         <div data-rel="BUU">
             
             BUU
-            <small>(14)</small>
+            <small>(13)</small>
         </div>
         
     </li>
@@ -283,7 +283,7 @@
         <div data-rel="Develop">
             
             Develop
-            <small>(11)</small>
+            <small>(10)</small>
         </div>
         
     </li>
@@ -311,7 +311,7 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="41">
+<input type="hidden" id="yelog_site_posts_number" value="36">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -462,33 +462,6 @@
         </a>
         
         
-        <a  class="All Develop "
-           href="/2024/05/25/%E9%80%9A%E8%AE%AF%E5%BD%95/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="通讯录">通讯录</span>
-            <span class="post-date" title="2024-05-25 11:38:50">2024/05/25</span>
-        </a>
-        
-        
-        <a  class="All "
-           href="/2024/05/17/hook%E6%A3%80%E6%B5%8B/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="hook检测">hook检测</span>
-            <span class="post-date" title="2024-05-17 22:21:24">2024/05/17</span>
-        </a>
-        
-        
-        <a  class="All Android "
-           href="/2024/05/17/%E5%AE%89%E5%8D%93%E8%AE%BE%E5%A4%87%E6%8C%87%E7%BA%B9/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="安卓设备指纹">安卓设备指纹</span>
-            <span class="post-date" title="2024-05-17 19:37:00">2024/05/17</span>
-        </a>
-        
-        
         <a  class="All Android "
            href="/2024/05/16/Android%20Framework/"
            data-tag=""
@@ -633,15 +606,6 @@
         </a>
         
         
-        <a  class="All "
-           href="/2023/09/03/string/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="string">string</span>
-            <span class="post-date" title="2023-09-03 15:40:16">2023/09/03</span>
-        </a>
-        
-        
         <a  class="All BUU "
            href="/2023/09/01/snake/"
            data-tag=""
@@ -714,15 +678,6 @@
         </a>
         
         
-        <a  class="All BUU "
-           href="/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="相册">相册</span>
-            <span class="post-date" title="2023-06-23 21:22:45">2023/06/23</span>
-        </a>
-        
-        
         <a  class="All "
            href="/2023/06/20/hello-world/"
            data-tag=""
@@ -769,7 +724,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-03-14 18:45:41'>2024-03-14 18:42</time>
+            Created At : <time class="date" title='Updated At: 2024-12-25 19:04:28'>2024-03-14 18:42</time>
         
     </div>
     <div class="article-meta">
@@ -809,7 +764,7 @@
       
         <h1 id="BUU-DontEatMe"><a href="#BUU-DontEatMe" class="headerlink" title="BUU DontEatMe"></a>BUU DontEatMe</h1><p>分析后很容易直到是个迷宫题，但是对输入有一个加密，用FindCrypt发现时BlowFish加密，先动态调试得到迷宫路线，然后blowfish解密即可得到flag</p>
 <p>然后发现有反调试</p>
-<p><img src="Note\BUU刷题记录\pic\image-20231219203045844.png" alt="image-20231219203045844"></p>
+<p><img src="image-20231219203045844.png" alt="image-20231219203045844"></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NTSYSAPI NTSTATUS <span class="title function_">ZwSetInformationThread</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in] HANDLE          ThreadHandle,     </span></span><br><span class="line"><span class="params"> [in] THREADINFOCLASS ThreadInformationClass,</span></span><br><span class="line"><span class="params">  [in] PVOID           ThreadInformation,</span></span><br><span class="line"><span class="params">  [in] ULONG           ThreadInformationLength</span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> _<span class="title">THREADINFOCLASS</span> &#123;</span></span><br><span class="line">    ThreadBasicInformation,</span><br><span class="line">    ThreadTimes,</span><br><span class="line">    ThreadPriority,</span><br><span class="line">    ThreadBasePriority,</span><br><span class="line">    ThreadAffinityMask,</span><br><span class="line">    ThreadImpersonationToken,</span><br><span class="line">    ThreadDescriptorTableEntry,</span><br><span class="line">    ThreadEnableAlignmentFaultFixup,</span><br><span class="line">    ThreadEventPair,</span><br><span class="line">    ThreadQuerySetWin32StartAddress,</span><br><span class="line">    ThreadZeroTlsCell,</span><br><span class="line">    ThreadPerformanceCount,</span><br><span class="line">    ThreadAmILastThread,</span><br><span class="line">    ThreadIdealProcessor,</span><br><span class="line">    ThreadPriorityBoost,</span><br><span class="line">    ThreadSetTlsArrayAddress,</span><br><span class="line">    ThreadIsIoPending,</span><br><span class="line">    ThreadHideFromDebugger  <span class="comment">//检测是否debug</span></span><br><span class="line">&#125;THREAD_INFO_CLASS;</span><br><span class="line"></span><br></pre></td></tr></table></figure>

@@ -241,7 +241,7 @@
     <li>
         <div class="all active" data-rel="All">All
             
-                <small>(41)</small>
+                <small>(36)</small>
             
         </div>
     </li>
@@ -253,7 +253,7 @@
         <div data-rel="Android">
             
             Android
-            <small>(12)</small>
+            <small>(11)</small>
         </div>
         
     </li>
@@ -268,7 +268,7 @@
         <div data-rel="BUU">
             
             BUU
-            <small>(14)</small>
+            <small>(13)</small>
         </div>
         
     </li>
@@ -283,7 +283,7 @@
         <div data-rel="Develop">
             
             Develop
-            <small>(11)</small>
+            <small>(10)</small>
         </div>
         
     </li>
@@ -311,7 +311,7 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="41">
+<input type="hidden" id="yelog_site_posts_number" value="36">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -462,33 +462,6 @@
         </a>
         
         
-        <a  class="All Develop "
-           href="/2024/05/25/%E9%80%9A%E8%AE%AF%E5%BD%95/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="通讯录">通讯录</span>
-            <span class="post-date" title="2024-05-25 11:38:50">2024/05/25</span>
-        </a>
-        
-        
-        <a  class="All "
-           href="/2024/05/17/hook%E6%A3%80%E6%B5%8B/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="hook检测">hook检测</span>
-            <span class="post-date" title="2024-05-17 22:21:24">2024/05/17</span>
-        </a>
-        
-        
-        <a  class="All Android "
-           href="/2024/05/17/%E5%AE%89%E5%8D%93%E8%AE%BE%E5%A4%87%E6%8C%87%E7%BA%B9/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="安卓设备指纹">安卓设备指纹</span>
-            <span class="post-date" title="2024-05-17 19:37:00">2024/05/17</span>
-        </a>
-        
-        
         <a  class="All Android "
            href="/2024/05/16/Android%20Framework/"
            data-tag=""
@@ -633,15 +606,6 @@
         </a>
         
         
-        <a  class="All "
-           href="/2023/09/03/string/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="string">string</span>
-            <span class="post-date" title="2023-09-03 15:40:16">2023/09/03</span>
-        </a>
-        
-        
         <a  class="All BUU "
            href="/2023/09/01/snake/"
            data-tag=""
@@ -714,15 +678,6 @@
         </a>
         
         
-        <a  class="All BUU "
-           href="/2023/06/23/BUUCTFre%E7%9B%B8%E5%86%8C/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="相册">相册</span>
-            <span class="post-date" title="2023-06-23 21:22:45">2023/06/23</span>
-        </a>
-        
-        
         <a  class="All "
            href="/2023/06/20/hello-world/"
            data-tag=""
@@ -769,7 +724,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-03-14 18:58:55'>2024-03-14 18:57</time>
+            Created At : <time class="date" title='Updated At: 2024-12-25 19:07:44'>2024-03-14 18:57</time>
         
     </div>
     <div class="article-meta">
@@ -812,7 +767,7 @@
 <p>Android Studio</p>
 <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Xposed是一款可以在不修改APK的情况下影响程序运行的框架，基于它可以制作出许多功能强大的模块，且在功能不冲突的情况下同时运作。在这个框架下，我们可以编写并加载自己编写的插件APP，实现对目标apk的注入拦截等。</p>
 <p>用自己实现的<strong>app_process</strong>替换掉了系统原本提供的<strong>app_process</strong>，加载一个额外的jar包，入口从原来的： **com.android.internal.osZygoteInit.main()被替换成了： de.robv.android.xposed.XposedBridge.main()**，<br>创建的Zygote进程就变成Hook的Zygote进程了，从而完成对zygote进程及其创建的Dalvik&#x2F;ART虚拟机的劫持(zytoge注入)</p>
-<p><img src="Note\Android\pic\133104isaigb22k2zv62sr.png" alt="133104isaigb22k2zv62sr"></p>
+<p><img src="133104isaigb22k2zv62sr.png" alt="133104isaigb22k2zv62sr"></p>
 <h1 id="xposed配置以及使用"><a href="#xposed配置以及使用" class="headerlink" title="xposed配置以及使用"></a>xposed配置以及使用</h1><p>1.Android Studio创建新项目<br>2.将下载的xposedBridgeApi.jar包拖进libs文件夹<br>3.右击jar包，选择add as library<br>4.修改xml文件配置</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 是否是xposed模块，xposed根据这个来判断是否是模块 --&gt;</span><br><span class="line">&lt;meta-data</span><br><span class="line">    android:name=<span class="string">&quot;xposedmodule&quot;</span></span><br><span class="line">    android:value=<span class="string">&quot;true&quot;</span> /&gt;</span><br><span class="line">&lt;!-- 模块描述，显示在xposed模块列表那里第二行 --&gt;</span><br><span class="line">&lt;meta-data</span><br><span class="line">    android:name=<span class="string">&quot;xposeddescription&quot;</span></span><br><span class="line">    android:value=<span class="string">&quot;这是一个Xposed模块&quot;</span> /&gt;</span><br><span class="line">&lt;!-- 最低xposed版本号(lib文件名可知) --&gt;</span><br><span class="line">&lt;meta-data</span><br><span class="line">    android:name=<span class="string">&quot;xposedminversion&quot;</span></span><br><span class="line">    android:value=<span class="string">&quot;89&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
 
