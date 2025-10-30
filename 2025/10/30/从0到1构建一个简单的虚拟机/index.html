@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>从0到1构建一个简单的虚拟机 | n1ng&#39;s blog</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="从0到1构建一个简单的虚拟机 | n1ng&#39;s blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="github地址：x1aon1ng&#x2F;my_lc3_vm: A LC-3 Virtual Machine LC3介绍 LC-3（Little Computer 3）虚拟机是一个经典的教学用虚拟机。LC-3虚拟机具有一组特定的硬件组成部分和指令集，支持基本的算术操作、逻辑操作、内存操作、输入输出等功能。 寄存器LC-3有8个通用寄存器（R0 到 R7），用于存储数据和中间结果。每个寄存器都是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从0到1构建一个简单的虚拟机">
+<meta property="og:url" content="http://example.com/2025/10/30/%E4%BB%8E0%E5%88%B01%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html">
+<meta property="og:site_name" content="n1ng&#39;s blog">
+<meta property="og:description" content="github地址：x1aon1ng&#x2F;my_lc3_vm: A LC-3 Virtual Machine LC3介绍 LC-3（Little Computer 3）虚拟机是一个经典的教学用虚拟机。LC-3虚拟机具有一组特定的硬件组成部分和指令集，支持基本的算术操作、逻辑操作、内存操作、输入输出等功能。 寄存器LC-3有8个通用寄存器（R0 到 R7），用于存储数据和中间结果。每个寄存器都是">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-10-30T12:59:29.000Z">
+<meta property="article:modified_time" content="2025-10-30T13:01:38.683Z">
+<meta property="article:author" content="n1ng">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>n1ng</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="facebook"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-facebook"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+            <a title="instagram"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-instagram"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="reddit"
+               href="https://www.reddit.com/user/yelog/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-reddit"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="weibo"
+               href="http://weibo.com/u/2307534817"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-weibo"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="jianshu"
+               href="https://www.jianshu.com/u/ff56736de7cf"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-jianshu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="zhihu"
+               href="https://www.zhihu.com/people/jaytp/activities"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-zhihu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="oschina"
+               href="https://my.oschina.net/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-oschina"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:3049155267@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=3049155267&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="kugou"
+               href="https://www.kugou.com/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-kugou"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=88151013"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(38)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="Android">
+            
+            Android
+            <small>(12)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="BUU">
+            
+            BUU
+            <small>(13)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="Develop">
+            
+            Develop
+            <small>(11)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+            <a class="about  hasFriend  site_url"
+               
+               href="/about">About</a>
+        
+        <a style="width: 50%"
+                
+                                           class="friends">Friends</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="38">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="search shortcut key i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="switch to outline view shortcut key w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="return"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="case sensitive"></i>
+            <i class="iconfont icon-tag" data-title="label"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">outline</div>
+            <i class="iconfont icon-list" data-title="switch to article list"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All Develop "
+           href="/2025/10/30/%E4%BB%8E0%E5%88%B01%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="从0到1构建一个简单的虚拟机">从0到1构建一个简单的虚拟机</span>
+            <span class="post-date" title="2025-10-30 20:59:29">2025/10/30</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/12/25/%E9%80%9A%E8%BF%87%E4%B8%80%E4%B8%AAapp%E7%9C%8BFrida%E6%A3%80%E6%B5%8B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="通过一个app来看Frida检测">通过一个app来看Frida检测</span>
+            <span class="post-date" title="2024-12-25 20:18:09">2024/12/25</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/06/28/wyy%E9%9F%B3%E4%B9%90%E8%BF%87%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="wyy音乐过签名校验">wyy音乐过签名校验</span>
+            <span class="post-date" title="2024-06-28 18:53:53">2024/06/28</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/06/09/zuiyou%E7%99%BB%E5%BD%95%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="zuiyou登录算法逆向">zuiyou登录算法逆向</span>
+            <span class="post-date" title="2024-06-09 00:07:04">2024/06/09</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/06/04/PLT-GotHook/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="PLT/GotHook">PLT/GotHook</span>
+            <span class="post-date" title="2024-06-04 23:15:26">2024/06/04</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/06/03/Binder/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Binder">Binder</span>
+            <span class="post-date" title="2024-06-03 18:12:06">2024/06/03</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/31/xhs%E8%BF%87%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="xhs过签名校验">xhs过签名校验</span>
+            <span class="post-date" title="2024-05-31 19:48:47">2024/05/31</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/31/PM%E4%BB%A3%E7%90%86%E5%AF%B9%E6%8A%97%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="PM代理对抗签名校验">PM代理对抗签名校验</span>
+            <span class="post-date" title="2024-05-31 19:48:28">2024/05/31</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/31/%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="签名校验（working...）">签名校验（working...）</span>
+            <span class="post-date" title="2024-05-31 19:47:42">2024/05/31</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/Java-Basic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Java_Basic">Java_Basic</span>
+            <span class="post-date" title="2024-05-25 11:47:15">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E5%8F%8D%E5%B0%84/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2024-05-25 11:42:16">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/Java%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Java流程控制">Java流程控制</span>
+            <span class="post-date" title="2024-05-25 11:42:01">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/05/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="面向对象">面向对象</span>
+            <span class="post-date" title="2024-05-25 11:41:47">2024/05/25</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/16/Android%20Framework/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Android Framework">Android Framework</span>
+            <span class="post-date" title="2024-05-16 08:49:02">2024/05/16</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/05/16/Xposed%E5%8E%9F%E7%90%86/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Xposed原理">Xposed原理</span>
+            <span class="post-date" title="2024-05-16 08:27:38">2024/05/16</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2024/03/17/%E5%AE%89%E6%B4%B5%E6%9D%AF2023%E5%A4%8D%E7%8E%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安洵杯2023复现">安洵杯2023复现</span>
+            <span class="post-date" title="2024-03-17 20:11:42">2024/03/17</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/RadoiButton/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="RadoiButton">RadoiButton</span>
+            <span class="post-date" title="2024-03-14 19:05:45">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Imageview/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Imageview">Imageview</span>
+            <span class="post-date" title="2024-03-14 19:05:30">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Dialog/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Dialog">Dialog</span>
+            <span class="post-date" title="2024-03-14 19:05:06">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Basic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Basic">Basic</span>
+            <span class="post-date" title="2024-03-14 19:04:52">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Develop "
+           href="/2024/03/14/Activity/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Activity">Activity</span>
+            <span class="post-date" title="2024-03-14 19:04:35">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/Xposed%E4%BD%BF%E7%94%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Xposed使用">Xposed使用</span>
+            <span class="post-date" title="2024-03-14 18:57:35">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/dodonew%E7%99%BB%E5%BD%95%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="dodonew登录算法逆向">dodonew登录算法逆向</span>
+            <span class="post-date" title="2024-03-14 18:54:57">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/GreekToMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="GreekToMe">GreekToMe</span>
+            <span class="post-date" title="2024-03-14 18:44:40">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/Whoishe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Whoishe">Whoishe</span>
+            <span class="post-date" title="2024-03-14 18:44:03">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/DigtheWay/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="DigtheWay">DigtheWay</span>
+            <span class="post-date" title="2024-03-14 18:43:50">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/easistRe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="easistRe">easistRe</span>
+            <span class="post-date" title="2024-03-14 18:43:20">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2024/03/14/DontEatMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="DontEatMe">DontEatMe</span>
+            <span class="post-date" title="2024-03-14 18:42:28">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All Android "
+           href="/2024/03/14/Frida/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Frida">Frida</span>
+            <span class="post-date" title="2024-03-14 15:16:49">2024/03/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/09/01/snake/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="snake">snake</span>
+            <span class="post-date" title="2023-09-01 14:36:53">2023/09/01</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/15/re3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="re3">re3</span>
+            <span class="post-date" title="2023-08-15 16:47:59">2023/08/15</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/10/findkey/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="findkey">findkey</span>
+            <span class="post-date" title="2023-08-10 16:02:28">2023/08/10</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/08/09/num-game/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="num_game">num_game</span>
+            <span class="post-date" title="2023-08-09 16:02:08">2023/08/09</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/14/xxor/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="xxor">xxor</span>
+            <span class="post-date" title="2023-07-14 23:27:19">2023/07/14</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/12/IgniteMe/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="IgniteMe">IgniteMe</span>
+            <span class="post-date" title="2023-07-12 21:58:02">2023/07/12</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/07/03/wusctf2020level3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="wusctf2020level3">wusctf2020level3</span>
+            <span class="post-date" title="2023-07-03 16:50:17">2023/07/03</span>
+        </a>
+        
+        
+        <a  class="All BUU "
+           href="/2023/06/23/ACTF2020ezre/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ACTF2020ezre">ACTF2020ezre</span>
+            <span class="post-date" title="2023-06-23 21:53:08">2023/06/23</span>
+        </a>
+        
+        
+        <a  class="All "
+           href="/2023/06/20/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Here&#39;s n1ng&#39;s blog">Here&#39;s n1ng&#39;s blog</span>
+            <span class="post-date" title="2023-06-20 22:14:51">2023/06/20</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="Toggle full screen shortcut key s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-从0到1构建一个简单的虚拟机" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">从0到1构建一个简单的虚拟机</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Develop">Develop</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2025-10-30 21:01:38'>2025-10-30 20:59</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LC3%E4%BB%8B%E7%BB%8D"><span class="toc-text">LC3介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8%EF%BC%88PC%EF%BC%89"><span class="toc-text">程序计数器（PC）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88PSR%EF%BC%89"><span class="toc-text">状态寄存器（PSR）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98"><span class="toc-text">内存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4"><span class="toc-text">指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E6%8C%87%E4%BB%A4"><span class="toc-text">数据传输指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E5%92%8C%E9%80%BB%E8%BE%91%E6%8C%87%E4%BB%A4"><span class="toc-text">算术和逻辑指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E6%8C%87%E4%BB%A4"><span class="toc-text">控制流指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%8C%87%E4%BB%A4"><span class="toc-text">输入输出指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD"><span class="toc-text">中断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc-text">指令执行流程</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8E0%E5%88%B01%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84virtual-machine"><span class="toc-text">从0到1开发一个简单的virtual machine</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E8%A7%A3%E6%9E%90"><span class="toc-text">指令解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0"><span class="toc-text">辅助函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-text">运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%85%A5%E5%8F%A3"><span class="toc-text">方法入口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="toc-text">运行测试</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>github地址：<a target="_blank" rel="noopener" href="https://github.com/x1aon1ng/my_lc3_vm">x1aon1ng&#x2F;my_lc3_vm: A LC-3 Virtual Machine</a></p>
+<h1 id="LC3介绍"><a href="#LC3介绍" class="headerlink" title="LC3介绍"></a>LC3介绍</h1><p> LC-3（Little Computer 3）虚拟机是一个经典的教学用虚拟机。LC-3虚拟机具有一组特定的硬件组成部分和指令集，支持基本的算术操作、逻辑操作、内存操作、输入输出等功能。</p>
+<h4 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h4><p>LC-3有8个通用寄存器（R0 到 R7），用于存储数据和中间结果。每个寄存器都是16位宽，能够存储一个16位的数据。</p>
+<h4 id="程序计数器（PC）"><a href="#程序计数器（PC）" class="headerlink" title="程序计数器（PC）"></a>程序计数器（PC）</h4><p>程序计数器（PC）用于存储下一条指令的内存地址。它是程序执行过程中至关重要的组件，每次执行完一条指令后，PC会自动增加，指向下一条指令。</p>
+<h4 id="状态寄存器（PSR）"><a href="#状态寄存器（PSR）" class="headerlink" title="状态寄存器（PSR）"></a>状态寄存器（PSR）</h4><p>状态寄存器保存计算机状态信息。它包含条件代码（N、Z、P，分别表示负数、零和正数）和中断标志位等。</p>
+<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><p>LC-3的内存大小为65536个内存单元，每个内存单元是16位宽。内存从地址0开始，到地址65535结束。</p>
+<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><h4 id="数据传输指令"><a href="#数据传输指令" class="headerlink" title="数据传输指令"></a>数据传输指令</h4><ul>
+<li><strong>LD (Load)</strong>: 从内存加载数据到寄存器。</li>
+<li><strong>ST (Store)</strong>: 将寄存器中的数据存储到内存中。</li>
+<li><strong>LDR (Load Register)</strong>: 从内存加载数据到寄存器，使用寄存器作为偏移量。</li>
+<li><strong>STR (Store Register)</strong>: 将寄存器中的数据存储到内存，使用寄存器作为偏移量。</li>
+</ul>
+<h4 id="算术和逻辑指令"><a href="#算术和逻辑指令" class="headerlink" title="算术和逻辑指令"></a>算术和逻辑指令</h4><ul>
+<li><strong>ADD (Add)</strong>: 执行加法操作。</li>
+<li><strong>AND (And)</strong>: 执行按位与操作。</li>
+<li><strong>NOT (Not)</strong>: 执行按位取反操作。</li>
+<li><strong>LEA (Load Effective Address)</strong>: 计算内存地址并将其加载到寄存器。</li>
+</ul>
+<h4 id="控制流指令"><a href="#控制流指令" class="headerlink" title="控制流指令"></a>控制流指令</h4><ul>
+<li><strong>BR (Branch)</strong>: 基于条件码进行跳转（如跳转到指定地址）。</li>
+<li><strong>JSR (Jump to Subroutine)</strong>: 跳转到子程序并保存返回地址。</li>
+<li><strong>JSRR (Jump to Subroutine Register)</strong>: 跳转到由寄存器指定的地址，并保存返回地址。</li>
+<li><strong>RET (Return)</strong>: 从子程序返回。</li>
+</ul>
+<h4 id="输入输出指令"><a href="#输入输出指令" class="headerlink" title="输入输出指令"></a>输入输出指令</h4><ul>
+<li><strong>TRAP</strong>: 执行系统调用，用于输入输出操作（如读取键盘输入、打印字符等）。</li>
+</ul>
+<h4 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h4><p>LC-3支持中断机制，允许程序响应外部事件。TRAP指令是LC-3虚拟机与操作系统进行交互的主要方式之一。</p>
+<h4 id="指令执行流程"><a href="#指令执行流程" class="headerlink" title="指令执行流程"></a>指令执行流程</h4><p>LC-3虚拟机通过执行指令的循环来模拟计算机的工作过程。每一次循环可以简述为以下步骤：</p>
+<ol>
+<li><strong>取指（Fetch）</strong>: 从PC指向的内存位置获取下一条指令。</li>
+<li><strong>解码（Decode）</strong>: 解码指令，确定要执行的操作类型和操作数。</li>
+<li><strong>执行（Execute）</strong>: 根据指令类型执行相应的操作（如加载数据、执行算术运算、跳转等）。</li>
+</ol>
+<h1 id="从0到1开发一个简单的virtual-machine"><a href="#从0到1开发一个简单的virtual-machine" class="headerlink" title="从0到1开发一个简单的virtual machine"></a>从0到1开发一个简单的virtual machine</h1><p>我们已经对LC3有了一个简单的了解，现在可以着手去做具体实现了。</p>
+<p>其实我们要实现的核心就三部分：</p>
+<ol>
+<li>初始化</li>
+<li>指令的解析</li>
+<li>运行</li>
+</ol>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>就是我们要做的一些准备工作，在文章开始我们了解到：LC-3虚拟机具有10个寄存器，其中R0-R7为通用寄存器，还有一个PC程序计数器，一个COND作为条件标志，因此我们这样写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//寄存器</span><br><span class="line">typedef enum &#123;</span><br><span class="line">    R_R0 = 0,</span><br><span class="line">    R_R1,</span><br><span class="line">    R_R2,</span><br><span class="line">    R_R3,</span><br><span class="line">    R_R4,</span><br><span class="line">    R_R5,</span><br><span class="line">    R_R6,</span><br><span class="line">    R_R7,</span><br><span class="line">    R_PC,       // pc</span><br><span class="line">    R_COND,    // 条件标志寄存器</span><br><span class="line">    R_COUNT</span><br><span class="line">&#125; reg_names;</span><br></pre></td></tr></table></figure>
+
+<p>其中状态寄存器包含条件代码（N、Z、P，分别表示负数、零和正数）和中断标志位等</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//条件标志</span><br><span class="line">typedef enum &#123;</span><br><span class="line">    FL_POS = 1 &lt;&lt; 0,    // 正</span><br><span class="line">    FL_ZRO = 1 &lt;&lt; 1,    // 零</span><br><span class="line">    FL_NEG = 1 &lt;&lt; 2     // 负</span><br><span class="line">&#125; cond_flags;</span><br><span class="line">// Trap</span><br><span class="line">typedef enum &#123;</span><br><span class="line">    TRAP_GETC = 0x20,   // get character from keyboard</span><br><span class="line">    TRAP_OUT = 0x21,    // output a character</span><br><span class="line">    TRAP_PUTS = 0x22,   // output a word string</span><br><span class="line">    TRAP_IN = 0x23,     // input a string</span><br><span class="line">    TRAP_PUTSP = 0x24,  // output a byte string</span><br><span class="line">    TRAP_HALT = 0x25    // halt the program</span><br><span class="line">&#125; trap_codes;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是操作码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 操作码</span><br><span class="line">typedef enum &#123;</span><br><span class="line">    OP_BR = 0,  // branch</span><br><span class="line">    OP_ADD,     // add</span><br><span class="line">    OP_LD,      // load</span><br><span class="line">    OP_ST,      // store</span><br><span class="line">    OP_JSR,     // jump register</span><br><span class="line">    OP_AND,     // and</span><br><span class="line">    OP_LDR,     // load register</span><br><span class="line">    OP_STR,     // store register</span><br><span class="line">    OP_RTI,     // 从中断返回  </span><br><span class="line">    OP_NOT,     // not</span><br><span class="line">    OP_LDI,     // load indirect</span><br><span class="line">    OP_STI,     // store indirect</span><br><span class="line">    OP_JMP,     // jump</span><br><span class="line">    OP_RES,     // 保留</span><br><span class="line">    OP_LEA,     // load effective address</span><br><span class="line">    OP_TRAP     // trap</span><br><span class="line">&#125; op_codes;</span><br></pre></td></tr></table></figure>
+
+<h2 id="指令解析"><a href="#指令解析" class="headerlink" title="指令解析"></a>指令解析</h2><p>LC-3的指令是十六位的，结构如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">15 14 13 12 11 10 9  8  7  6  5  4  3  2  1  0</span><br><span class="line">┌──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┐</span><br><span class="line">│     OPCODE     │ DR │ SR1 │mode│ SR2 │000000│</span><br><span class="line">└──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┘</span><br></pre></td></tr></table></figure>
+
+<p>运算指令以add指令为例，有两种模式：</p>
+<ol>
+<li>寄存器模式  0001 DR SR1 0 00 SR2，实现的是DR &#x3D; SR1 + SR2</li>
+<li>立即数模式 0001 DR SR1 1 imm5，实现的是DR &#x3D; SR1 + imm5</li>
+</ol>
+<p>首先是两种模式的区分通过立即数标志位mode实现，根据指令结构通过移位和按位与操作获取对应内容</p>
+<p>然后根据不同mode获取寄存器内容或者立即数，进行相加即可，最后更新标志位</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void execute_add(uint16_t instr)&#123;</span><br><span class="line">    uint16_t r0 = (instr &gt;&gt; 9) &amp; 0x7;</span><br><span class="line">    uint16_t r1 = (instr &gt;&gt; 6) &amp; 0x7;</span><br><span class="line">    uint16_t imm_flag = (instr &gt;&gt; 5) &amp; 0x1;</span><br><span class="line">    </span><br><span class="line">    if(imm_flag)&#123;</span><br><span class="line">        uint16_t imm5 = sign_extend(instr &amp; 0x1F, 5);</span><br><span class="line">        reg[r0] = reg[r1] + imm5;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        uint16_t r2 = instr &amp; 0x7;</span><br><span class="line">        reg[r0] = reg[r1] + reg[r2];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    update_flags(r0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据传输指令以ld为例，具体实现就是解码获取R0和偏移量，计算地址获取数据存储到R0中，存储到寄存器即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">void execute_ld(uint16_t instr)&#123;</span><br><span class="line">    uint16_t r0 = (instr &gt;&gt; 9) &amp; 0x7;</span><br><span class="line">    uint16_t address = sign_extend(instr &amp; 0x1FF, 9);</span><br><span class="line">    reg[r0] = mem_read(reg[R_PC] + address);</span><br><span class="line">    update_flags(r0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>控制流指令以br为例，解析指令获取条件标志为和pc偏移量，更新pc实现程序的跳转</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void execute_br(uint16_t instr)&#123;</span><br><span class="line">    uint16_t flag = (instr &gt;&gt; 9) &amp; 0x7;           // 提取条件标志位(n,z,p)</span><br><span class="line">    uint16_t pc_offset = sign_extend(instr &amp; 0x1FF, 9); // 符号扩展9位偏移量为16位</span><br><span class="line">    if (flag &amp; reg[R_COND]) &#123;                     // 检查条件标志是否匹配当前条件码</span><br><span class="line">        reg[R_PC] += pc_offset;                     // 更新PC值，实现跳转</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着就是对Trap的处理，LC-3提供了一些预定义的Trap用于执行常见的任务并和I&#x2F;O设备交互，针对不同trap进行相应操作即可，比如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">void trap_in()</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;Enter a character: &quot;);</span><br><span class="line">    char c = getchar();</span><br><span class="line">    reg[R_R0] = (uint16_t)c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="辅助函数"><a href="#辅助函数" class="headerlink" title="辅助函数"></a>辅助函数</h3><p>在指令解析的过程中用到了一些辅助的函数，比如</p>
+<p>符号拓展函数：比如imm5是一个只有5为的值，在进行加法时候需要将其拓展到16位以匹配另一个数字，对于正数直接填充0即可，但是负数就不行了，需要填充1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">uint16_t sign_extend(uint16_t x, int bit_count)&#123;</span><br><span class="line">    // 检查符号位（最高有效位）</span><br><span class="line">    if((x &gt;&gt; (bit_count - 1)) &amp; 1)&#123;</span><br><span class="line">        // 如果符号位为1，则进行符号扩展</span><br><span class="line">        // 将高位设置为1以保持负数的正确表示</span><br><span class="line">        x |= (0xFFFF &lt;&lt; bit_count);</span><br><span class="line">    &#125;</span><br><span class="line">    return x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>标志位更新函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void update_flags(uint16_t r)&#123; </span><br><span class="line">    if (reg[r] == 0)&#123;</span><br><span class="line">        reg[R_COND] = FL_ZRO;</span><br><span class="line">    &#125;else if(reg[r] &gt;&gt; 15) &#123;</span><br><span class="line">        reg[R_COND] = FL_NEG;</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        reg[R_COND]  = FL_POS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>内存读写函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">uint16_t mem_read(uint16_t address)&#123;</span><br><span class="line">    if (address &gt;= MEMORY_MAX)&#123;</span><br><span class="line">        perror(&quot;Out of memory&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    return memory[address];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void mem_write(uint16_t address, uint16_t val)&#123; </span><br><span class="line">    if (address &gt;= MEMORY_MAX)&#123;</span><br><span class="line">        perror(&quot;Out of memory&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    memory[address] = val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>读取文件，将二进制程序文件加载到虚拟机的内存中，这里需要注意的就是LC-3是大端序的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">void read_image_file(FILE *file)&#123; </span><br><span class="line">    // 读取起始地址(origin)，指示程序应加载到内存的哪个位置</span><br><span class="line">    uint16_t origin;</span><br><span class="line">    fread(&amp;origin, sizeof(origin), 1, file);</span><br><span class="line">    origin = (origin &lt;&lt; 8) | (origin &gt;&gt; 8); // 转换字节序(大小端转换)</span><br><span class="line"></span><br><span class="line">    // 计算最大可读取的字数，避免超出内存范围</span><br><span class="line">    uint16_t max_read = MEMORY_MAX - origin;</span><br><span class="line">    uint16_t* p = memory + origin; // 指向内存中起始地址的位置</span><br><span class="line">    size_t read = fread(p, sizeof(uint16_t), max_read, file); // 从文件读取数据到内存</span><br><span class="line">    </span><br><span class="line">    // 对所有读取的16位数据进行字节序转换</span><br><span class="line">    while(read-- &gt; 0)&#123;</span><br><span class="line">        *p = (*p &lt;&lt; 8) | (*p &gt;&gt; 8); // 交换高低字节</span><br><span class="line">        p++; // 移动到下一个16位位置</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>运行其实就是不断的进行 取值 -&gt; 解码 -&gt;执行 的过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">int run_vm()&#123;</span><br><span class="line">    int running = 1;</span><br><span class="line">    while (running) &#123; </span><br><span class="line">        uint16_t instr = mem_read(reg[R_PC]++);//取指</span><br><span class="line">        uint16_t op = instr &gt;&gt; 12; //解码</span><br><span class="line">        //执行</span><br><span class="line">        switch (op) &#123;</span><br><span class="line">            case OP_BR:</span><br><span class="line">                execute_br(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_ADD:</span><br><span class="line">                execute_add(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_LD:</span><br><span class="line">                execute_ld(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_ST:</span><br><span class="line">                execute_st(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_JSR:</span><br><span class="line">                execute_jsr(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_AND:</span><br><span class="line">                execute_and(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_LDR:</span><br><span class="line">                execute_ldr(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_STR:</span><br><span class="line">                execute_str(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_RTI:</span><br><span class="line">                printf(&quot;Aborting: RTI instruction not implemented\n&quot;);</span><br><span class="line">                exit(1);</span><br><span class="line">            case OP_NOT:</span><br><span class="line">                execute_not(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_LDI:</span><br><span class="line">                execute_ldi(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_STI:</span><br><span class="line">                execute_sti(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_JMP:</span><br><span class="line">                execute_jmp(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_RES:</span><br><span class="line">                printf(&quot;Aborting: RES instruction not implemented\n&quot;);</span><br><span class="line">                exit(1);</span><br><span class="line">            case OP_LEA:</span><br><span class="line">                execute_lea(instr);</span><br><span class="line">                break;</span><br><span class="line">            case OP_TRAP:</span><br><span class="line">                execute_trap(instr);</span><br><span class="line">                if ((instr &amp; 0xFF) == TRAP_HALT) &#123;</span><br><span class="line">                    running = 0;</span><br><span class="line">                &#125;</span><br><span class="line">                break;</span><br><span class="line">            default:</span><br><span class="line">                printf(&quot;Aborting: Unknown opcode 0x%x\n&quot;, op);</span><br><span class="line">                exit(1);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法入口"><a href="#方法入口" class="headerlink" title="方法入口"></a>方法入口</h2><p>初始化寄存器，读取入参，运行即可</p>
+<p>还有一点就是调用了disable&#x2F;restore_input_buffering()函数用于禁用和恢复输入缓冲，让程序可以实现即时的响应用户输入。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;vm.h&quot;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">// 声明run_vm函数</span><br><span class="line">int run_vm(void);</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[])&#123;</span><br><span class="line">    if(argc &lt; 2)&#123;</span><br><span class="line">        printf(&quot;ERROR: No image file given\n&quot;);</span><br><span class="line">        exit(2);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 初始化寄存器</span><br><span class="line">    for(int i = 0; i &lt; R_COUNT; i++)&#123;</span><br><span class="line">        reg[i] = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    reg[R_COND]  = FL_ZRO;</span><br><span class="line">    reg[R_PC] = PC_START;</span><br><span class="line"></span><br><span class="line">    disable_input_buffering();</span><br><span class="line">    </span><br><span class="line">    for(int i = 1; i &lt; argc; i++)&#123;</span><br><span class="line">        if(read_image(argv[i]) == 0)&#123;</span><br><span class="line">            printf(&quot;Failed to load image: %s\n&quot;, argv[i]);</span><br><span class="line">            exit(1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int result = run_vm();</span><br><span class="line">    restore_input_buffering();</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">yus1an@yus1an-virtual-machine:~/Downloads/lc3_vm$ make</span><br><span class="line">gcc -Wall -Wextra -std=c99 -O2 -c main.c -o main.o</span><br><span class="line">gcc -Wall -Wextra -std=c99 -O2 -c vm.c -o vm.o</span><br><span class="line">vm.c: In function ‘mem_read’:</span><br><span class="line">vm.c:59:17: warning: comparison is always false due to limited range of data type [-Wtype-limits]</span><br><span class="line">   59 |     if (address &gt;= MEMORY_MAX)&#123;</span><br><span class="line">      |                 ^~</span><br><span class="line">vm.c: In function ‘mem_write’:</span><br><span class="line">vm.c:70:17: warning: comparison is always false due to limited range of data type [-Wtype-limits]</span><br><span class="line">   70 |     if (address &gt;= MEMORY_MAX)&#123;</span><br><span class="line">      |                 ^~</span><br><span class="line">vm.c: In function ‘read_image_file’:</span><br><span class="line">vm.c:98:5: warning: ignoring return value of ‘fread’ declared with attribute ‘warn_unused_result’ [-Wunused-result]</span><br><span class="line">   98 |     fread(&amp;origin, sizeof(origin), 1, file);</span><br><span class="line">      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">gcc -Wall -Wextra -std=c99 -O2 -o lc3-vm main.o vm.o</span><br><span class="line">yus1an@yus1an-virtual-machine:~/Downloads/lc3_vm$ ls</span><br><span class="line">hello_n1ng.obj  lc3-vm  main.c  main.o  Makefile  vm.c  vm.h  vm.o</span><br><span class="line">yus1an@yus1an-virtual-machine:~/Downloads/lc3_vm$ ./lc3-vm hello_n1ng.obj</span><br><span class="line">Hello N1ng !</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://www.jmeiners.com/lc3-vm/">https://www.jmeiners.com/lc3-vm/</a></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 3049155267@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">💰</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©n1ng
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="Toggle full screen shortcut key s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>Help us with donation</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
